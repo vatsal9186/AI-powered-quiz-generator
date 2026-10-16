@@ -1,0 +1,19 @@
+===================================================================
+ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING - COMPREHENSIVE TEXTBOOK
+===================================================================
+
+MODULE 1: INTRODUCTION TO ARTIFICIAL INTELLIGENCE
+
+CHAPTER 1: Foundations of Artificial Intelligence
+Artificial Intelligence (AI) refers to the simulation of human intelligence in machines programmed to think, reason, and learn. The core subfields of AI include Machine Learning (ML), Natural Language Processing (NLP), Computer Vision, and Robotics. Symbolic AI relies on formal logic and rules, whereas modern AI leverages statistical learning from large datasets.
+
+CHAPTER 2: Supervised and Unsupervised Machine Learning
+Supervised learning algorithms build mathematical models from training datasets containing input features and explicit target labels. Typical algorithms include Linear Regression, Logistic Regression, Decision Trees, Support Vector Machines (SVM), and Random Forests. Unsupervised learning discovers hidden patterns or clusters without human-provided labels using techniques like K-Means Clustering, Hierarchical Clustering, and Principal Component Analysis (PCA).
+
+MODULE 2: DEEP LEARNING AND MODERN NEURAL NETWORKS
+
+CHAPTER 3: Artificial Neural Networks and Backpropagation
+An Artificial Neural Network (ANN) consists of interconnected layers of artificial neurons (perceptrons). Activation functions such as ReLU (Rectified Linear Unit), Sigmoid, and Tanh introduce non-linearity. Training involves forward propagation of inputs, computation of loss via loss functions (e.g., Cross-Entropy Loss), and backward propagation of errors using gradient descent optimizations (e.g., Adam, SGD).
+
+CHAPTER 4: Large Language Models and Generative AI
+Transformer architectures rely on self-attention mechanisms to process tokens in parallel rather than sequentially. Generative Pre-trained Transformers (GPT) predict subsequent tokens in text sequences. Retrieval-Augmented Generation (RAG) combines dense vector search databases with LLMs to eliminate hallucinations and produce accurate, source-backed answers.

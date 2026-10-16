@@ -1,0 +1,195 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 780" width="100%" height="100%">
+  <!-- Definitions for arrow markers -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#000000" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="780" fill="#ffffff" />
+
+  <!-- Title above diagram -->
+  <text x="550" y="35" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#000000" text-anchor="middle">
+    QuestAI - Collaboration Diagram
+  </text>
+
+  <!-- ================= ACTORS (LEFT SIDE) ================= -->
+
+  <!-- User Actor -->
+  <g id="actor-user">
+    <circle cx="100" cy="220" r="14" fill="none" stroke="#000000" stroke-width="2" />
+    <line x1="100" y1="234" x2="100" y2="280" stroke="#000000" stroke-width="2" />
+    <line x1="75" y1="250" x2="125" y2="250" stroke="#000000" stroke-width="2" />
+    <line x1="100" y1="280" x2="80" y2="305" stroke="#000000" stroke-width="2" />
+    <line x1="100" y1="280" x2="120" y2="305" stroke="#000000" stroke-width="2" />
+    <text x="100" y="328" font-family="Arial, sans-serif" font-size="14" fill="#000000" text-anchor="middle">User (Taker/Creator)</text>
+  </g>
+
+  <!-- Admin Actor -->
+  <g id="actor-admin">
+    <circle cx="100" cy="520" r="14" fill="none" stroke="#000000" stroke-width="2" />
+    <line x1="100" y1="534" x2="100" y2="580" stroke="#000000" stroke-width="2" />
+    <line x1="75" y1="550" x2="125" y2="550" stroke="#000000" stroke-width="2" />
+    <line x1="100" y1="580" x2="80" y2="605" stroke="#000000" stroke-width="2" />
+    <line x1="100" y1="580" x2="120" y2="605" stroke="#000000" stroke-width="2" />
+    <text x="100" y="628" font-family="Arial, sans-serif" font-size="14" fill="#000000" text-anchor="middle">Admin</text>
+  </g>
+
+
+  <!-- ================= SYSTEM BOUNDARY (CENTER BOX) ================= -->
+
+  <!-- Outer Box -->
+  <rect x="270" y="90" width="280" height="540" fill="none" stroke="#000000" stroke-width="2" />
+  <text x="410" y="115" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle">QuestAI System Boundary</text>
+  
+  <!-- Sub-modules Rectangles inside the System Boundary -->
+  <g stroke="#000000" stroke-width="1.5" fill="#ffffff">
+    <rect x="300" y="140" width="220" height="30" />
+    <rect x="300" y="190" width="220" height="30" />
+    <rect x="300" y="240" width="220" height="30" />
+    <rect x="300" y="290" width="220" height="30" />
+    <rect x="300" y="340" width="220" height="30" />
+    <rect x="300" y="390" width="220" height="30" />
+    <rect x="300" y="440" width="220" height="30" />
+    <rect x="300" y="490" width="220" height="30" />
+    <rect x="300" y="540" width="220" height="30" />
+    <rect x="300" y="590" width="220" height="30" />
+  </g>
+
+  <!-- Sub-modules Text Labels (Large, Regular weight, No stroke to prevent blur) -->
+  <g font-family="Arial, sans-serif" font-size="13" fill="#000000" text-anchor="middle">
+    <text x="410" y="159">Home / Landing</text>
+    <text x="410" y="209">Register / Login</text>
+    <text x="410" y="259">Browse Public Quizzes</text>
+    <text x="410" y="309">Upload Manager</text>
+    <text x="410" y="359">AI Question Generator</text>
+    <text x="410" y="409">Attempt Engine</text>
+    <text x="410" y="459">Score &amp; Explanations View</text>
+    <text x="410" y="509">Analytics Dashboard</text>
+    <text x="410" y="559">Admin Moderator Panel</text>
+    <text x="410" y="609">System Config Manager</text>
+  </g>
+
+
+  <!-- ================= DATABASES (BOTTOM) ================= -->
+
+  <!-- Cylinder Database Shape -->
+  <g id="database">
+    <ellipse cx="410" cy="700" rx="60" ry="15" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+    <path d="M 350 700 L 350 740 A 60 15 0 0 0 470 740 L 470 700" fill="none" stroke="#000000" stroke-width="1.8" />
+    <ellipse cx="410" cy="740" rx="60" ry="15" fill="none" stroke="#000000" stroke-width="1.8" />
+    <text x="410" y="723" font-family="Arial, sans-serif" font-size="12" fill="#000000" text-anchor="middle">PostgreSQL DB</text>
+  </g>
+
+
+  <!-- ================= ENTITIES & SERVICES (RIGHT SIDE) ================= -->
+
+  <!-- Entities Rectangles -->
+  <g stroke="#000000" stroke-width="1.5" fill="#ffffff">
+    <rect x="730" y="140" width="180" height="35" />
+    <rect x="730" y="200" width="180" height="35" />
+    <rect x="730" y="260" width="180" height="35" />
+    <rect x="730" y="320" width="180" height="35" />
+    <rect x="730" y="380" width="180" height="35" />
+    <rect x="730" y="440" width="180" height="35" />
+    <rect x="730" y="530" width="180" height="35" />
+  </g>
+
+  <!-- Entities Text Labels (Large, Regular weight, No stroke) -->
+  <g font-family="Arial, sans-serif" font-size="13" fill="#000000" text-anchor="middle">
+    <text x="820" y="162">User Profile</text>
+    <text x="820" y="222">Document / URL Resource</text>
+    <text x="820" y="282">Generated Quiz</text>
+    <text x="820" y="342">Quiz Attempt</text>
+    <text x="820" y="402">System Configurations</text>
+    <text x="820" y="462">Audit Logs</text>
+    <text x="820" y="552">AI Service Handler</text>
+  </g>
+
+  <!-- External AI Service -->
+  <g id="gemini-api">
+    <rect x="960" y="525" width="110" height="45" rx="5" ry="5" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+    <path d="M 960 525 L 1015 548 L 1070 525" stroke="#000000" stroke-width="1.5" fill="none" />
+    <text x="1015" y="562" font-family="Arial, sans-serif" font-size="12" fill="#000000" text-anchor="middle">Gemini AI API</text>
+  </g>
+
+
+  <!-- ================= RELATIONSHIPS & MESSAGES (ARROWS) ================= -->
+
+  <!-- 1. Actor -> Boundary Arrows (Solid pointing right) -->
+  <g stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)">
+    <!-- User -> Auth -->
+    <path d="M 180 205 L 265 205" />
+    <!-- User -> Browser -->
+    <path d="M 180 235 L 265 250" />
+    <!-- User -> Upload -->
+    <path d="M 180 265 L 265 295" />
+    <!-- User -> Attempt -->
+    <path d="M 180 295 L 265 400" />
+    
+    <!-- Admin -> User Management -->
+    <path d="M 180 530 L 265 545" />
+    <!-- Admin -> Moderation -->
+    <path d="M 180 560 L 265 560" />
+    <!-- Admin -> Configs -->
+    <path d="M 180 590 L 265 600" />
+  </g>
+
+  <!-- Labels on Actor -> Boundary Arrows (Bigger, Clean font) -->
+  <g font-family="Arial, sans-serif" font-size="11" fill="#000000">
+    <text x="220" y="198" text-anchor="middle">register / login</text>
+    <text x="220" y="240" text-anchor="middle">browse quizzes</text>
+    <text x="220" y="278" text-anchor="middle">upload docs</text>
+    <text x="220" y="340" text-anchor="middle">attempt quiz</text>
+    
+    <text x="225" y="525" text-anchor="middle">manage users</text>
+    <text x="225" y="553" text-anchor="middle">moderate content</text>
+    <text x="225" y="612" text-anchor="middle">configure AI API</text>
+  </g>
+
+  <!-- 2. Boundary -> Database Arrows -->
+  <g stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)">
+    <!-- Store Data -->
+    <path d="M 390 635 L 390 678" />
+    <!-- Retrieve Data -->
+    <path d="M 430 678 L 430 635" />
+  </g>
+  <g font-family="Arial, sans-serif" font-size="11" fill="#000000">
+    <text x="340" y="660" text-anchor="middle">store data</text>
+    <text x="480" y="660" text-anchor="middle">retrieve data</text>
+  </g>
+
+  <!-- 3. Boundary -> Entities Arrows (Solid pointing right) -->
+  <g stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)">
+    <!-- Auth -> User Profile -->
+    <path d="M 525 205 L 722 165" />
+    <!-- Upload Manager -> Material Resource -->
+    <path d="M 525 305 L 722 225" />
+    <!-- Quiz Gen -> Quiz Entity -->
+    <path d="M 525 355 L 722 280" />
+    <!-- Attempt -> Quiz Attempt -->
+    <path d="M 525 405 L 722 340" />
+    <!-- Config Manager -> Settings Config -->
+    <path d="M 525 600 L 722 410" />
+    <!-- Admin Moderator Panel -> Audit Logs -->
+    <path d="M 525 555 L 722 460" />
+    <!-- Quiz Gen -> AI Handler -->
+    <path d="M 525 365 L 722 535" />
+  </g>
+
+  <!-- Labels on Boundary -> Entities Arrows (Bigger, Clean font) -->
+  <g font-family="Arial, sans-serif" font-size="11" fill="#000000" text-anchor="middle">
+    <text x="620" y="177">create user</text>
+    <text x="620" y="258">store material details</text>
+    <text x="620" y="310">save questions</text>
+    <text x="620" y="365">record scores</text>
+    <text x="620" y="490">save configs</text>
+    <text x="620" y="525">write audit logs</text>
+    <text x="600" y="445">process generation</text>
+  </g>
+
+  <!-- 4. AI Service -> API Connection -->
+  <path d="M 915 548 L 952 548" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+  <text x="935" y="539" font-family="Arial, sans-serif" font-size="11" fill="#000000" text-anchor="middle">fetch questions</text>
+</svg>

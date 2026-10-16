@@ -1,0 +1,294 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1020" width="100%" height="100%">
+  <defs>
+    <!-- Box Shadow for clean depth on white background -->
+    <filter id="cardShadow" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#0f172a" flood-opacity="0.08" />
+    </filter>
+    
+    <!-- Arrow Head Marker -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#475569" />
+    </marker>
+    
+    <!-- Relationship Dot Marker -->
+    <marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5">
+      <circle cx="5" cy="5" r="3.5" fill="#2563eb" />
+    </marker>
+  </defs>
+
+  <!-- Solid White Background -->
+  <rect width="1200" height="1020" fill="#ffffff" />
+  
+  <!-- Outer Frame -->
+  <rect x="15" y="15" width="1170" height="990" rx="12" fill="none" stroke="#e2e8f0" stroke-width="2" />
+
+  <!-- Diagram Title Header -->
+  <g transform="translate(600, 50)" text-anchor="middle">
+    <rect x="-260" y="-25" width="520" height="42" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+    <text x="0" y="2" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="800" fill="#0f172a" letter-spacing="0.5">
+      QUESTAI DATABASE SCHEMA (ERD)
+    </text>
+    <text x="0" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="500" fill="#64748b">
+      Complete 10-Table Entity Relationship Diagram • Pure White Theme
+    </text>
+  </g>
+
+  <!-- ================= RELATIONSHIP CONNECTOR LINES ================= -->
+  <g fill="none" stroke-width="2">
+    
+    <!-- 1. users (1) -> documents (N) [uploaded_by] -->
+    <path d="M 480 200 H 320" stroke="#0284c7" marker-end="url(#arrow)" marker-start="url(#dot)" />
+    
+    <!-- 2. users (1) -> quizzes (N) [generated_by] -->
+    <path d="M 600 320 V 380" stroke="#2563eb" marker-end="url(#arrow)" marker-start="url(#dot)" />
+
+    <!-- 3. users (1) -> quiz_attempts (N) [taken_by] -->
+    <path d="M 480 240 H 50 V 580 H 200 V 640" stroke="#e11d48" stroke-dasharray="6,4" marker-end="url(#arrow)" marker-start="url(#dot)" />
+
+    <!-- 4. documents (1) -> quizzes (N) [source_material] -->
+    <path d="M 200 320 V 480 H 480" stroke="#0d9488" marker-end="url(#arrow)" marker-start="url(#dot)" />
+
+    <!-- 5. documents (1) -> modules (N) [has_modules] -->
+    <path d="M 320 150 H 880" stroke="#64748b" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+
+    <!-- 6. documents (1) -> chapters (N) [has_chapters] -->
+    <path d="M 320 180 H 430 V 340 H 880" stroke="#64748b" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+
+    <!-- 7. modules (1) -> chapters (N) [groups] -->
+    <path d="M 1000 240 V 280" stroke="#475569" marker-end="url(#arrow)" />
+
+    <!-- 8. chapters (1) -> topics (N) [contains_topics] -->
+    <path d="M 1000 420 V 460" stroke="#475569" marker-end="url(#arrow)" />
+
+    <!-- 9. quizzes (1) -> questions (N) [contains] -->
+    <path d="M 720 480 H 840 V 690 H 880" stroke="#d97706" marker-end="url(#arrow)" marker-start="url(#dot)" />
+
+    <!-- 10. quizzes (1) -> quiz_attempts (N) [records] -->
+    <path d="M 480 440 H 380 V 710 H 320" stroke="#e11d48" marker-end="url(#arrow)" marker-start="url(#dot)" />
+
+    <!-- 11. questions (1) -> options (N) [has] -->
+    <path d="M 1000 800 V 850" stroke="#ca8a04" marker-end="url(#arrow)" marker-start="url(#dot)" />
+
+    <!-- 12. quiz_attempts (1) -> user_answers (N) [records] -->
+    <path d="M 320 720 H 480" stroke="#9333ea" marker-end="url(#arrow)" marker-start="url(#dot)" />
+
+    <!-- 13. questions (1) -> user_answers (N) [answers_for] -->
+    <path d="M 880 720 H 720" stroke="#9333ea" stroke-dasharray="5,4" marker-end="url(#arrow)" />
+
+    <!-- 14. options (1) -> user_answers (1:1) [chosen_option] -->
+    <path d="M 880 910 H 600 V 810" stroke="#2563eb" marker-end="url(#arrow)" marker-start="url(#dot)" />
+  </g>
+
+  <!-- ================= RELATIONSHIP PILLS / LABELS ================= -->
+  <g font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">
+    <!-- uploaded_by -->
+    <rect x="360" y="188" width="85" height="22" rx="11" fill="#e0f2fe" stroke="#0284c7" stroke-width="1" />
+    <text x="402" y="203" fill="#0369a1">uploaded_by 1:N</text>
+
+    <!-- generated_by -->
+    <rect x="555" y="338" width="90" height="22" rx="11" fill="#dbeafe" stroke="#2563eb" stroke-width="1" />
+    <text x="600" y="353" fill="#1d4ed8">generated_by 1:N</text>
+
+    <!-- taken_by -->
+    <rect x="15" y="440" width="70" height="22" rx="11" fill="#ffe4e6" stroke="#e11d48" stroke-width="1" />
+    <text x="50" y="455" fill="#be123c">taken_by 1:N</text>
+
+    <!-- source_material -->
+    <rect x="300" y="469" width="105" height="22" rx="11" fill="#ccfbf1" stroke="#0d9488" stroke-width="1" />
+    <text x="352" y="484" fill="#0f766e">source_material 1:N</text>
+
+    <!-- contains (quizzes to questions) -->
+    <rect x="760" y="469" width="80" height="22" rx="11" fill="#fef3c7" stroke="#d97706" stroke-width="1" />
+    <text x="800" y="484" fill="#b45309">contains 1:N</text>
+
+    <!-- records (quiz to attempt) -->
+    <rect x="345" y="560" width="70" height="22" rx="11" fill="#ffe4e6" stroke="#e11d48" stroke-width="1" />
+    <text x="380" y="575" fill="#be123c">records 1:N</text>
+
+    <!-- has (question to option) -->
+    <rect x="970" y="815" width="60" height="22" rx="11" fill="#fef9c3" stroke="#ca8a04" stroke-width="1" />
+    <text x="1000" y="830" fill="#a16207">has 1:N</text>
+
+    <!-- records (attempt to user_answers) -->
+    <rect x="365" y="709" width="70" height="22" rx="11" fill="#f3e8ff" stroke="#9333ea" stroke-width="1" />
+    <text x="400" y="724" fill="#7e22ce">records 1:N</text>
+
+    <!-- answers_for -->
+    <rect x="760" y="709" width="90" height="22" rx="11" fill="#f3e8ff" stroke="#9333ea" stroke-width="1" />
+    <text x="805" y="724" fill="#7e22ce">answers_for 1:N</text>
+
+    <!-- chosen_option -->
+    <rect x="700" y="898" width="100" height="22" rx="11" fill="#dbeafe" stroke="#2563eb" stroke-width="1" />
+    <text x="750" y="913" fill="#1d4ed8">chosen_option 1:1</text>
+  </g>
+
+  <!-- ================= ENTITY TABLES (10 BOXES) ================= -->
+
+  <!-- 1. USERS TABLE -->
+  <g transform="translate(480, 110)" filter="url(#cardShadow)">
+    <rect width="240" height="210" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" />
+    <path d="M 0 0 h 240 v 36 h -240 z" fill="#2563eb" rx="8" />
+    <rect x="0" y="28" width="240" height="8" fill="#2563eb" />
+    <text x="120" y="23" font-family="system-ui, sans-serif" font-size="14" font-weight="800" fill="#ffffff" text-anchor="middle">👤 users</text>
+    
+    <g font-family="Consolas, Monaco, monospace" font-size="11" fill="#334155" transform="translate(14, 54)">
+      <text x="0" y="10" font-weight="700" fill="#2563eb">PK  | id</text> <text x="120" y="10" fill="#64748b">INT</text>
+      <text x="0" y="28" font-weight="700" fill="#0284c7">UQ  | email</text> <text x="120" y="28" fill="#64748b">VARCHAR(255)</text>
+      <text x="0" y="46">     hashed_password</text> <text x="120" y="46" fill="#64748b">VARCHAR(255)</text>
+      <text x="0" y="64">     full_name</text> <text x="120" y="64" fill="#64748b">VARCHAR(255)</text>
+      <text x="0" y="82" font-weight="700" fill="#0284c7">UQ  | google_id</text> <text x="120" y="82" fill="#64748b">VARCHAR(255)</text>
+      <text x="0" y="100">     auth_provider</text> <text x="120" y="100" fill="#64748b">VARCHAR(50)</text>
+      <text x="0" y="118">     role</text> <text x="120" y="118" fill="#64748b">VARCHAR(50)</text>
+      <text x="0" y="136">     status</text> <text x="120" y="136" fill="#64748b">VARCHAR(50)</text>
+    </g>
+  </g>
+
+  <!-- 2. DOCUMENTS TABLE -->
+  <g transform="translate(80, 110)" filter="url(#cardShadow)">
+    <rect width="240" height="210" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" />
+    <path d="M 0 0 h 240 v 36 h -240 z" fill="#0d9488" rx="8" />
+    <rect x="0" y="28" width="240" height="8" fill="#0d9488" />
+    <text x="120" y="23" font-family="system-ui, sans-serif" font-size="14" font-weight="800" fill="#ffffff" text-anchor="middle">📄 documents</text>
+    
+    <g font-family="Consolas, Monaco, monospace" font-size="11" fill="#334155" transform="translate(14, 54)">
+      <text x="0" y="10" font-weight="700" fill="#0d9488">PK  | id</text> <text x="120" y="10" fill="#64748b">INT</text>
+      <text x="0" y="28" font-weight="700" fill="#2563eb">FK  | owner_id</text> <text x="120" y="28" fill="#64748b">INT</text>
+      <text x="0" y="46">     title</text> <text x="120" y="46" fill="#64748b">VARCHAR(255)</text>
+      <text x="0" y="64">     file_name</text> <text x="120" y="64" fill="#64748b">VARCHAR(255)</text>
+      <text x="0" y="82">     content</text> <text x="120" y="82" fill="#64748b">TEXT</text>
+      <text x="0" y="100">     status</text> <text x="120" y="100" fill="#64748b">VARCHAR(50)</text>
+      <text x="0" y="118">     error_message</text> <text x="120" y="118" fill="#64748b">TEXT</text>
+      <text x="0" y="136">     created_at</text> <text x="120" y="136" fill="#64748b">DATETIME</text>
+    </g>
+  </g>
+
+  <!-- 3. MODULES TABLE -->
+  <g transform="translate(880, 110)" filter="url(#cardShadow)">
+    <rect width="240" height="130" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" />
+    <path d="M 0 0 h 240 v 32 h -240 z" fill="#475569" rx="8" />
+    <rect x="0" y="24" width="240" height="8" fill="#475569" />
+    <text x="120" y="21" font-family="system-ui, sans-serif" font-size="13" font-weight="800" fill="#ffffff" text-anchor="middle">📑 modules</text>
+    
+    <g font-family="Consolas, Monaco, monospace" font-size="11" fill="#334155" transform="translate(14, 48)">
+      <text x="0" y="10" font-weight="700" fill="#475569">PK  | id</text> <text x="120" y="10" fill="#64748b">INT</text>
+      <text x="0" y="28" font-weight="700" fill="#0d9488">FK  | document_id</text> <text x="120" y="28" fill="#64748b">INT</text>
+      <text x="0" y="46">     title</text> <text x="120" y="46" fill="#64748b">VARCHAR(255)</text>
+      <text x="0" y="64">     order</text> <text x="120" y="64" fill="#64748b">INT</text>
+    </g>
+  </g>
+
+  <!-- 4. CHAPTERS TABLE -->
+  <g transform="translate(880, 280)" filter="url(#cardShadow)">
+    <rect width="240" height="140" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" />
+    <path d="M 0 0 h 240 v 32 h -240 z" fill="#475569" rx="8" />
+    <rect x="0" y="24" width="240" height="8" fill="#475569" />
+    <text x="120" y="21" font-family="system-ui, sans-serif" font-size="13" font-weight="800" fill="#ffffff" text-anchor="middle">📖 chapters</text>
+    
+    <g font-family="Consolas, Monaco, monospace" font-size="11" fill="#334155" transform="translate(14, 48)">
+      <text x="0" y="10" font-weight="700" fill="#475569">PK  | id</text> <text x="120" y="10" fill="#64748b">INT</text>
+      <text x="0" y="28" font-weight="700" fill="#0d9488">FK  | document_id</text> <text x="120" y="28" fill="#64748b">INT</text>
+      <text x="0" y="46" font-weight="700" fill="#475569">FK  | module_id</text> <text x="120" y="46" fill="#64748b">INT</text>
+      <text x="0" y="64">     title</text> <text x="120" y="64" fill="#64748b">VARCHAR(255)</text>
+    </g>
+  </g>
+
+  <!-- 5. TOPICS TABLE -->
+  <g transform="translate(880, 460)" filter="url(#cardShadow)">
+    <rect width="240" height="120" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" />
+    <path d="M 0 0 h 240 v 32 h -240 z" fill="#475569" rx="8" />
+    <rect x="0" y="24" width="240" height="8" fill="#475569" />
+    <text x="120" y="21" font-family="system-ui, sans-serif" font-size="13" font-weight="800" fill="#ffffff" text-anchor="middle">📌 topics</text>
+    
+    <g font-family="Consolas, Monaco, monospace" font-size="11" fill="#334155" transform="translate(14, 48)">
+      <text x="0" y="10" font-weight="700" fill="#475569">PK  | id</text> <text x="120" y="10" fill="#64748b">INT</text>
+      <text x="0" y="28" font-weight="700" fill="#475569">FK  | chapter_id</text> <text x="120" y="28" fill="#64748b">INT</text>
+      <text x="0" y="46">     title</text> <text x="120" y="46" fill="#64748b">VARCHAR(255)</text>
+    </g>
+  </g>
+
+  <!-- 6. QUIZZES TABLE -->
+  <g transform="translate(480, 380)" filter="url(#cardShadow)">
+    <rect width="240" height="210" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" />
+    <path d="M 0 0 h 240 v 36 h -240 z" fill="#6366f1" rx="8" />
+    <rect x="0" y="28" width="240" height="8" fill="#6366f1" />
+    <text x="120" y="23" font-family="system-ui, sans-serif" font-size="14" font-weight="800" fill="#ffffff" text-anchor="middle">📝 quizzes</text>
+    
+    <g font-family="Consolas, Monaco, monospace" font-size="11" fill="#334155" transform="translate(14, 54)">
+      <text x="0" y="10" font-weight="700" fill="#6366f1">PK  | id</text> <text x="120" y="10" fill="#64748b">INT</text>
+      <text x="0" y="28" font-weight="700" fill="#2563eb">FK  | creator_id</text> <text x="120" y="28" fill="#64748b">INT</text>
+      <text x="0" y="46" font-weight="700" fill="#0d9488">FK  | document_id</text> <text x="120" y="46" fill="#64748b">INT</text>
+      <text x="0" y="64">     title</text> <text x="120" y="64" fill="#64748b">VARCHAR(255)</text>
+      <text x="0" y="82">     source_type</text> <text x="120" y="82" fill="#64748b">VARCHAR(50)</text>
+      <text x="0" y="100">     difficulty</text> <text x="120" y="100" fill="#64748b">VARCHAR(50)</text>
+      <text x="0" y="118">     status</text> <text x="120" y="118" fill="#64748b">VARCHAR(50)</text>
+      <text x="0" y="136">     created_at</text> <text x="120" y="136" fill="#64748b">DATETIME</text>
+    </g>
+  </g>
+
+  <!-- 7. QUESTIONS TABLE -->
+  <g transform="translate(880, 620)" filter="url(#cardShadow)">
+    <rect width="240" height="180" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" />
+    <path d="M 0 0 h 240 v 34 h -240 z" fill="#d97706" rx="8" />
+    <rect x="0" y="26" width="240" height="8" fill="#d97706" />
+    <text x="120" y="22" font-family="system-ui, sans-serif" font-size="14" font-weight="800" fill="#ffffff" text-anchor="middle">❓ questions</text>
+    
+    <g font-family="Consolas, Monaco, monospace" font-size="11" fill="#334155" transform="translate(14, 52)">
+      <text x="0" y="10" font-weight="700" fill="#d97706">PK  | id</text> <text x="120" y="10" fill="#64748b">INT</text>
+      <text x="0" y="28" font-weight="700" fill="#6366f1">FK  | quiz_id</text> <text x="120" y="28" fill="#64748b">INT</text>
+      <text x="0" y="46">     question_text</text> <text x="120" y="46" fill="#64748b">TEXT</text>
+      <text x="0" y="64">     type</text> <text x="120" y="64" fill="#64748b">VARCHAR(50)</text>
+      <text x="0" y="82">     explanation</text> <text x="120" y="82" fill="#64748b">TEXT</text>
+      <text x="0" y="100">     points</text> <text x="120" y="100" fill="#64748b">INT</text>
+    </g>
+  </g>
+
+  <!-- 8. OPTIONS TABLE -->
+  <g transform="translate(880, 850)" filter="url(#cardShadow)">
+    <rect width="240" height="140" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" />
+    <path d="M 0 0 h 240 v 32 h -240 z" fill="#ca8a04" rx="8" />
+    <rect x="0" y="24" width="240" height="8" fill="#ca8a04" />
+    <text x="120" y="21" font-family="system-ui, sans-serif" font-size="13" font-weight="800" fill="#ffffff" text-anchor="middle">🔘 options</text>
+    
+    <g font-family="Consolas, Monaco, monospace" font-size="11" fill="#334155" transform="translate(14, 48)">
+      <text x="0" y="10" font-weight="700" fill="#ca8a04">PK  | id</text> <text x="120" y="10" fill="#64748b">INT</text>
+      <text x="0" y="28" font-weight="700" fill="#d97706">FK  | question_id</text> <text x="120" y="28" fill="#64748b">INT</text>
+      <text x="0" y="46">     option_text</text> <text x="120" y="46" fill="#64748b">TEXT</text>
+      <text x="0" y="64">     is_correct</text> <text x="120" y="64" fill="#64748b">BOOLEAN</text>
+    </g>
+  </g>
+
+  <!-- 9. QUIZ_ATTEMPTS TABLE -->
+  <g transform="translate(80, 640)" filter="url(#cardShadow)">
+    <rect width="240" height="170" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" />
+    <path d="M 0 0 h 240 v 36 h -240 z" fill="#e11d48" rx="8" />
+    <rect x="0" y="28" width="240" height="8" fill="#e11d48" />
+    <text x="120" y="23" font-family="system-ui, sans-serif" font-size="14" font-weight="800" fill="#ffffff" text-anchor="middle">🎯 quiz_attempts</text>
+    
+    <g font-family="Consolas, Monaco, monospace" font-size="11" fill="#334155" transform="translate(14, 54)">
+      <text x="0" y="10" font-weight="700" fill="#e11d48">PK  | id</text> <text x="120" y="10" fill="#64748b">INT</text>
+      <text x="0" y="28" font-weight="700" fill="#2563eb">FK  | user_id</text> <text x="120" y="28" fill="#64748b">INT</text>
+      <text x="0" y="46" font-weight="700" fill="#6366f1">FK  | quiz_id</text> <text x="120" y="46" fill="#64748b">INT</text>
+      <text x="0" y="64">     score</text> <text x="120" y="64" fill="#64748b">FLOAT</text>
+      <text x="0" y="82">     time_spent</text> <text x="120" y="82" fill="#64748b">INT (sec)</text>
+      <text x="0" y="100">     completed_at</text> <text x="120" y="100" fill="#64748b">DATETIME</text>
+    </g>
+  </g>
+
+  <!-- 10. USER_ANSWERS TABLE -->
+  <g transform="translate(480, 640)" filter="url(#cardShadow)">
+    <rect width="240" height="170" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" />
+    <path d="M 0 0 h 240 v 36 h -240 z" fill="#9333ea" rx="8" />
+    <rect x="0" y="28" width="240" height="8" fill="#9333ea" />
+    <text x="120" y="23" font-family="system-ui, sans-serif" font-size="14" font-weight="800" fill="#ffffff" text-anchor="middle">💬 user_answers</text>
+    
+    <g font-family="Consolas, Monaco, monospace" font-size="11" fill="#334155" transform="translate(14, 54)">
+      <text x="0" y="10" font-weight="700" fill="#9333ea">PK  | id</text> <text x="120" y="10" fill="#64748b">INT</text>
+      <text x="0" y="28" font-weight="700" fill="#e11d48">FK  | attempt_id</text> <text x="120" y="28" fill="#64748b">INT</text>
+      <text x="0" y="46" font-weight="700" fill="#d97706">FK  | question_id</text> <text x="120" y="46" fill="#64748b">INT</text>
+      <text x="0" y="64" font-weight="700" fill="#ca8a04">FK  | selected_option_id</text> <text x="120" y="64" fill="#64748b">INT</text>
+      <text x="0" y="82">     text_answer</text> <text x="120" y="82" fill="#64748b">TEXT</text>
+      <text x="0" y="100">     is_correct</text> <text x="120" y="100" fill="#64748b">BOOLEAN</text>
+    </g>
+  </g>
+
+</svg>

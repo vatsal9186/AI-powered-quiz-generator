@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <!-- Definitions for arrow markers -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#000000" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#ffffff" />
+
+  <!-- Title above diagram -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#000000" text-anchor="middle">
+    QuestAI - Quiz Taker Use-case Diagram
+  </text>
+
+  <!-- System Boundary Box -->
+  <rect x="220" y="100" width="500" height="440" fill="none" stroke="#000000" stroke-width="2.5" />
+  
+  <!-- System Title Inside Box -->
+  <text x="470" y="130" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle">
+    QuestAI - AI Quiz Generator
+  </text>
+
+  <!-- Quiz Taker Actor (Left) -->
+  <g id="taker-actor">
+    <!-- Head -->
+    <circle cx="100" cy="260" r="22" fill="none" stroke="#000000" stroke-width="2.5" />
+    <!-- Spine -->
+    <line x1="100" y1="282" x2="100" y2="360" stroke="#000000" stroke-width="2.5" />
+    <!-- Arms -->
+    <line x1="65" y1="310" x2="135" y2="310" stroke="#000000" stroke-width="2.5" />
+    <!-- Left Leg -->
+    <line x1="100" y1="360" x2="70" y2="420" stroke="#000000" stroke-width="2.5" />
+    <!-- Right Leg -->
+    <line x1="100" y1="360" x2="130" y2="420" stroke="#000000" stroke-width="2.5" />
+    <!-- Label -->
+    <text x="100" y="450" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle">Quiz Taker</text>
+  </g>
+
+  <!-- Use Cases (Ovals) -->
+  <!-- 1. Browse Public Quizzes -->
+  <g id="uc-browse">
+    <ellipse cx="470" cy="180" rx="110" ry="24" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+    <text x="470" y="184" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#000000" text-anchor="middle">Browse Public Quizzes</text>
+  </g>
+
+  <!-- 2. Attempt Quiz -->
+  <g id="uc-attempt">
+    <ellipse cx="470" cy="240" rx="110" ry="24" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+    <text x="470" y="244" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#000000" text-anchor="middle">Attempt Quiz (Answer)</text>
+  </g>
+
+  <!-- 3. View Score & Analytics -->
+  <g id="uc-scores">
+    <ellipse cx="470" cy="300" rx="110" ry="24" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+    <text x="470" y="304" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#000000" text-anchor="middle">View Score &amp; Analytics</text>
+  </g>
+
+  <!-- 4. Review Explanations -->
+  <g id="uc-review">
+    <ellipse cx="470" cy="360" rx="110" ry="24" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+    <text x="470" y="364" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#000000" text-anchor="middle">Review Explanations</text>
+  </g>
+
+  <!-- 5. Bookmark Questions -->
+  <g id="uc-bookmark">
+    <ellipse cx="470" cy="420" rx="110" ry="24" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+    <text x="470" y="424" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#000000" text-anchor="middle">Bookmark Questions</text>
+  </g>
+
+  <!-- 6. Share Quiz Link -->
+  <g id="uc-share">
+    <ellipse cx="470" cy="480" rx="110" ry="24" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+    <text x="470" y="484" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#000000" text-anchor="middle">Share Quiz Link</text>
+  </g>
+
+  <!-- Connections -->
+  <g stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)">
+    <path d="M 135 310 L 360 180" />
+    <path d="M 135 310 L 360 240" />
+    <path d="M 135 310 L 360 300" />
+    <path d="M 135 310 L 360 360" />
+    <path d="M 135 310 L 360 420" />
+    <path d="M 135 310 L 360 480" />
+  </g>
+</svg>

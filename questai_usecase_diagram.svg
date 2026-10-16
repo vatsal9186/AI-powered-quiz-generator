@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 680" width="100%" height="100%">
+  <!-- Definitions for arrow markers -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#000000" />
+    </marker>
+  </defs>
+
+  <!-- Background (matching the white background of the user's diagram) -->
+  <rect width="1020" height="680" fill="#ffffff" />
+
+  <!-- System Boundary Box -->
+  <rect x="230" y="50" width="560" height="590" fill="none" stroke="#000000" stroke-width="2.5" />
+  
+  <!-- System Title -->
+  <text x="510" y="80" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#000000" text-anchor="middle">
+    QuestAI - AI Quiz Generator System
+  </text>
+
+  <!-- ================= ACTORS ================= -->
+
+  <!-- 1. Admin Actor (Left) -->
+  <g id="admin-actor">
+    <!-- Head -->
+    <circle cx="100" cy="300" r="22" fill="none" stroke="#000000" stroke-width="2.5" />
+    <!-- Spine -->
+    <line x1="100" y1="322" x2="100" y2="400" stroke="#000000" stroke-width="2.5" />
+    <!-- Arms -->
+    <line x1="65" y1="350" x2="135" y2="350" stroke="#000000" stroke-width="2.5" />
+    <!-- Left Leg -->
+    <line x1="100" y1="400" x2="70" y2="460" stroke="#000000" stroke-width="2.5" />
+    <!-- Right Leg -->
+    <line x1="100" y1="400" x2="130" y2="460" stroke="#000000" stroke-width="2.5" />
+    <!-- Label -->
+    <text x="100" y="490" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle">Admin</text>
+  </g>
+
+  <!-- 2. Registered User Actor (Right) -->
+  <g id="user-actor">
+    <!-- Head -->
+    <circle cx="920" cy="300" r="22" fill="none" stroke="#000000" stroke-width="2.5" />
+    <!-- Spine -->
+    <line x1="920" y1="322" x2="920" y2="400" stroke="#000000" stroke-width="2.5" />
+    <!-- Arms -->
+    <line x1="885" y1="350" x2="955" y2="350" stroke="#000000" stroke-width="2.5" />
+    <!-- Left Leg -->
+    <line x1="920" y1="400" x2="890" y2="460" stroke="#000000" stroke-width="2.5" />
+    <!-- Right Leg -->
+    <line x1="920" y1="400" x2="950" y2="460" stroke="#000000" stroke-width="2.5" />
+    <!-- Label -->
+    <text x="920" y="490" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#000000" text-anchor="middle">Registered User</text>
+  </g>
+
+  <!-- ================= USE CASES (OVALS) ================= -->
+
+  <!-- 1. Login / Register -->
+  <g id="uc-login">
+    <ellipse cx="510" cy="130" rx="95" ry="26" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+    <text x="510" y="134" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#000000" text-anchor="middle">Login / Register</text>
+  </g>
+
+  <!-- 2. Manage Users -->
+  <g id="uc-manage-users">
+    <ellipse cx="380" cy="220" rx="90" ry="26" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+    <text x="380" y="224" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#000000" text-anchor="middle">Manage Users</text>
+  </g>
+
+  <!-- 3. Bookmark Questions -->
+  <g id="uc-bookmark">
+    <ellipse cx="640" cy="220" rx="95" ry="26" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+    <text x="640" y="224" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#000000" text-anchor="middle">Bookmark Questions</text>
+  </g>
+
+  <!-- 4. Upload Documents -->
+  <g id="uc-upload-docs">
+    <ellipse cx="510" cy="310" rx="100" ry="26" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+    <text x="510" y="314" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#000000" text-anchor="middle">Upload Documents / URLs</text>
+  </g>
+
+  <!-- 5. Configure System -->
+  <g id="uc-config">
+    <ellipse cx="380" cy="400" rx="105" ry="26" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+    <text x="380" y="404" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#000000" text-anchor="middle">Configure System Settings</text>
+  </g>
+
+  <!-- 6. Generate Quizzes -->
+  <g id="uc-generate-quizzes">
+    <ellipse cx="640" cy="400" rx="95" ry="26" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+    <text x="640" y="404" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#000000" text-anchor="middle">Generate Quizzes (AI)</text>
+  </g>
+
+  <!-- 7. Attempt Quizzes -->
+  <g id="uc-attempt-quizzes">
+    <ellipse cx="640" cy="490" rx="95" ry="26" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+    <text x="640" y="494" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#000000" text-anchor="middle">Attempt Quizzes</text>
+  </g>
+
+  <!-- 8. View Analytics / Scores -->
+  <g id="uc-analytics">
+    <ellipse cx="510" cy="580" rx="110" ry="26" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+    <text x="510" y="584" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#000000" text-anchor="middle">View Analytics / Scores</text>
+  </g>
+
+
+  <!-- ================= RELATIONSHIP LINES (ARROWS) ================= -->
+
+  <!-- Admin Connections (Left) -->
+  <g stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)">
+    <!-- Admin -> Login / Register -->
+    <path d="M 135 350 L 415 142" />
+    <!-- Admin -> Manage Users -->
+    <path d="M 135 350 L 292 232" />
+    <!-- Admin -> Upload Documents -->
+    <path d="M 135 350 L 412 305" />
+    <!-- Admin -> Configure System -->
+    <path d="M 135 350 L 277 392" />
+    <!-- Admin -> View Analytics -->
+    <path d="M 135 350 L 405 568" />
+  </g>
+
+  <!-- Registered User Connections (Right) -->
+  <g stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)">
+    <!-- User -> Login / Register -->
+    <path d="M 885 350 L 602 142" />
+    <!-- User -> Bookmark Questions -->
+    <path d="M 885 350 L 732 232" />
+    <!-- User -> Upload Documents -->
+    <path d="M 885 350 L 608 305" />
+    <!-- User -> Generate Quizzes -->
+    <path d="M 885 350 L 732 392" />
+    <!-- User -> Attempt Quizzes -->
+    <path d="M 885 350 L 732 478" />
+    <!-- User -> View Analytics -->
+    <path d="M 885 350 L 615 568" />
+  </g>
+</svg>

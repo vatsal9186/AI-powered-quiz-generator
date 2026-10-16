@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 600" width="100%" height="100%">
+  <defs>
+    <style>
+      .title { font-family: Arial, Helvetica, sans-serif; font-size: 22px; font-weight: bold; fill: #000000; text-anchor: middle; }
+      .subtitle { font-family: Arial, Helvetica, sans-serif; font-size: 13px; fill: #4a5568; text-anchor: middle; }
+      .axis-line { stroke: #000000; stroke-width: 1.5px; }
+      .grid-line { stroke: #e2e8f0; stroke-width: 0.5px; }
+      .guide-line { stroke: #718096; stroke-width: 1px; stroke-dasharray: 4 4; }
+      .y-label { font-family: Arial, Helvetica, sans-serif; font-size: 13px; font-weight: bold; fill: #000000; text-anchor: end; }
+      .x-label { font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bold; fill: #000000; text-anchor: middle; }
+      .bar-box { fill: #f8fafc; stroke: #000000; stroke-width: 1.5px; rx: 4px; ry: 4px; }
+      .bar-text { font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bold; fill: #000000; text-anchor: middle; }
+      .axis-title { font-family: Arial, Helvetica, sans-serif; font-size: 13px; font-weight: bold; fill: #2d3748; text-anchor: middle; }
+      .tag { font-family: Arial, Helvetica, sans-serif; font-size: 10px; fill: #718096; text-anchor: end; font-style: italic; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="600" fill="#ffffff" />
+
+  <!-- Canvas Grid (draw.io style) -->
+  <g class="grid-line">
+    <!-- Vertical Grid Lines every 20px -->
+    <path d="
+      M 20,0 V 600 M 40,0 V 600 M 60,0 V 600 M 80,0 V 600 M 100,0 V 600 M 120,0 V 600 M 140,0 V 600 M 160,0 V 600 M 180,0 V 600 M 200,0 V 600
+      M 220,0 V 600 M 240,0 V 600 M 260,0 V 600 M 280,0 V 600 M 300,0 V 600 M 320,0 V 600 M 340,0 V 600 M 360,0 V 600 M 380,0 V 600 M 400,0 V 600
+      M 420,0 V 600 M 440,0 V 600 M 460,0 V 600 M 480,0 V 600 M 500,0 V 600 M 520,0 V 600 M 540,0 V 600 M 560,0 V 600 M 580,0 V 600 M 600,0 V 600
+      M 620,0 V 600 M 640,0 V 600 M 660,0 V 600 M 680,0 V 600 M 700,0 V 600 M 720,0 V 600 M 740,0 V 600 M 760,0 V 600 M 780,0 V 600 M 800,0 V 600
+      M 820,0 V 600 M 840,0 V 600 M 860,0 V 600 M 880,0 V 600 M 900,0 V 600 M 920,0 V 600 M 940,0 V 600 M 960,0 V 600 M 980,0 V 600 M 1000,0 V 600
+      M 1020,0 V 600 M 1040,0 V 600 M 1060,0 V 600 M 1080,0 V 600
+    " />
+  </g>
+
+  <!-- Title & Subtitle -->
+  <text x="550" y="45" class="title">AI Quiz Generator - Project Timeline</text>
+  <text x="550" y="70" class="subtitle">June 2026 – September 2026 (Semester 3 Project)</text>
+
+  <!-- Main Axes Lines -->
+  <!-- Left Start (Jun 02) -->
+  <line x1="240" y1="90" x2="240" y2="470" class="axis-line" />
+  <!-- Right End (Sep 22) -->
+  <line x1="1000" y1="90" x2="1000" y2="470" class="axis-line" />
+  <!-- Bottom Baseline -->
+  <line x1="240" y1="470" x2="1000" y2="470" class="axis-line" />
+
+  <!-- Vertical Milestone Guides (Dashed) -->
+  <line x1="335" y1="90" x2="335" y2="470" class="guide-line" />
+  <line x1="430" y1="90" x2="430" y2="470" class="guide-line" />
+  <line x1="525" y1="90" x2="525" y2="470" class="guide-line" />
+  <line x1="620" y1="90" x2="620" y2="470" class="guide-line" />
+  <line x1="715" y1="90" x2="715" y2="470" class="guide-line" />
+  <line x1="810" y1="90" x2="810" y2="470" class="guide-line" />
+  <line x1="905" y1="90" x2="905" y2="470" class="guide-line" />
+
+  <!-- Task Labels (Y-Axis) -->
+  <text x="225" y="130" class="y-label">1. SRS &amp; Planning</text>
+  <text x="225" y="190" class="y-label">2. DB &amp; Architecture</text>
+  <text x="225" y="250" class="y-label">3. Core Quiz Modules</text>
+  <text x="225" y="310" class="y-label">4. Gemini AI Integration</text>
+  <text x="225" y="370" class="y-label">5. Testing &amp; Fixes</text>
+  <text x="225" y="430" class="y-label">6. Report &amp; Viva PPT</text>
+
+  <!-- Task Bars (draw.io Black & White Style) -->
+  <!-- 1. SRS & Planning (Jun 02 - Jun 15) -->
+  <rect x="240" y="112" width="88.5" height="34" class="bar-box" />
+  <text x="284.25" y="133" class="bar-text">13 days</text>
+
+  <!-- 2. DB & Architecture (Jun 16 - Jun 28) -->
+  <rect x="335" y="172" width="88.5" height="34" class="bar-box" />
+  <text x="379.25" y="193" class="bar-text">13 days</text>
+
+  <!-- 3. Core Quiz Modules (Jun 30 - Jul 26) -->
+  <rect x="430" y="232" width="183.8" height="34" class="bar-box" />
+  <text x="521.9" y="253" class="bar-text">27 days</text>
+
+  <!-- 4. Gemini AI Integration (Jul 28 - Aug 16) -->
+  <rect x="620" y="292" width="136.1" height="34" class="bar-box" />
+  <text x="688.05" y="313" class="bar-text">20 days</text>
+
+  <!-- 5. Testing & Fixes (Aug 18 - Aug 30) -->
+  <rect x="762.5" y="352" width="88.5" height="34" class="bar-box" />
+  <text x="806.75" y="373" class="bar-text">13 days</text>
+
+  <!-- 6. Report & Viva PPT (Sep 01 - Sep 20) -->
+  <rect x="857.5" y="412" width="136.1" height="34" class="bar-box" />
+  <text x="925.55" y="433" class="bar-text">20 days</text>
+
+  <!-- X-Axis Ticks & Date Labels -->
+  <line x1="240" y1="470" x2="240" y2="477" class="axis-line" />
+  <text x="240" y="495" class="x-label">Jun 02</text>
+
+  <line x1="335" y1="470" x2="335" y2="477" class="axis-line" />
+  <text x="335" y="495" class="x-label">Jun 16</text>
+
+  <line x1="430" y1="470" x2="430" y2="477" class="axis-line" />
+  <text x="430" y="495" class="x-label">Jun 30</text>
+
+  <line x1="525" y1="470" x2="525" y2="477" class="axis-line" />
+  <text x="525" y="495" class="x-label">Jul 14</text>
+
+  <line x1="620" y1="470" x2="620" y2="477" class="axis-line" />
+  <text x="620" y="495" class="x-label">Jul 28</text>
+
+  <line x1="715" y1="470" x2="715" y2="477" class="axis-line" />
+  <text x="715" y="495" class="x-label">Aug 11</text>
+
+  <line x1="810" y1="470" x2="810" y2="477" class="axis-line" />
+  <text x="810" y="495" class="x-label">Aug 25</text>
+
+  <line x1="905" y1="470" x2="905" y2="477" class="axis-line" />
+  <text x="905" y="495" class="x-label">Sep 08</text>
+
+  <line x1="1000" y1="470" x2="1000" y2="477" class="axis-line" />
+  <text x="1000" y="495" class="x-label">Sep 22</text>
+
+  <!-- Axis Title -->
+  <text x="620" y="535" class="axis-title">Timeline (June 2026 – September 2026)</text>
+  <text x="1000" y="575" class="tag">Exported Format: B&amp;W Diagram (draw.io / Dia compatible style)</text>
+</svg>

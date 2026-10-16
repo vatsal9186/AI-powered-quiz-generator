@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 700" width="100%" height="100%">
+  <!-- Definitions for arrow markers -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#000000" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="700" fill="#ffffff" />
+
+  <!-- Title above diagram -->
+  <text x="400" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#000000" text-anchor="middle">
+    QuestAI - Admin Sequence Diagram
+  </text>
+
+  <!-- ================= LIFELINES ================= -->
+
+  <!-- Lifeline 1: Admin Actor -->
+  <line x1="120" y1="140" x2="120" y2="640" stroke="#000000" stroke-width="1.2" stroke-dasharray="5,5" />
+  <!-- Admin Stick Figure -->
+  <g id="admin-actor">
+    <circle cx="120" cy="75" r="12" fill="none" stroke="#000000" stroke-width="2" />
+    <line x1="120" y1="87" x2="120" y2="120" stroke="#000000" stroke-width="2" />
+    <line x1="95" y1="100" x2="145" y2="100" stroke="#000000" stroke-width="2" />
+    <line x1="120" y1="120" x2="100" y2="138" stroke="#000000" stroke-width="2" />
+    <line x1="120" y1="120" x2="140" y2="138" stroke="#000000" stroke-width="2" />
+    <text x="120" y="50" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#000000" text-anchor="middle">Admin</text>
+  </g>
+
+  <!-- Lifeline 2: System -->
+  <line x1="400" y1="100" x2="400" y2="640" stroke="#000000" stroke-width="1.2" stroke-dasharray="5,5" />
+  <rect x="340" y="65" width="120" height="35" rx="5" ry="5" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+  <text x="400" y="87" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#000000" text-anchor="middle">System</text>
+
+  <!-- Lifeline 3: Database -->
+  <line x1="680" y1="100" x2="680" y2="640" stroke="#000000" stroke-width="1.2" stroke-dasharray="5,5" />
+  <rect x="620" y="65" width="120" height="35" rx="5" ry="5" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+  <text x="680" y="87" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#000000" text-anchor="middle">Database</text>
+
+  <!-- ================= INTERACTIONS ================= -->
+
+  <!-- STEP 1: Login (y=160) -->
+  <g id="step-1">
+    <!-- Admin -> System -->
+    <path d="M 120 160 L 392 160" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="153" font-family="Arial, sans-serif" font-size="11" fill="#000000" text-anchor="middle">1. Login(Username, Password)</text>
+    <rect x="393" y="160" width="14" height="40" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <!-- System -> Database -->
+    <path d="M 407 172 L 672 172" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="165" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Verify credentials</text>
+    <rect x="673" y="172" width="14" height="20" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <!-- Database -> System -->
+    <path d="M 673 192 L 407 192" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="188" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Return admin authorization</text>
+
+    <!-- System -> Admin -->
+    <path d="M 393 200 L 120 200" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="196" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Login Successful</text>
+  </g>
+
+  <!-- STEP 2: Manage Users (y=230) -->
+  <g id="step-2">
+    <!-- Admin -> System -->
+    <path d="M 120 230 L 392 230" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="223" font-family="Arial, sans-serif" font-size="11" fill="#000000" text-anchor="middle">2. Manage Users (Query accounts)</text>
+    <rect x="393" y="230" width="14" height="40" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <!-- System -> Database -->
+    <path d="M 407 242 L 672 242" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="235" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Fetch user accounts</text>
+    <rect x="673" y="242" width="14" height="20" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <!-- Database -> System -->
+    <path d="M 673 262 L 407 262" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="258" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Return accounts list</text>
+
+    <!-- System -> Admin -->
+    <path d="M 393 270 L 120 270" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="266" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Display account list</text>
+  </g>
+
+  <!-- STEP 3: Moderate Content (y=300) -->
+  <g id="step-3">
+    <!-- Admin -> System -->
+    <path d="M 120 300 L 392 300" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="293" font-family="Arial, sans-serif" font-size="11" fill="#000000" text-anchor="middle">3. Moderate Content (Flag/Delete)</text>
+    <rect x="393" y="300" width="14" height="40" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <!-- System -> Database -->
+    <path d="M 407 312 L 672 312" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="305" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Update quiz/doc status</text>
+    <rect x="673" y="312" width="14" height="20" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <!-- Database -> System -->
+    <path d="M 673 332 L 407 332" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="328" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Confirm status update</text>
+
+    <!-- System -> Admin -->
+    <path d="M 393 340 L 120 340" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="336" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Content Moderated Successfully</text>
+  </g>
+
+  <!-- STEP 4: Configure AI API (y=370) -->
+  <g id="step-4">
+    <!-- Admin -> System -->
+    <path d="M 120 370 L 392 370" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="363" font-family="Arial, sans-serif" font-size="11" fill="#000000" text-anchor="middle">4. Configure System Settings</text>
+    <rect x="393" y="370" width="14" height="40" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <!-- System -> Database -->
+    <path d="M 407 382 L 672 382" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="375" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Update system configuration</text>
+    <rect x="673" y="382" width="14" height="20" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <!-- Database -> System -->
+    <path d="M 673 402 L 407 402" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="398" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Confirm settings saved</text>
+
+    <!-- System -> Admin -->
+    <path d="M 393 410 L 120 410" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="406" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Settings Saved Successfully</text>
+  </g>
+
+  <!-- STEP 5: View Platform Analytics (y=440) -->
+  <g id="step-5">
+    <!-- Admin -> System -->
+    <path d="M 120 440 L 392 440" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="433" font-family="Arial, sans-serif" font-size="11" fill="#000000" text-anchor="middle">5. View Platform Analytics</text>
+    <rect x="393" y="440" width="14" height="40" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <!-- System -> Database -->
+    <path d="M 407 452 L 672 452" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="445" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Query usage statistics</text>
+    <rect x="673" y="452" width="14" height="20" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <!-- Database -> System -->
+    <path d="M 673 472 L 407 472" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="468" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Return analytics data</text>
+
+    <!-- System -> Admin -->
+    <path d="M 393 480 L 120 480" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="476" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Display analytics dashboard</text>
+  </g>
+
+  <!-- STEP 6: Monitor Error Logs (y=510) -->
+  <g id="step-6">
+    <!-- Admin -> System -->
+    <path d="M 120 510 L 392 510" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="503" font-family="Arial, sans-serif" font-size="11" fill="#000000" text-anchor="middle">6. Monitor Error Logs</text>
+    <rect x="393" y="510" width="14" height="40" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <!-- System -> Database -->
+    <path d="M 407 522 L 672 522" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="515" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Fetch error log lists</text>
+    <rect x="673" y="522" width="14" height="20" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <!-- Database -> System -->
+    <path d="M 673 542 L 407 542" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="538" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Return error logs</text>
+
+    <!-- System -> Admin -->
+    <path d="M 393 550 L 120 550" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="546" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Display error logs</text>
+  </g>
+
+  <!-- STEP 7: Logout (y=580) -->
+  <g id="step-7">
+    <!-- Admin -> System -->
+    <path d="M 120 580 L 392 580" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="573" font-family="Arial, sans-serif" font-size="11" fill="#000000" text-anchor="middle">7. Logout</text>
+    <rect x="393" y="580" width="14" height="30" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <!-- System -> Admin -->
+    <path d="M 393 605 L 120 605" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="601" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Logout Successfully</text>
+  </g>
+
+  <!-- Lifeline destruction indicators (X) -->
+  <text x="120" y="655" font-family="Arial, sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">X</text>
+  <text x="400" y="655" font-family="Arial, sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">X</text>
+  <text x="680" y="655" font-family="Arial, sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">X</text>
+</svg>

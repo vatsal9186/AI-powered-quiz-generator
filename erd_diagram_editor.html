@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuestAI - ER Diagram Editor</title>
+  <style>
+    :root {
+      --bg-color: #f8fafc;
+      --grid-color: #e2e8f0;
+      --table-bg: #ffffff;
+      --table-border: #000000;
+      --text-color: #000000;
+      --header-bg: #f1f5f9;
+      --accent: #2563eb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Top Toolbar */
+    header {
+      background: #ffffff;
+      border-bottom: 2px solid #e2e8f0;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      z-index: 10;
+    }
+
+    .title-group h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .title-group p {
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      color: #0f172a;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .btn:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+
+    .btn-primary {
+      background: #0f172a;
+      color: #ffffff;
+      border-color: #0f172a;
+    }
+    .btn-primary:hover {
+      background: #1e293b;
+    }
+
+    /* Canvas Area */
+    #canvas-container {
+      flex: 1;
+      position: relative;
+      overflow: auto;
+      background-color: #ffffff;
+      background-image: 
+        radial-gradient(#cbd5e1 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
+    #svg-connections {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 2000px;
+      height: 1500px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ERD Tables */
+    .erd-table {
+      position: absolute;
+      background: var(--table-bg);
+      border: 2px solid var(--table-border);
+      border-radius: 8px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      width: 260px;
+      z-index: 2;
+      cursor: move;
+      user-select: none;
+    }
+
+    .table-header {
+      background: var(--header-bg);
+      padding: 8px 12px;
+      font-weight: 700;
+      text-align: center;
+      font-size: 1rem;
+      border-bottom: 1.5px solid var(--table-border);
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-title {
+      outline: none;
+      width: 100%;
+      text-align: center;
+    }
+
+    .table-body {
+      width: 100%;
+    }
+
+    .row {
+      display: flex;
+      border-bottom: 1px solid #e2e8f0;
+      font-size: 0.85rem;
+    }
+    .row:last-child {
+      border-bottom: none;
+    }
+
+    .cell-key {
+      width: 60%;
+      padding: 6px 10px;
+      border-right: 1px solid var(--table-border);
+      font-weight: 600;
+      outline: none;
+    }
+
+    .cell-type {
+      width: 40%;
+      padding: 6px 10px;
+      color: #334155;
+      outline: none;
+    }
+
+    .row-pk {
+      font-weight: 700;
+      color: #000000;
+    }
+
+    .btn-add-row {
+      width: 100%;
+      padding: 4px;
+      background: #f8fafc;
+      border: none;
+      border-top: 1px dashed #cbd5e1;
+      color: #64748b;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+    .btn-add-row:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+
+    /* Relationship text on SVG */
+    .rel-label {
+      font-size: 12px;
+      font-weight: 700;
+      fill: #000000;
+      background: white;
+    }
+
+    /* Modal / Instructions */
+    .info-banner {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(15, 23, 42, 0.9);
+      color: white;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      z-index: 100;
+      backdrop-filter: blur(4px);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="title-group">
+      <h1>QuestAI ER Diagram Editor</h1>
+      <p>Click any text to edit • Drag tables to move • Export anytime</p>
+    </div>
+    <div class="toolbar-actions">
+      <button class="btn" onclick="addTable()">+ Add Table</button>
+      <button class="btn" onclick="exportDrawIO()">Export .drawio</button>
+      <button class="btn" onclick="exportSVG()">Export SVG</button>
+      <button class="btn btn-primary" onclick="window.print()">Print / Save PDF</button>
+    </div>
+  </header>
+
+  <div id="canvas-container">
+    <svg id="svg-connections"></svg>
+    <div id="tables-layer"></div>
+  </div>
+
+  <div class="info-banner">
+    💡 <strong>Tip:</strong> Click text directly to edit column names or types. Drag header to rearrange.
+  </div>
+
+  <script>
+    const schema = [
+      {
+        id: 'documents',
+        name: 'documents',
+        x: 60, y: 40, width: 270,
+        rows: [
+          { key: 'PK id', type: 'INT' },
+          { key: 'FK owner_id', type: 'INT' },
+          { key: 'title', type: 'VARCHAR(255)' },
+          { key: 'file_name', type: 'VARCHAR(255)' },
+          { key: 'content', type: 'TEXT' },
+          { key: 'status', type: 'VARCHAR(50)' },
+          { key: 'error_message', type: 'TEXT' },
+          { key: 'created_at', type: 'DATETIME' }
+        ]
+      },
+      {
+        id: 'users',
+        name: 'users',
+        x: 440, y: 40, width: 270,
+        rows: [
+          { key: 'PK id', type: 'INT' },
+          { key: 'UQ email', type: 'VARCHAR(255)' },
+          { key: 'hashed_password', type: 'VARCHAR(255)' },
+          { key: 'full_name', type: 'VARCHAR(255)' },
+          { key: 'UQ google_id', type: 'VARCHAR(255)' },
+          { key: 'auth_provider', type: 'VARCHAR(50)' },
+          { key: 'role', type: 'VARCHAR(50)' },
+          { key: 'status', type: 'VARCHAR(50)' }
+        ]
+      },
+      {
+        id: 'modules',
+        name: 'modules',
+        x: 820, y: 40, width: 250,
+        rows: [
+          { key: 'PK id', type: 'INT' },
+          { key: 'FK document_id', type: 'INT' },
+          { key: 'title', type: 'VARCHAR(255)' },
+          { key: 'order', type: 'INT' }
+        ]
+      },
+      {
+        id: 'chapters',
+        name: 'chapters',
+        x: 820, y: 220, width: 250,
+        rows: [
+          { key: 'PK id', type: 'INT' },
+          { key: 'FK document_id', type: 'INT' },
+          { key: 'FK module_id', type: 'INT' },
+          { key: 'title', type: 'VARCHAR(255)' }
+        ]
+      },
+      {
+        id: 'topics',
+        name: 'topics',
+        x: 850, y: 550, width: 240,
+        rows: [
+          { key: 'PK id', type: 'INT' },
+          { key: 'FK chapter_id', type: 'INT' },
+          { key: 'title', type: 'VARCHAR(255)' }
+        ]
+      },
+      {
+        id: 'quizzes',
+        name: 'quizzes',
+        x: 440, y: 390, width: 270,
+        rows: [
+          { key: 'PK id', type: 'INT' },
+          { key: 'FK creator_id', type: 'INT' },
+          { key: 'FK document_id', type: 'INT' },
+          { key: 'source_type', type: 'VARCHAR(50)' },
+          { key: 'difficulty', type: 'VARCHAR(50)' },
+          { key: 'status', type: 'VARCHAR(50)' },
+          { key: 'created_at', type: 'DATETIME' }
+        ]
+      },
+      {
+        id: 'questions',
+        name: 'questions',
+        x: 740, y: 390, width: 250,
+        rows: [
+          { key: 'PK id', type: 'INT' },
+          { key: 'FK quiz_id', type: 'INT' },
+          { key: 'question_text', type: 'TEXT' },
+          { key: 'type', type: 'VARCHAR(50)' },
+          { key: 'explanation', type: 'TEXT' },
+          { key: 'points', type: 'INT' }
+        ]
+      },
+      {
+        id: 'options',
+        name: 'options',
+        x: 710, y: 700, width: 240,
+        rows: [
+          { key: 'PK id', type: 'INT' },
+          { key: 'FK question_id', type: 'INT' },
+          { key: 'option_text', type: 'TEXT' },
+          { key: 'is_correct', type: 'BOOLEAN' }
+        ]
+      },
+      {
+        id: 'quiz_attempts',
+        name: 'quiz_attempts',
+        x: 80, y: 660, width: 260,
+        rows: [
+          { key: 'PK id', type: 'INT' },
+          { key: 'FK user_id', type: 'INT' },
+          { key: 'FK quiz_id', type: 'INT' },
+          { key: 'score', type: 'FLOAT' },
+          { key: 'time_spent', type: 'INT (sec)' },
+          { key: 'completed_at', type: 'DATETIME' }
+        ]
+      },
+      {
+        id: 'user_answers',
+        name: 'user_answers',
+        x: 430, y: 720, width: 260,
+        rows: [
+          { key: 'PK id', type: 'INT' },
+          { key: 'FK attempt_id', type: 'INT' },
+          { key: 'FK question_id', type: 'INT' },
+          { key: 'FK selected_option_id', type: 'INT' },
+          { key: 'text_answer', type: 'TEXT' },
+          { key: 'is_correct', type: 'BOOLEAN' }
+        ]
+      }
+    ];
+
+    const relationships = [
+      { from: 'users', to: 'documents', label: 'uploaded_by 1:N' },
+      { from: 'documents', to: 'quizzes', label: 'source_material 1:N' },
+      { from: 'users', to: 'quizzes', label: 'generated_by 1:N' },
+      { from: 'documents', to: 'modules', label: '1:N' },
+      { from: 'modules', to: 'chapters', label: '1:N' },
+      { from: 'chapters', to: 'topics', label: '1:N' },
+      { from: 'quizzes', to: 'questions', label: 'contains 1:N' },
+      { from: 'quizzes', to: 'quiz_attempts', label: 'taken_by 1:N' },
+      { from: 'questions', to: 'options', label: 'has 1:N' },
+      { from: 'questions', to: 'user_answers', label: 'answers_for 1:N' },
+      { from: 'quiz_attempts', to: 'user_answers', label: 'records 1:N' },
+      { from: 'options', to: 'user_answers', label: 'chosen_option 1:1' }
+    ];
+
+    function renderTables() {
+      const container = document.getElementById('tables-layer');
+      container.innerHTML = '';
+
+      schema.forEach(table => {
+        const el = document.createElement('div');
+        el.className = 'erd-table';
+        el.id = `tbl-${table.id}`;
+        el.style.left = `${table.x}px`;
+        el.style.top = `${table.y}px`;
+        el.style.width = `${table.width}px`;
+
+        let rowsHtml = table.rows.map((row, idx) => `
+          <div class="row ${row.key.includes('PK') ? 'row-pk' : ''}">
+            <div class="cell-key" contenteditable="true" onblur="updateSchema('${table.id}', ${idx}, 'key', this.innerText)">${row.key}</div>
+            <div class="cell-type" contenteditable="true" onblur="updateSchema('${table.id}', ${idx}, 'type', this.innerText)">${row.type}</div>
+          </div>
+        `).join('');
+
+        el.innerHTML = `
+          <div class="table-header">
+            <span class="table-title" contenteditable="true" onblur="table.name=this.innerText">${table.name}</span>
+          </div>
+          <div class="table-body">
+            ${rowsHtml}
+          </div>
+          <button class="btn-add-row" onclick="addRow('${table.id}')">+ Add Field</button>
+        `;
+
+        makeDraggable(el, table);
+        container.appendChild(el);
+      });
+
+      drawLines();
+    }
+
+    function makeDraggable(el, table) {
+      let isDragging = false;
+      let startX, startY, initialX, initialY;
+
+      const header = el.querySelector('.table-header');
+      header.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        initialX = table.x;
+        initialY = table.y;
+        el.style.zIndex = 1000;
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        table.x = initialX + dx;
+        table.y = initialY + dy;
+        el.style.left = `${table.x}px`;
+        el.style.top = `${table.y}px`;
+        drawLines();
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (isDragging) {
+          isDragging = false;
+          el.style.zIndex = 2;
+        }
+      });
+    }
+
+    function drawLines() {
+      const svg = document.getElementById('svg-connections');
+      svg.innerHTML = '';
+
+      relationships.forEach(rel => {
+        const fromT = schema.find(s => s.id === rel.from);
+        const toT = schema.find(s => s.id === rel.to);
+        if (!fromT || !toT) return;
+
+        const x1 = fromT.x + fromT.width / 2;
+        const y1 = fromT.y + 60;
+        const x2 = toT.x + toT.width / 2;
+        const y2 = toT.y + 60;
+
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        const midX = (x1 + x2) / 2;
+        const d = `M ${x1} ${y1} C ${midX} ${y1}, ${midX} ${y2}, ${x2} ${y2}`;
+        path.setAttribute('d', d);
+        path.setAttribute('stroke', '#000000');
+        path.setAttribute('stroke-width', '1.5');
+        path.setAttribute('fill', 'none');
+        svg.appendChild(path);
+
+        // Text label
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', midX);
+        text.setAttribute('y', (y1 + y2) / 2 - 5);
+        text.setAttribute('text-anchor', 'middle');
+        text.setAttribute('class', 'rel-label');
+        text.textContent = rel.label;
+        svg.appendChild(text);
+      });
+    }
+
+    function updateSchema(tableId, rowIdx, field, value) {
+      const table = schema.find(s => s.id === tableId);
+      if (table && table.rows[rowIdx]) {
+        table.rows[rowIdx][field] = value;
+      }
+    }
+
+    function addRow(tableId) {
+      const table = schema.find(s => s.id === tableId);
+      if (table) {
+        table.rows.push({ key: 'new_field', type: 'VARCHAR(255)' });
+        renderTables();
+      }
+    }
+
+    function addTable() {
+      const id = 'new_table_' + Date.now();
+      schema.push({
+        id: id,
+        name: 'new_table',
+        x: 100, y: 100, width: 240,
+        rows: [{ key: 'PK id', type: 'INT' }]
+      });
+      renderTables();
+    }
+
+    function exportDrawIO() {
+      alert("Click OK to download the .drawio file for Diagrams.net");
+      const a = document.createElement('a');
+      a.href = 'erd_diagram.drawio';
+      a.download = 'erd_diagram.drawio';
+      a.click();
+    }
+
+    function exportSVG() {
+      const svg = document.getElementById('svg-connections').outerHTML;
+      const blob = new Blob([svg], { type: 'image/svg+xml' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'erd_diagram.svg';
+      a.click();
+    }
+
+    window.onload = renderTables;
+  </script>
+</body>
+</html>

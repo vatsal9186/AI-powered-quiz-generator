@@ -1,0 +1,193 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 840" width="100%" height="100%">
+  <!-- Definitions for arrow markers -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#000000" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="840" fill="#ffffff" />
+
+  <!-- Title above diagram -->
+  <text x="400" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#000000" text-anchor="middle">
+    QuestAI - User Sequence Diagram
+  </text>
+
+  <!-- ================= LIFELINES ================= -->
+
+  <!-- Lifeline 1: User Actor -->
+  <line x1="120" y1="140" x2="120" y2="780" stroke="#000000" stroke-width="1.2" stroke-dasharray="5,5" />
+  <!-- User Stick Figure -->
+  <g id="user-actor">
+    <circle cx="120" cy="75" r="12" fill="none" stroke="#000000" stroke-width="2" />
+    <line x1="120" y1="87" x2="120" y2="120" stroke="#000000" stroke-width="2" />
+    <line x1="95" y1="100" x2="145" y2="100" stroke="#000000" stroke-width="2" />
+    <line x1="120" y1="120" x2="100" y2="138" stroke="#000000" stroke-width="2" />
+    <line x1="120" y1="120" x2="140" y2="138" stroke="#000000" stroke-width="2" />
+    <text x="120" y="50" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#000000" text-anchor="middle">User</text>
+  </g>
+
+  <!-- Lifeline 2: System -->
+  <line x1="400" y1="100" x2="400" y2="780" stroke="#000000" stroke-width="1.2" stroke-dasharray="5,5" />
+  <rect x="340" y="65" width="120" height="35" rx="5" ry="5" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+  <text x="400" y="87" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#000000" text-anchor="middle">System</text>
+
+  <!-- Lifeline 3: Database -->
+  <line x1="680" y1="100" x2="680" y2="780" stroke="#000000" stroke-width="1.2" stroke-dasharray="5,5" />
+  <rect x="620" y="65" width="120" height="35" rx="5" ry="5" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+  <text x="680" y="87" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#000000" text-anchor="middle">Database</text>
+
+  <!-- ================= INTERACTIONS ================= -->
+
+  <!-- STEP 1: Registration (y=160) -->
+  <g id="step-1">
+    <path d="M 120 160 L 392 160" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="153" font-family="Arial, sans-serif" font-size="11" fill="#000000" text-anchor="middle">1. Registration</text>
+    <rect x="393" y="160" width="14" height="40" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <path d="M 407 172 L 672 172" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="165" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Save credentials</text>
+    <rect x="673" y="172" width="14" height="20" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <path d="M 673 192 L 407 192" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="188" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Confirm user creation</text>
+
+    <path d="M 393 200 L 120 200" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="196" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Successfully Registered</text>
+  </g>
+
+  <!-- STEP 2: Login (y=230) -->
+  <g id="step-2">
+    <path d="M 120 230 L 392 230" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="223" font-family="Arial, sans-serif" font-size="11" fill="#000000" text-anchor="middle">2. Login</text>
+    <rect x="393" y="230" width="14" height="40" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <path d="M 407 242 L 672 242" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="235" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Verify credentials</text>
+    <rect x="673" y="242" width="14" height="20" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <path d="M 673 262 L 407 262" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="258" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Return auth token</text>
+
+    <path d="M 393 270 L 120 270" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="266" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Login Successful</text>
+  </g>
+
+  <!-- STEP 3: Browse Public Quizzes (y=300) -->
+  <g id="step-3">
+    <path d="M 120 300 L 392 300" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="293" font-family="Arial, sans-serif" font-size="11" fill="#000000" text-anchor="middle">3. Browse Public Quizzes</text>
+    <rect x="393" y="300" width="14" height="40" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <path d="M 407 312 L 672 312" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="305" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Fetch quizzes list</text>
+    <rect x="673" y="312" width="14" height="20" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <path d="M 673 332 L 407 332" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="328" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Return quizzes data</text>
+
+    <path d="M 393 340 L 120 340" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="336" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Display public quizzes list</text>
+  </g>
+
+  <!-- STEP 4: Upload Document / URL (y=370) -->
+  <g id="step-4">
+    <path d="M 120 370 L 392 370" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="363" font-family="Arial, sans-serif" font-size="11" fill="#000000" text-anchor="middle">4. Upload Document / URL</text>
+    <rect x="393" y="370" width="14" height="40" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <path d="M 407 382 L 672 382" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="375" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Store upload details</text>
+    <rect x="673" y="382" width="14" height="20" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <path d="M 673 402 L 407 402" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="398" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Confirm save</text>
+
+    <path d="M 393 410 L 120 410" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="406" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Upload Successful</text>
+  </g>
+
+  <!-- STEP 5: Generate Quiz (AI) (y=440) -->
+  <g id="step-5">
+    <path d="M 120 440 L 392 440" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="433" font-family="Arial, sans-serif" font-size="11" fill="#000000" text-anchor="middle">5. Generate Quiz (AI)</text>
+    <rect x="393" y="440" width="14" height="40" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <path d="M 407 452 L 672 452" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="445" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Store generated questions</text>
+    <rect x="673" y="452" width="14" height="20" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <path d="M 673 472 L 407 472" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="468" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Confirm save</text>
+
+    <path d="M 393 480 L 120 480" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="476" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Quiz Generated Successfully</text>
+  </g>
+
+  <!-- STEP 6: Attempt Quiz (y=510) -->
+  <g id="step-6">
+    <path d="M 120 510 L 392 510" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="503" font-family="Arial, sans-serif" font-size="11" fill="#000000" text-anchor="middle">6. Attempt Quiz</text>
+    <rect x="393" y="510" width="14" height="40" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <path d="M 407 522 L 672 522" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="515" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Store quiz answers</text>
+    <rect x="673" y="522" width="14" height="20" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <path d="M 673 542 L 407 542" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="538" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Confirm save</text>
+
+    <path d="M 393 550 L 120 550" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="546" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Quiz Submitted Successfully</text>
+  </g>
+
+  <!-- STEP 7: Review Score (y=580) -->
+  <g id="step-7">
+    <path d="M 120 580 L 392 580" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="573" font-family="Arial, sans-serif" font-size="11" fill="#000000" text-anchor="middle">7. Review Score &amp; Explanations</text>
+    <rect x="393" y="580" width="14" height="40" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <path d="M 407 592 L 672 592" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="585" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Fetch score details</text>
+    <rect x="673" y="592" width="14" height="20" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <path d="M 673 612 L 407 612" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="608" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Return scores data</text>
+
+    <path d="M 393 620 L 120 620" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="616" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Review details fetched successfully</text>
+  </g>
+
+  <!-- STEP 8: View Analytics / Progress (y=650) -->
+  <g id="step-8">
+    <path d="M 120 650 L 392 650" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="643" font-family="Arial, sans-serif" font-size="11" fill="#000000" text-anchor="middle">8. View Dashboard Analytics</text>
+    <rect x="393" y="650" width="14" height="40" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <path d="M 407 662 L 672 662" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="655" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Fetch history details</text>
+    <rect x="673" y="662" width="14" height="20" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <path d="M 673 682 L 407 682" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="540" y="678" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Return metrics data</text>
+
+    <path d="M 393 690 L 120 690" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="686" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Display progress analytics dashboard</text>
+  </g>
+
+  <!-- STEP 9: Logout (y=720) -->
+  <g id="step-9">
+    <path d="M 120 720 L 392 720" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="713" font-family="Arial, sans-serif" font-size="11" fill="#000000" text-anchor="middle">9. Logout</text>
+    <rect x="393" y="720" width="14" height="30" fill="#ffffff" stroke="#000000" stroke-width="1" />
+
+    <path d="M 393 745 L 120 745" stroke="#000000" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)" fill="none" />
+    <text x="250" y="741" font-family="Arial, sans-serif" font-size="10" fill="#000000" text-anchor="middle">Logout Successfully</text>
+  </g>
+
+  <!-- Lifeline destruction indicators (X) -->
+  <text x="120" y="795" font-family="Arial, sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">X</text>
+  <text x="400" y="795" font-family="Arial, sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">X</text>
+  <text x="680" y="795" font-family="Arial, sans-serif" font-size="18" fill="#000000" font-weight="bold" text-anchor="middle">X</text>
+</svg>
