@@ -2,18 +2,32 @@ import sqlite3
 import psycopg2
 from psycopg2.extras import RealDictCursor
 
-def sync_data():
-    conn_sq = sqlite3.connect("quiz_generator.db")
+import sys
+import os
+from pathlib import Path
+
+def sync_data(pg_url=None):
+    sqlite_db_path = Path(__file__).resolve().parent / "quiz_generator.db"
+    conn_sq = sqlite3.connect(str(sqlite_db_path))
     conn_sq.row_factory = sqlite3.Row
     c_sq = conn_sq.cursor()
 
-    conn_pg = psycopg2.connect(
-        dbname="quiz_generator",
-        user="postgres",
-        password="1234",
-        host="127.0.0.1",
-        port="5432"
-    )
+    if not pg_url:
+        pg_url = sys.argv[1] if len(sys.argv) > 1 else os.getenv("DATABASE_URL")
+
+    if pg_url and not pg_url.startswith("sqlite"):
+        if pg_url.startswith("postgres://"):
+            pg_url = pg_url.replace("postgres://", "postgresql://", 1)
+        print(f"Connecting to PostgreSQL using connection string...")
+        conn_pg = psycopg2.connect(pg_url)
+    else:
+        conn_pg = psycopg2.connect(
+            dbname="quiz_generator",
+            user="postgres",
+            password="1234",
+            host="127.0.0.1",
+            port="5432"
+        )
     c_pg = conn_pg.cursor(cursor_factory=RealDictCursor)
 
     print("--- 1. Syncing Users ---")

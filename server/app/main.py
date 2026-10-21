@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Ensure 'server' directory is on sys.path so 'import app...' resolves properly when invoked from root
+server_dir = Path(__file__).resolve().parent.parent
+if str(server_dir) not in sys.path:
+    sys.path.insert(0, str(server_dir))
+
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
@@ -212,7 +220,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-    allow_origin_regex=r"https?://(localhost|127\.0\.0\.1)(:\d+)?"
+    allow_origin_regex=r"https?://(localhost|127\.0\.0\.1)(:\d+)?|https://.*\.vercel\.app"
 )
 
 
