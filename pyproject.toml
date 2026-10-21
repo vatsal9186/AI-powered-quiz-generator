@@ -1,2 +1,29 @@
+[project]
+name = "ai-powered-quiz-generator"
+version = "0.1.0"
+description = "AI Powered Quiz Generator Backend"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "sqlalchemy",
+    "psycopg2-binary",
+    "python-dotenv",
+    "passlib[bcrypt]",
+    "python-jose[cryptography]",
+    "python-multipart",
+    "httpx",
+    "alembic",
+    "google-auth",
+    "requests",
+    "pypdf",
+    "pymupdf",
+    "python-docx",
+    "python-pptx",
+    "olefile",
+    "aiosmtplib",
+    "bcrypt",
+]
+
 [tool.vercel]
 entrypoint = "server.app.main:app"
