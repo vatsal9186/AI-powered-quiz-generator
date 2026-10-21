@@ -20,6 +20,7 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import "./AptitudeTest.css";
+import { apiBaseUrl } from "../../utils/api.js";
 
 // Static mock questions database
 const QUESTIONS = [
@@ -200,7 +201,6 @@ export default function AptitudeTest({ user, onOpenAuth }) {
     let baseSeconds = numQuestions * secondsPerQuestion;
     
     try {
-      const apiBaseUrl = `http://${window.location.hostname}:8000`;
       const token = sessionStorage.getItem('questai_token');
       const headers = {
         'Accept': 'application/json',
