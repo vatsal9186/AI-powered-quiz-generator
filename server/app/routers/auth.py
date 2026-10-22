@@ -199,34 +199,45 @@ async def google_auth(request: Request, response: Response, payload: GoogleAuthR
     
     user = db.query(models.User).filter(models.User.google_id == google_user["google_id"]).first()
     
-    if not user:
-        user = db.query(models.User).filter(models.User.email == google_user["email"]).first()
-        
-        if user:
-            user.google_id = google_user["google_id"]
-            user.profile_picture = google_user["picture"]
-            user.auth_provider = "google"
-            db.add(user)
-            db.commit()
-            db.refresh(user)
+    try:
+        if not user:
+            user = db.query(models.User).filter(models.User.email == google_user["email"]).first()
+            
+            if user:
+                user.google_id = google_user["google_id"]
+                user.profile_picture = google_user.get("picture")
+                user.auth_provider = "google"
+                db.add(user)
+                db.commit()
+                db.refresh(user)
+            else:
+                user = models.User(
+                    email=google_user["email"],
+                    full_name=google_user.get("full_name") or google_user["email"].split("@")[0],
+                    google_id=google_user["google_id"],
+                    profile_picture=google_user.get("picture"),
+                    auth_provider="google",
+                    role="user",
+                    status="active",
+                    hashed_password=None
+                )
+                db.add(user)
+                db.commit()
+                db.refresh(user)
         else:
-            user = models.User(
-                email=google_user["email"],
-                full_name=google_user["full_name"],
-                google_id=google_user["google_id"],
-                profile_picture=google_user["picture"],
-                auth_provider="google",
-                hashed_password=None
-            )
-            db.add(user)
-            db.commit()
-            db.refresh(user)
-    else:
-        if user.profile_picture != google_user["picture"]:
-            user.profile_picture = google_user["picture"]
-            db.add(user)
-            db.commit()
-            db.refresh(user)
+            if user.profile_picture != google_user.get("picture"):
+                user.profile_picture = google_user.get("picture")
+                db.add(user)
+                db.commit()
+                db.refresh(user)
+    except HTTPException:
+        raise
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Database error during Google authentication: {str(e)}"
+        )
         
     access_token = create_access_token(subject=user.id)
     

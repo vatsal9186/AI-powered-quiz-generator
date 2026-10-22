@@ -31,7 +31,10 @@ class Settings:
     ACCESS_TOKEN_EXPIRE_MINUTES: int = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "60"))
     
     # Google OAuth
-    GOOGLE_CLIENT_ID: str = os.getenv("GOOGLE_CLIENT_ID", "")
+    GOOGLE_CLIENT_ID: str = os.getenv(
+        "GOOGLE_CLIENT_ID",
+        "1004732812510-edmdaplkjbo36jatfesoiq4b341g0hb1.apps.googleusercontent.com"
+    )
     
     # Gemini API
     GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY") or os.getenv("AI_API_KEY") or ""
