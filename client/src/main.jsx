@@ -16,7 +16,7 @@ window.fetch = async (...args) => {
   const urlString = typeof resource === 'string' ? resource : (resource && resource.url) || "";
   
   if (
-    urlString.startsWith(apiBaseUrl) ||
+    (apiBaseUrl && urlString.startsWith(apiBaseUrl)) ||
     urlString.startsWith('/api') ||
     urlString.startsWith('http://localhost:8000') ||
     urlString.startsWith('http://127.0.0.1:8000')

@@ -107,11 +107,16 @@ export default function AuthModal({
     };
   }, [isOpen]);
 
+  const DEFAULT_GOOGLE_CLIENT_ID =
+    "1004732812510-edmdaplkjbo36jatfesoiq4b341g0hb1.apps.googleusercontent.com";
+
   // Load Google Identity Services script dynamically
   useEffect(() => {
     // Evaluate if Client ID is configured
-    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || "";
-    const isPlaceholder = !clientId || clientId.startsWith("your-google-client-id");
+    const clientId =
+      import.meta.env.VITE_GOOGLE_CLIENT_ID || DEFAULT_GOOGLE_CLIENT_ID;
+    const isPlaceholder =
+      !clientId || clientId.startsWith("your-google-client-id");
     setIsGoogleConfigured(!isPlaceholder);
 
     const handleScriptLoad = () => {
@@ -135,7 +140,8 @@ export default function AuthModal({
   // Initialize Google Login and render button if configured
   useEffect(() => {
     if (isOpen && isGoogleConfigured && isScriptLoaded && window.google) {
-      const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+      const clientId =
+        import.meta.env.VITE_GOOGLE_CLIENT_ID || DEFAULT_GOOGLE_CLIENT_ID;
       
       try {
         window.google.accounts.id.initialize({
@@ -163,8 +169,6 @@ export default function AuthModal({
   const handleGoogleCredentialResponse = async (response) => {
     setLoading(true);
     setErrors({});
-    
-    const apiBaseUrl = import.meta.env.VITE_API_URL || "http://localhost:8000";
     
     try {
       const res = await fetch(`${apiBaseUrl}/api/auth/google`, {
@@ -419,17 +423,38 @@ export default function AuthModal({
       }
     } catch (err) {
       setLoading(false);
-      setErrors({ form: err.message });
+      let errMsg = err.message || "Authentication failed.";
+      if (errMsg === "Failed to fetch" || err.name === "TypeError") {
+        const isProd =
+          typeof window !== "undefined" &&
+          window.location.hostname !== "localhost" &&
+          window.location.hostname !== "127.0.0.1";
+        if (isProd && !import.meta.env.VITE_API_URL) {
+          errMsg =
+            "Backend API URL is not configured. Please set VITE_API_URL in your Vercel Project Settings.";
+        } else {
+          errMsg =
+            "Unable to connect to the backend server. Please verify your backend server is running and accessible.";
+        }
+      }
+      setErrors({ form: errMsg });
     }
   };
 
   // Robust fetch helper to automatically fall back between localhost and 127.0.0.1 if network resolution differs
   const robustFetch = async (path, options = {}) => {
-    const urlsToTry = [
-      `${apiBaseUrl}${path}`,
-      `http://127.0.0.1:8000${path}`,
-      `http://localhost:8000${path}`
-    ];
+    const urlsToTry = [`${apiBaseUrl}${path}`];
+    const isLocal =
+      typeof window !== "undefined" &&
+      (window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1");
+
+    if (isLocal) {
+      urlsToTry.push(
+        `http://127.0.0.1:8000${path}`,
+        `http://localhost:8000${path}`
+      );
+    }
     const uniqueUrls = [...new Set(urlsToTry)];
 
     let lastError = null;
