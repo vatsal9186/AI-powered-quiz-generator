@@ -186,7 +186,11 @@ export default function AuthModal({
 
       const data = await res.json();
       
-      // Store credentials in sessionStorage
+      // Store credentials and auth token
+      if (data.access_token) {
+        sessionStorage.setItem("questai_token", data.access_token);
+        localStorage.setItem("questai_token", data.access_token);
+      }
       sessionStorage.setItem("questai_user", JSON.stringify({
         name: data.user_name,
         email: data.user_email,
@@ -388,7 +392,10 @@ export default function AuthModal({
           throw new Error("Registration succeeded but auto-login failed.");
         }
         
-        const loginData = await loginRes.json();
+        if (loginData.access_token) {
+          sessionStorage.setItem("questai_token", loginData.access_token);
+          localStorage.setItem("questai_token", loginData.access_token);
+        }
         sessionStorage.setItem("questai_user", JSON.stringify({
           name: loginData.user_name,
           email: loginData.user_email
@@ -404,7 +411,10 @@ export default function AuthModal({
             avatar: null,
           });
         }, 700);
-      } else {
+        if (data.access_token) {
+          sessionStorage.setItem("questai_token", data.access_token);
+          localStorage.setItem("questai_token", data.access_token);
+        }
         sessionStorage.setItem("questai_user", JSON.stringify({
           name: data.user_name,
           email: data.user_email

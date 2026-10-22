@@ -80,12 +80,12 @@ def login_json(request: Request, response: Response, user_credentials: UserLogin
         value=access_token,
         httponly=True,
         secure=not is_local,
-        samesite="lax",
+        samesite="none" if not is_local else "lax",
         path="/"
     )
     
     return Token(
-        access_token="session_active",
+        access_token=access_token,
         token_type="bearer",
         user_name=user.full_name,
         user_email=user.email,
@@ -121,12 +121,12 @@ def admin_login(request: Request, response: Response, user_credentials: UserLogi
         value=access_token,
         httponly=True,
         secure=not is_local,
-        samesite="lax",
+        samesite="none" if not is_local else "lax",
         path="/"
     )
     
     return Token(
-        access_token="session_active",
+        access_token=access_token,
         token_type="bearer",
         user_name=user.full_name,
         user_email=user.email,
@@ -178,7 +178,7 @@ def login_swagger(request: Request, response: Response, form_data: OAuth2Passwor
         value=access_token,
         httponly=True,
         secure=not is_local,
-        samesite="lax",
+        samesite="none" if not is_local else "lax",
         path="/"
     )
     
@@ -237,12 +237,12 @@ async def google_auth(request: Request, response: Response, payload: GoogleAuthR
         value=access_token,
         httponly=True,
         secure=not is_local,
-        samesite="lax",
+        samesite="none" if not is_local else "lax",
         path="/"
     )
     
     return Token(
-        access_token="session_active",
+        access_token=access_token,
         token_type="bearer",
         user_name=user.full_name,
         user_email=user.email,
@@ -258,7 +258,8 @@ def logout(response: Response):
         key="questai_session",
         path="/",
         httponly=True,
-        samesite="lax"
+        samesite="none",
+        secure=True
     )
     return {"success": True, "message": "Successfully logged out and session cleared."}
 

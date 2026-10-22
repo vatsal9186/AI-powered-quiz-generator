@@ -76,7 +76,8 @@ function AppContent() {
 
   const handleLogoutCleanup = () => {
     sessionStorage.removeItem('questai_user');
-    localStorage.removeItem('questai_token'); // Clean up any old persistent tokens
+    sessionStorage.removeItem('questai_token');
+    localStorage.removeItem('questai_token');
     localStorage.removeItem('questai_user');
     setUser(null);
   };

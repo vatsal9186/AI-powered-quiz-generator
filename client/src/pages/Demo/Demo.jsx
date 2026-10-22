@@ -226,9 +226,10 @@ export default function Demo({ user, onOpenAuth }) {
       return;
     }
 
-    const token = sessionStorage.getItem("questai_user")
-      ? "session_active"
-      : null;
+    const token =
+      sessionStorage.getItem("questai_token") ||
+      localStorage.getItem("questai_token") ||
+      (sessionStorage.getItem("questai_user") ? "session_active" : null);
     if (!token) return;
 
     setErrorMsg("");
@@ -288,9 +289,10 @@ export default function Demo({ user, onOpenAuth }) {
       return;
     }
 
-    const token = sessionStorage.getItem("questai_user")
-      ? "session_active"
-      : null;
+    const token =
+      sessionStorage.getItem("questai_token") ||
+      localStorage.getItem("questai_token") ||
+      (sessionStorage.getItem("questai_user") ? "session_active" : null);
     if (!token) return;
 
     setIsGenerating(true);
@@ -432,9 +434,10 @@ export default function Demo({ user, onOpenAuth }) {
       })).filter(a => a.selected_option_id !== null)
     };
 
-    const token = sessionStorage.getItem("questai_user")
-      ? "session_active"
-      : null;
+    const token =
+      sessionStorage.getItem("questai_token") ||
+      localStorage.getItem("questai_token") ||
+      (sessionStorage.getItem("questai_user") ? "session_active" : null);
 
     try {
       const targetQuizId = activeQuizId || (questions && questions[0] && questions[0].quiz_id);
