@@ -22,7 +22,7 @@ def call_gemini(prompt: str, json_mode: bool = False, api_key: str = None) -> st
     if not configured_keys:
         raise ValueError("Gemini API key is not configured or is invalid. Please configure a valid API key in your backend .env file.")
 
-    models_to_try = ["gemini-1.5-flash", "gemini-2.0-flash"]
+    models_to_try = ["gemini-3.5-flash", "gemini-3.5-flash-lite", "gemini-3.1-flash-lite"]
     headers = {"Content-Type": "application/json"}
     
     payload = {
@@ -45,7 +45,7 @@ def call_gemini(prompt: str, json_mode: bool = False, api_key: str = None) -> st
         for model_name in models_to_try:
             url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={current_key}"
             try:
-                response = requests.post(url, json=payload, headers=headers, timeout=12)
+                response = requests.post(url, json=payload, headers=headers, timeout=30)
                 if response.status_code == 200:
                     response_data = response.json()
                     text_output = response_data['candidates'][0]['content']['parts'][0]['text']
@@ -593,18 +593,16 @@ def generate_quiz_questions(content: str, difficulty: str, num_questions: int) -
     """
     Generates mcq quiz questions based strictly on the provided content text.
     """
-    if len(content.strip()) < 100:
-        raise ValueError("Selected content is too short to generate a high-quality quiz (minimum 100 characters). Please select more chapters.")
+    cleaned_content = content.strip()
+    if len(cleaned_content) < 80:
+        print("[QUIZ_GEN] Content is short (< 80 chars), generating questions heuristically...")
+        return generate_quiz_questions_heuristically(cleaned_content, difficulty, num_questions)
+
+    # Bound content length to prevent payload timeout while retaining sufficient context
+    if len(cleaned_content) > 35000:
+        cleaned_content = cleaned_content[:35000]
 
     difficulty = difficulty.strip().lower()
-
-    # Fast Upload Mode bypasses Gemini call for instant local heuristic generation
-    if getattr(settings, "FAST_UPLOAD_MODE", True):
-        try:
-            print("[FAST_UPLOAD_MODE] Bypassing Gemini API, generating questions heuristically...")
-            return generate_quiz_questions_heuristically(content, difficulty, num_questions)
-        except Exception as e:
-            print(f"[FAST_UPLOAD_MODE] Heuristic generation failed, falling back to Gemini API: {e}")
     
     prompt = f"""You are an expert academic evaluator. Generate a multiple-choice quiz containing exactly {num_questions} questions of difficulty level '{difficulty}' based strictly and only on the provided content.
 
@@ -699,9 +697,8 @@ Provided Content:
                 except Exception as fallback_err:
                     raise ValueError(f"AI failed to generate valid structured questions. Details: {str(e)}. Fallback also failed: {fallback_err}")
             print(f"Logic parsing retry {logic_attempt + 1} due to error: {str(e)}")
-            time.sleep(1)
-            
-    raise ValueError("AI failed to generate valid structured questions after retries.")
+    print("[FINAL_FALLBACK] Retries exhausted, generating questions heuristically...")
+    return generate_quiz_questions_heuristically(content, difficulty, num_questions)
 
 
 def generate_aptitude_questions_heuristically(difficulty: str = "medium", num_questions: int = 15) -> List[Dict[str, Any]]:

@@ -81,6 +81,75 @@ export default function Demo({ user, onOpenAuth }) {
     return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
   };
 
+  const [existingDocs, setExistingDocs] = useState([]);
+
+  const fetchExistingDocs = async () => {
+    const token =
+      sessionStorage.getItem("questai_token") ||
+      localStorage.getItem("questai_token");
+    if (!token) return;
+    try {
+      const res = await fetch(`${apiBaseUrl}/api/documents?limit=50`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const readyDocs = (data || []).filter((d) => d.status === "ready");
+        setExistingDocs(readyDocs);
+      }
+    } catch (e) {
+      console.error("Failed to load existing documents:", e);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      fetchExistingDocs();
+    }
+  }, [user]);
+
+  const handleSelectExistingDoc = async (docId) => {
+    if (!docId) return;
+    const token =
+      sessionStorage.getItem("questai_token") ||
+      localStorage.getItem("questai_token");
+    if (!token) return;
+    try {
+      setErrorMsg("");
+      setUploading(true);
+      setProcessingStage("Loading document structure...");
+      setUploadProgress(70);
+      const res = await fetch(`${apiBaseUrl}/api/documents/${docId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!res.ok) throw new Error("Could not load document details.");
+      const doc = await res.json();
+      setSelectedFile(doc.file_name);
+      setAnalyzedDoc(doc);
+      setUploading(false);
+      setUploadProgress(100);
+
+      let firstChapter = "";
+      if (doc.structure && doc.structure.length > 0) {
+        const firstMod = doc.structure[0];
+        if (firstMod.chapters && firstMod.chapters.length > 0) {
+          firstChapter = firstMod.chapters[0].title;
+        }
+      }
+      if (!firstChapter) firstChapter = "Chapter 1";
+      setSelectedChapters([firstChapter]);
+      setChatMessages([
+        {
+          sender: "ai",
+          text: `Loaded existing book "${doc.title}". Select a chapter and start practice!`,
+        },
+      ]);
+    } catch (err) {
+      setErrorMsg(err.message || "Failed to load document.");
+      setUploading(false);
+    }
+  };
+
   const getDropdownOptions = () => {
     if (!analyzedDoc) return [];
     const options = [];
@@ -163,6 +232,7 @@ export default function Demo({ user, onOpenAuth }) {
           text: `Awesome! I've scanned the document "${updatedDoc.title}" and mapped its outline. Select a chapter from the dropdown to start a practice quiz!`,
         },
       ]);
+      fetchExistingDocs();
     };
 
     const interval = setInterval(async () => {
@@ -185,7 +255,9 @@ export default function Demo({ user, onOpenAuth }) {
           clearInterval(interval);
           clearInterval(progressInterval);
           setUploading(false);
-          setErrorMsg(updatedDoc.error_message || "Document processing failed.");
+          setAnalyzedDoc(null);
+          setSelectedFile(null);
+          setErrorMsg(updatedDoc.error_message || "Document processing failed. Please try again.");
         } else {
           if (updatedDoc.status === "processing") {
             targetProgress = 35;
@@ -630,7 +702,9 @@ export default function Demo({ user, onOpenAuth }) {
                   className="btn-secondary-action"
                   onClick={() => {
                     setAnalyzedDoc(null);
+                    setSelectedFile(null);
                     setSelectedChapters([]);
+                    setErrorMsg("");
                   }}
                 >
                   Reset File
@@ -646,43 +720,70 @@ export default function Demo({ user, onOpenAuth }) {
               </div>
             </div>
           ) : (
-            <div
-              className="demo-upload-zone"
-              onDragOver={handleDragOver}
-              onDrop={handleDrop}
-              onClick={() => {
-                if (!user) setShowAuthWarning(true);
-              }}
-            >
-              <div className="upload-icon-circle">
-                <Upload size={26} />
-              </div>
-              <p className="drag-title">Drag & Drop Document Here</p>
-              <p className="drag-support">
-                Supports PDF, PPT/PPTX, DOC/DOCX (Max 10MB)
-              </p>
-              <div className="drag-divider-row">
-                <div className="drag-divider-line"></div>
-                <span className="drag-divider-text">OR</span>
-                <div className="drag-divider-line"></div>
-              </div>
-              <label
-                className="demo-browse-btn"
-                onClick={(e) => {
-                  if (!user) {
-                    e.preventDefault();
-                    setShowAuthWarning(true);
-                  }
+            <div>
+              <div
+                className="demo-upload-zone"
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+                onClick={() => {
+                  if (!user) setShowAuthWarning(true);
                 }}
               >
-                <BookOpen size={15} /> Browse Files
-                <input
-                  type="file"
-                  accept=".pdf,.doc,.docx,.ppt,.pptx"
-                  onChange={handleFileBrowseChange}
-                  style={{ display: "none" }}
-                />
-              </label>
+                <div className="upload-icon-circle">
+                  <Upload size={26} />
+                </div>
+                <p className="drag-title">Drag & Drop Document Here</p>
+                <p className="drag-support">
+                  Supports PDF, PPT/PPTX, DOC/DOCX (Max 100MB)
+                </p>
+                <div className="drag-divider-row">
+                  <div className="drag-divider-line"></div>
+                  <span className="drag-divider-text">OR</span>
+                  <div className="drag-divider-line"></div>
+                </div>
+                <label
+                  className="demo-browse-btn"
+                  onClick={(e) => {
+                    if (!user) {
+                      e.preventDefault();
+                      setShowAuthWarning(true);
+                    }
+                  }}
+                >
+                  <BookOpen size={15} /> Browse Files
+                  <input
+                    type="file"
+                    accept=".pdf,.doc,.docx,.ppt,.pptx"
+                    onChange={handleFileBrowseChange}
+                    style={{ display: "none" }}
+                  />
+                </label>
+              </div>
+
+              {existingDocs && existingDocs.length > 0 && (
+                <div style={{ marginTop: "1rem", textAlign: "center" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", margin: "14px 0 8px 0" }}>
+                    <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.08)" }}></div>
+                    <span style={{ fontSize: "0.78rem", color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 600 }}>
+                      Or choose from your library
+                    </span>
+                    <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.08)" }}></div>
+                  </div>
+                  <select
+                    className="styled-select"
+                    style={{ fontSize: "0.85rem", width: "100%", cursor: "pointer" }}
+                    value=""
+                    onChange={(e) => handleSelectExistingDoc(e.target.value)}
+                  >
+                    <option value="">-- Select an existing uploaded book ({existingDocs.length} available) --</option>
+                    {existingDocs.map((d) => (
+                      <option key={d.id} value={d.id}>
+                        📚 {d.title || d.file_name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
             </div>
           )}
         </div>

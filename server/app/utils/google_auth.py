@@ -32,8 +32,15 @@ async def verify_google_id_token(token: str) -> dict:
             "google_id": payload.get("sub"),
             "picture": payload.get("picture")
         }
+    except HTTPException:
+        raise
     except ValueError as e:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail=f"Invalid Google OAuth credential token: {str(e)}"
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Google authentication verification error: {str(e)}"
         )

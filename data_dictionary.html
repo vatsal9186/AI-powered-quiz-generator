@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuestAI - Data Dictionary Viewer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(18, 24, 38, 0.85);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --accent: #8b5cf6;
+      --pk-color: #f59e0b;
+      --fk-color: #06b6d4;
+      --uq-color: #ec4899;
+      --table-header: rgba(30, 41, 59, 0.9);
+      --row-hover: rgba(59, 130, 246, 0.08);
+      --badge-bg: rgba(255, 255, 255, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 80px;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.12) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    /* Top Sticky Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      background: rgba(9, 13, 22, 0.85);
+      border-bottom: 1px solid var(--card-border);
+      padding: 16px 32px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 20px;
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+    }
+
+    .brand-text h1 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-text p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-grow: 1;
+      max-width: 500px;
+    }
+
+    .search-box {
+      position: relative;
+      width: 100%;
+    }
+
+    .search-box input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 10px 16px 10px 40px;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .stat-badge {
+      padding: 6px 14px;
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #93c5fd;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1200px;
+      margin: 32px auto;
+      padding: 0 24px;
+    }
+
+    .quick-jump {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+      padding: 14px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+    }
+
+    .jump-btn {
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+
+    .jump-btn:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    /* Table Cards */
+    .table-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      margin-bottom: 32px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(8px);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .table-card:hover {
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+
+    .table-header {
+      padding: 20px 24px;
+      background: linear-gradient(90deg, rgba(30, 41, 59, 0.6), transparent);
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .table-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .table-number {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .table-name {
+      font-size: 20px;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      color: #60a5fa;
+    }
+
+    .col-count {
+      font-size: 13px;
+      color: var(--text-muted);
+      background: var(--badge-bg);
+      padding: 4px 10px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+    }
+
+    .table-desc {
+      padding: 12px 24px;
+      background: rgba(0, 0, 0, 0.2);
+      font-size: 14px;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    /* Data Table */
+    .table-responsive {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      background: var(--table-header);
+      padding: 12px 20px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #94a3b8;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    td {
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      vertical-align: top;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: var(--row-hover);
+    }
+
+    .field-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .field-type {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #a78bfa;
+      background: rgba(167, 139, 250, 0.1);
+      padding: 2px 8px;
+      border-radius: 6px;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .constraint-pill {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      margin: 2px 4px 2px 0;
+      white-space: nowrap;
+    }
+
+    .pill-pk {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .pill-fk {
+      background: rgba(6, 182, 212, 0.15);
+      color: #22d3ee;
+      border: 1px solid rgba(6, 182, 212, 0.3);
+    }
+
+    .pill-uq {
+      background: rgba(236, 72, 153, 0.15);
+      color: #f472b6;
+      border: 1px solid rgba(236, 72, 153, 0.3);
+    }
+
+    .pill-notnull {
+      background: rgba(255, 255, 255, 0.06);
+      color: #cbd5e1;
+      border: 1px solid var(--card-border);
+    }
+
+    .pill-default {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    .field-desc {
+      color: #cbd5e1;
+      font-size: 13.5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Top Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-logo">Q</div>
+      <div class="brand-text">
+        <h1>QuestAI Data Dictionary</h1>
+        <p>11 Tables &bull; Optimized Schema &bull; Semester 3 Project</p>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="search-box">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Search tables, fields, or types..." onkeyup="filterDictionary()">
+      </div>
+    </div>
+
+    <div class="stat-badge">
+      11 Total Tables
+    </div>
+  </header>
+
+  <main>
+    <!-- Quick Jump Menu -->
+    <div class="quick-jump">
+      <span style="font-size: 12px; font-weight:700; color:var(--text-muted); margin-right:4px; align-self:center;">JUMP TO:</span>
+      <a href="#users" class="jump-btn">users</a>
+      <a href="#documents" class="jump-btn">documents</a>
+      <a href="#password_reset_otps" class="jump-btn">password_reset_otps</a>
+      <a href="#modules" class="jump-btn">modules</a>
+      <a href="#chapters" class="jump-btn">chapters</a>
+      <a href="#topics" class="jump-btn">topics</a>
+      <a href="#quizzes" class="jump-btn">quizzes</a>
+      <a href="#questions" class="jump-btn">questions</a>
+      <a href="#options" class="jump-btn">options</a>
+      <a href="#quiz_attempts" class="jump-btn">quiz_attempts</a>
+      <a href="#user_answers" class="jump-btn">user_answers</a>
+    </div>
+
+    <!-- 1. users -->
+    <div class="table-card" id="users">
+      <div class="table-header">
+        <div class="table-title">
+          <span class="table-number">1</span>
+          <span class="table-name">users</span>
+        </div>
+        <span class="col-count">12 Fields</span>
+      </div>
+      <div class="table-desc">
+        Stores user accounts, authentication credentials (local or Google OAuth), profile details, contact info, and access roles.
+      </div>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 20%;">Field</th>
+              <th style="width: 18%;">Type</th>
+              <th style="width: 27%;">Constraints</th>
+              <th style="width: 35%;">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="field-name">id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-pk">PK</span><span class="constraint-pill pill-notnull">Not Null</span><span class="constraint-pill pill-notnull">Auto Inc</span></td>
+              <td class="field-desc">Unique ID for each user account.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">email</span></td>
+              <td><span class="field-type">String(100)</span></td>
+              <td><span class="constraint-pill pill-uq">Unique</span><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">User's email address (used for sign-in, max 100 chars).</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">hashed_password</span></td>
+              <td><span class="field-type">String(72)</span></td>
+              <td><span class="constraint-pill pill-notnull">Nullable</span></td>
+              <td class="field-desc">Encrypted bcrypt/argon2 hash (60 chars for bcrypt, null for OAuth).</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">full_name</span></td>
+              <td><span class="field-type">String(60)</span></td>
+              <td><span class="constraint-pill pill-notnull">Nullable</span></td>
+              <td class="field-desc">User display/legal full name (optimized for standard naming conventions).</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">google_id</span></td>
+              <td><span class="field-type">String(50)</span></td>
+              <td><span class="constraint-pill pill-uq">Unique</span><span class="constraint-pill pill-notnull">Nullable</span></td>
+              <td class="field-desc">Google OAuth 2.0 unique 21-digit identifier.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">profile_picture</span></td>
+              <td><span class="field-type">String(500)</span></td>
+              <td><span class="constraint-pill pill-notnull">Nullable</span></td>
+              <td class="field-desc">Profile avatar image URL (CDN or Google hosted).</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">auth_provider</span></td>
+              <td><span class="field-type">String(20)</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span><span class="constraint-pill pill-default">Default: "local"</span></td>
+              <td class="field-desc">Signup provider method ("local", "google").</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">role</span></td>
+              <td><span class="field-type">String(20)</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span><span class="constraint-pill pill-default">Default: "user"</span></td>
+              <td class="field-desc">Access role for authorization ("user", "admin").</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">status</span></td>
+              <td><span class="field-type">String(20)</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span><span class="constraint-pill pill-default">Default: "active"</span></td>
+              <td class="field-desc">Account status ("active", "suspended", "inactive").</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">phone_number</span></td>
+              <td><span class="field-type">String(20)</span></td>
+              <td><span class="constraint-pill pill-uq">Unique</span><span class="constraint-pill pill-notnull">Nullable</span></td>
+              <td class="field-desc">E.164 formatted international contact number (+XXXXXXXXXXX).</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">created_at</span></td>
+              <td><span class="field-type">DateTime</span></td>
+              <td><span class="constraint-pill pill-default">Default: Current Time</span></td>
+              <td class="field-desc">Account registration timestamp.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">updated_at</span></td>
+              <td><span class="field-type">DateTime</span></td>
+              <td><span class="constraint-pill pill-default">Default: Current Time</span></td>
+              <td class="field-desc">Last profile update timestamp.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 2. documents -->
+    <div class="table-card" id="documents">
+      <div class="table-header">
+        <div class="table-title">
+          <span class="table-number">2</span>
+          <span class="table-name">documents</span>
+        </div>
+        <span class="col-count">9 Fields</span>
+      </div>
+      <div class="table-desc">
+        Stores uploaded files, parsed lecture notes, textbooks, and raw text content along with AI processing status.
+      </div>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 20%;">Field</th>
+              <th style="width: 18%;">Type</th>
+              <th style="width: 27%;">Constraints</th>
+              <th style="width: 35%;">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="field-name">id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-pk">PK</span><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Unique ID for each document.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">title</span></td>
+              <td><span class="field-type">String(150)</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">User-defined title for the uploaded study material.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">file_name</span></td>
+              <td><span class="field-type">String(150)</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Original file name (e.g., "computer_networks_ch1.pdf").</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">content</span></td>
+              <td><span class="field-type">Text</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Full extracted text content parsed from the uploaded document.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">owner_id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-fk">FK: users.id</span><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Account ID of the document uploader.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">status</span></td>
+              <td><span class="field-type">String(20)</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span><span class="constraint-pill pill-default">Default: "processing"</span></td>
+              <td class="field-desc">State of processing ("processing", "completed", "failed").</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">error_message</span></td>
+              <td><span class="field-type">Text</span></td>
+              <td><span class="constraint-pill pill-notnull">Nullable</span></td>
+              <td class="field-desc">Detailed error log if parsing/text extraction fails.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">created_at</span></td>
+              <td><span class="field-type">DateTime</span></td>
+              <td><span class="constraint-pill pill-default">Default: Current Time</span></td>
+              <td class="field-desc">File upload timestamp.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">updated_at</span></td>
+              <td><span class="field-type">DateTime</span></td>
+              <td><span class="constraint-pill pill-default">Default: Current Time</span></td>
+              <td class="field-desc">Last processing update timestamp.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 3. password_reset_otps -->
+    <div class="table-card" id="password_reset_otps">
+      <div class="table-header">
+        <div class="table-title">
+          <span class="table-number">3</span>
+          <span class="table-name">password_reset_otps</span>
+        </div>
+        <span class="col-count">13 Fields</span>
+      </div>
+      <div class="table-desc">
+        Manages one-time passwords (OTP) for self-service password reset via SMS or Email.
+      </div>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 20%;">Field</th>
+              <th style="width: 18%;">Type</th>
+              <th style="width: 27%;">Constraints</th>
+              <th style="width: 35%;">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="field-name">id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-pk">PK</span><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Unique ID for the OTP transaction.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">user_id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-fk">FK: users.id</span><span class="constraint-pill pill-notnull">Nullable</span></td>
+              <td class="field-desc">Target user account being verified.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">verification_method</span></td>
+              <td><span class="field-type">String(10)</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span><span class="constraint-pill pill-default">Default: "sms"</span></td>
+              <td class="field-desc">Delivery channel ("sms" or "email").</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">phone_number</span></td>
+              <td><span class="field-type">String(50)</span></td>
+              <td><span class="constraint-pill pill-notnull">Nullable</span></td>
+              <td class="field-desc">Target destination (phone number or fallback email identifier).</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">email</span></td>
+              <td><span class="field-type">String(100)</span></td>
+              <td><span class="constraint-pill pill-notnull">Nullable</span></td>
+              <td class="field-desc">Target destination email address.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">reference_id</span></td>
+              <td><span class="field-type">String(64)</span></td>
+              <td><span class="constraint-pill pill-uq">Unique</span><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Public cryptographic reference token for client verification.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">otp_hash</span></td>
+              <td><span class="field-type">String(64)</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">SHA-256 hash of the 6-digit verification code.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">expires_at</span></td>
+              <td><span class="field-type">DateTime</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Timestamp when the OTP expires (5 minutes).</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">attempt_count</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span><span class="constraint-pill pill-default">Default: 0</span></td>
+              <td class="field-desc">Failed verification attempts counter (prevents brute-force).</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">max_attempts</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span><span class="constraint-pill pill-default">Default: 5</span></td>
+              <td class="field-desc">Maximum allowed verification attempts.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">is_used</span></td>
+              <td><span class="field-type">Boolean</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span><span class="constraint-pill pill-default">Default: False</span></td>
+              <td class="field-desc">Flag indicating whether OTP has already been redeemed.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">resend_available_at</span></td>
+              <td><span class="field-type">DateTime</span></td>
+              <td><span class="constraint-pill pill-notnull">Nullable</span></td>
+              <td class="field-desc">Cooldown timestamp before another OTP request is allowed.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">created_at</span></td>
+              <td><span class="field-type">DateTime</span></td>
+              <td><span class="constraint-pill pill-default">Default: Current Time</span></td>
+              <td class="field-desc">OTP generation timestamp.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. modules -->
+    <div class="table-card" id="modules">
+      <div class="table-header">
+        <div class="table-title">
+          <span class="table-number">4</span>
+          <span class="table-name">modules</span>
+        </div>
+        <span class="col-count">4 Fields</span>
+      </div>
+      <div class="table-desc">
+        High-level structural sections extracted from an uploaded document.
+      </div>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 20%;">Field</th>
+              <th style="width: 18%;">Type</th>
+              <th style="width: 27%;">Constraints</th>
+              <th style="width: 35%;">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="field-name">id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-pk">PK</span><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Unique ID for the module.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">document_id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-fk">FK: documents.id</span><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Parent document ID.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">title</span></td>
+              <td><span class="field-type">String(150)</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Title of the module (e.g., "Module 1: Fundamental Concepts").</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">order</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-default">Default: 0</span></td>
+              <td class="field-desc">Sequential display ordering index.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 5. chapters -->
+    <div class="table-card" id="chapters">
+      <div class="table-header">
+        <div class="table-title">
+          <span class="table-number">5</span>
+          <span class="table-name">chapters</span>
+        </div>
+        <span class="col-count">6 Fields</span>
+      </div>
+      <div class="table-desc">
+        Individual chapters parsed under modules or documents containing source topic text.
+      </div>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 20%;">Field</th>
+              <th style="width: 18%;">Type</th>
+              <th style="width: 27%;">Constraints</th>
+              <th style="width: 35%;">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="field-name">id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-pk">PK</span><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Unique ID for the chapter.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">document_id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-fk">FK: documents.id</span><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Parent document ID.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">module_id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-fk">FK: modules.id</span><span class="constraint-pill pill-notnull">Nullable</span></td>
+              <td class="field-desc">Optional parent module ID.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">title</span></td>
+              <td><span class="field-type">String(150)</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Title of the chapter.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">content</span></td>
+              <td><span class="field-type">Text</span></td>
+              <td><span class="constraint-pill pill-notnull">Nullable</span></td>
+              <td class="field-desc">Text content contained within this chapter.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">order</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-default">Default: 0</span></td>
+              <td class="field-desc">Sequential display ordering index.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 6. topics -->
+    <div class="table-card" id="topics">
+      <div class="table-header">
+        <div class="table-title">
+          <span class="table-number">6</span>
+          <span class="table-name">topics</span>
+        </div>
+        <span class="col-count">4 Fields</span>
+      </div>
+      <div class="table-desc">
+        Fine-grained sub-topics mapped within specific chapters for granular quiz generation.
+      </div>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 20%;">Field</th>
+              <th style="width: 18%;">Type</th>
+              <th style="width: 27%;">Constraints</th>
+              <th style="width: 35%;">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="field-name">id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-pk">PK</span><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Unique ID for the topic.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">chapter_id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-fk">FK: chapters.id</span><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Parent chapter ID.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">title</span></td>
+              <td><span class="field-type">String(150)</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Sub-topic title.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">order</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-default">Default: 0</span></td>
+              <td class="field-desc">Sequential display ordering index.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 7. quizzes -->
+    <div class="table-card" id="quizzes">
+      <div class="table-header">
+        <div class="table-title">
+          <span class="table-number">7</span>
+          <span class="table-name">quizzes</span>
+        </div>
+        <span class="col-count">11 Fields</span>
+      </div>
+      <div class="table-desc">
+        Stores quiz metadata, difficulty settings, and AI generation parameters.
+      </div>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 20%;">Field</th>
+              <th style="width: 18%;">Type</th>
+              <th style="width: 27%;">Constraints</th>
+              <th style="width: 35%;">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="field-name">id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-pk">PK</span><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Unique ID for the quiz.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">title</span></td>
+              <td><span class="field-type">String(150)</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Descriptive title of the generated quiz.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">description</span></td>
+              <td><span class="field-type">Text</span></td>
+              <td><span class="constraint-pill pill-notnull">Nullable</span></td>
+              <td class="field-desc">Detailed summary or curriculum scope of the quiz.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">source_type</span></td>
+              <td><span class="field-type">String(20)</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Source material type ("text", "file", "url", "topic").</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">difficulty</span></td>
+              <td><span class="field-type">String(20)</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Difficulty rating ("easy", "medium", "hard").</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">creator_id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-fk">FK: users.id</span><span class="constraint-pill pill-notnull">Nullable</span></td>
+              <td class="field-desc">ID of the author/creator (null if system generated).</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">document_id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-fk">FK: documents.id</span><span class="constraint-pill pill-notnull">Nullable</span></td>
+              <td class="field-desc">Associated source document ID.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">status</span></td>
+              <td><span class="field-type">String(20)</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span><span class="constraint-pill pill-default">Default: "completed"</span></td>
+              <td class="field-desc">Generation state ("processing", "completed", "failed").</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">error_message</span></td>
+              <td><span class="field-type">Text</span></td>
+              <td><span class="constraint-pill pill-notnull">Nullable</span></td>
+              <td class="field-desc">Error log details if AI generation fails.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">created_at</span></td>
+              <td><span class="field-type">DateTime</span></td>
+              <td><span class="constraint-pill pill-default">Default: Current Time</span></td>
+              <td class="field-desc">Quiz creation timestamp.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">updated_at</span></td>
+              <td><span class="field-type">DateTime</span></td>
+              <td><span class="constraint-pill pill-default">Default: Current Time</span></td>
+              <td class="field-desc">Last update timestamp.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 8. questions -->
+    <div class="table-card" id="questions">
+      <div class="table-header">
+        <div class="table-title">
+          <span class="table-number">8</span>
+          <span class="table-name">questions</span>
+        </div>
+        <span class="col-count">9 Fields</span>
+      </div>
+      <div class="table-desc">
+        Stores individual questions generated for a quiz along with explanations and points.
+      </div>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 20%;">Field</th>
+              <th style="width: 18%;">Type</th>
+              <th style="width: 27%;">Constraints</th>
+              <th style="width: 35%;">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="field-name">id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-pk">PK</span><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Unique ID for the question.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">quiz_id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-fk">FK: quizzes.id</span><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Parent quiz ID.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">question_text</span></td>
+              <td><span class="field-type">Text</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">The question prompt text.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">type</span></td>
+              <td><span class="field-type">String(20)</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Question type ("mcq", "tf", "fill", "short").</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">explanation</span></td>
+              <td><span class="field-type">Text</span></td>
+              <td><span class="constraint-pill pill-notnull">Nullable</span></td>
+              <td class="field-desc">Detailed AI explanation of why the correct option is right.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">points</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-default">Default: 1</span></td>
+              <td class="field-desc">Point score value for answering correctly.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">source_chapter</span></td>
+              <td><span class="field-type">String(150)</span></td>
+              <td><span class="constraint-pill pill-notnull">Nullable</span></td>
+              <td class="field-desc">Name of the source chapter referenced.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">difficulty</span></td>
+              <td><span class="field-type">String(20)</span></td>
+              <td><span class="constraint-pill pill-notnull">Nullable</span></td>
+              <td class="field-desc">Question difficulty level ("easy", "medium", "hard").</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">created_at</span></td>
+              <td><span class="field-type">DateTime</span></td>
+              <td><span class="constraint-pill pill-default">Default: Current Time</span></td>
+              <td class="field-desc">Question creation timestamp.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 9. options -->
+    <div class="table-card" id="options">
+      <div class="table-header">
+        <div class="table-title">
+          <span class="table-number">9</span>
+          <span class="table-name">options</span>
+        </div>
+        <span class="col-count">4 Fields</span>
+      </div>
+      <div class="table-desc">
+        Stores multiple-choice options for questions and identifies the correct option.
+      </div>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 20%;">Field</th>
+              <th style="width: 18%;">Type</th>
+              <th style="width: 27%;">Constraints</th>
+              <th style="width: 35%;">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="field-name">id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-pk">PK</span><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Unique ID for the option choice.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">question_id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-fk">FK: questions.id</span><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Parent question ID.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">option_text</span></td>
+              <td><span class="field-type">Text</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Text of the choice/option.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">is_correct</span></td>
+              <td><span class="field-type">Boolean</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span><span class="constraint-pill pill-default">Default: False</span></td>
+              <td class="field-desc">Flag indicating if this option is the correct answer.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 10. quiz_attempts -->
+    <div class="table-card" id="quiz_attempts">
+      <div class="table-header">
+        <div class="table-title">
+          <span class="table-number">10</span>
+          <span class="table-name">quiz_attempts</span>
+        </div>
+        <span class="col-count">6 Fields</span>
+      </div>
+      <div class="table-desc">
+        Records completed quiz attempts, time taken, and total score achieved.
+      </div>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 20%;">Field</th>
+              <th style="width: 18%;">Type</th>
+              <th style="width: 27%;">Constraints</th>
+              <th style="width: 35%;">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="field-name">id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-pk">PK</span><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Unique ID for the quiz attempt.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">user_id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-fk">FK: users.id</span><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Student/User who attempted the quiz.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">quiz_id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-fk">FK: quizzes.id</span><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Quiz that was attempted.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">score</span></td>
+              <td><span class="field-type">Float</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Percentage score achieved (e.g., 88.5).</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">time_spent</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Duration of attempt in seconds.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">completed_at</span></td>
+              <td><span class="field-type">DateTime</span></td>
+              <td><span class="constraint-pill pill-default">Default: Current Time</span></td>
+              <td class="field-desc">Submission timestamp.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 11. user_answers -->
+    <div class="table-card" id="user_answers">
+      <div class="table-header">
+        <div class="table-title">
+          <span class="table-number">11</span>
+          <span class="table-name">user_answers</span>
+        </div>
+        <span class="col-count">6 Fields</span>
+      </div>
+      <div class="table-desc">
+        Logs individual user choices and typed responses for each question during an attempt.
+      </div>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 20%;">Field</th>
+              <th style="width: 18%;">Type</th>
+              <th style="width: 27%;">Constraints</th>
+              <th style="width: 35%;">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="field-name">id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-pk">PK</span><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Unique ID for the recorded answer.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">attempt_id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-fk">FK: quiz_attempts.id</span><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Associated quiz attempt ID.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">question_id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-fk">FK: questions.id</span><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">Question being answered.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">selected_option_id</span></td>
+              <td><span class="field-type">Integer</span></td>
+              <td><span class="constraint-pill pill-fk">FK: options.id</span><span class="constraint-pill pill-notnull">Nullable</span></td>
+              <td class="field-desc">Selected option ID (null for text answers).</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">text_answer</span></td>
+              <td><span class="field-type">Text</span></td>
+              <td><span class="constraint-pill pill-notnull">Nullable</span></td>
+              <td class="field-desc">Typed answer for fill-in or short-answer questions.</td>
+            </tr>
+            <tr>
+              <td><span class="field-name">is_correct</span></td>
+              <td><span class="field-type">Boolean</span></td>
+              <td><span class="constraint-pill pill-notnull">Not Null</span></td>
+              <td class="field-desc">True if the user's answer is correct.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function filterDictionary() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.table-card');
+
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(query)) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

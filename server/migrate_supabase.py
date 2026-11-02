@@ -16,8 +16,12 @@ def migrate(supabase_url: str):
     if supabase_url.startswith("postgres://"):
         supabase_url = supabase_url.replace("postgres://", "postgresql://", 1)
         
+    connect_args = {"connect_timeout": 15}
+    if "localhost" not in supabase_url and "127.0.0.1" not in supabase_url and "sslmode" not in supabase_url:
+        connect_args["sslmode"] = "require"
+        
     print(f"Connecting to Supabase Database...")
-    engine = create_engine(supabase_url, pool_pre_ping=True)
+    engine = create_engine(supabase_url, pool_pre_ping=True, connect_args=connect_args)
     
     with engine.connect() as conn:
         res = conn.execute(text("SELECT version();")).fetchone()

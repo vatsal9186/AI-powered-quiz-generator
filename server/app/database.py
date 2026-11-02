@@ -19,12 +19,18 @@ if db_url.startswith("sqlite"):
     )
 else:
     try:
+        connect_args = {"connect_timeout": 15}
+        # For cloud databases (Supabase, Render, Neon), enforce SSL if not specified in URL
+        if "localhost" not in db_url and "127.0.0.1" not in db_url and "sslmode" not in db_url:
+            connect_args["sslmode"] = "require"
+
         temp_engine = create_engine(
             db_url,
             pool_size=5,
+            max_overflow=10,
             pool_recycle=300,
             pool_pre_ping=True,
-            connect_args={"connect_timeout": 10}
+            connect_args=connect_args
         )
         with temp_engine.connect() as conn:
             conn.execute(text("SELECT 1"))

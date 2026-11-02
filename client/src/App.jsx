@@ -47,7 +47,9 @@ function AppContent() {
   const [justLoggedIn, setJustLoggedIn] = useState(false);
   const [user, setUser] = useState(() => {
     try {
-      const savedUser = sessionStorage.getItem('questai_user');
+      const savedUser =
+        sessionStorage.getItem("questai_user") ||
+        localStorage.getItem("questai_user");
       if (savedUser) {
         const parsed = JSON.parse(savedUser);
         // Normalize stale/old stored user objects on the fly
@@ -61,7 +63,7 @@ function AppContent() {
       }
       return null;
     } catch (e) {
-      console.error("Error parsing saved user from sessionStorage", e);
+      console.error("Error parsing saved user from storage", e);
       return null;
     }
   });
@@ -86,6 +88,15 @@ function AppContent() {
   useEffect(() => {
     const verifySession = async () => {
       try {
+        const token =
+          sessionStorage.getItem("questai_token") ||
+          localStorage.getItem("questai_token");
+
+        // Skip network call if user has never logged in
+        if (!token && !sessionStorage.getItem("questai_user") && !localStorage.getItem("questai_user")) {
+          return;
+        }
+
         const res = await fetch(`${apiBaseUrl}/api/users/me`);
         if (res.ok) {
           const rawData = await res.json();
@@ -96,13 +107,15 @@ function AppContent() {
           };
           setUser(userData);
           sessionStorage.setItem('questai_user', JSON.stringify(userData));
-        } else {
-          // Token is expired, invalid, or browser cookie is missing
+          localStorage.setItem('questai_user', JSON.stringify(userData));
+        } else if (res.status === 401 || res.status === 403) {
+          // Token is strictly invalid or expired
           handleLogoutCleanup();
         }
+        // If 5xx or server sleeping, retain current cached user state
       } catch (err) {
-        console.error("Session verification failed", err);
-        handleLogoutCleanup();
+        // Network lag or backend cold start - do not force-logout
+        console.warn("Session verification network delay:", err);
       }
     };
     
@@ -123,6 +136,10 @@ function AppContent() {
     setIsAuthOpen(false);
     setJustLoggedIn(true);
     setWelcomeUser(userData?.name || "Learner");
+    if (userData) {
+      sessionStorage.setItem('questai_user', JSON.stringify(userData));
+      localStorage.setItem('questai_user', JSON.stringify(userData));
+    }
     setTimeout(() => {
       setWelcomeUser(null);
     }, 2800);

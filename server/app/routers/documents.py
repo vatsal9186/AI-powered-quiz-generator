@@ -7,7 +7,7 @@ from app.dependencies import get_current_active_user
 import app.models as models
 from app.schemas.quiz import DocumentResponse, DocumentDetailResponse
 from app.utils.file_validator import validate_uploaded_file, FileValidationError
-from app.utils.document_parser import extract_text_for_validated_file
+from app.utils.document_parser import extract_text_for_validated_file, clean_postgres_text
 from app.utils.gemini_helper import analyze_document
 
 router = APIRouter(prefix="/api/documents", tags=["Documents"])
@@ -60,14 +60,15 @@ def process_document_in_background(document_id: int, file_bytes: bytes, filename
             return
 
         # 3. Store processed content phase
-        document.content = content
+        document.content = clean_postgres_text(content)
         if structure_data.get("document_title"):
-            document.title = structure_data.get("document_title")
+            document.title = clean_postgres_text(structure_data.get("document_title"))
 
         for mod_idx, mod in enumerate(structure_data.get("structure", [])):
+            mod_title = clean_postgres_text(mod.get("module_title") or "Course Curriculum Outline")
             db_module = models.Module(
                 document_id=document.id,
-                title=mod.get("module_title") or "Course Curriculum Outline",
+                title=mod_title,
                 order=mod_idx
             )
             db.add(db_module)
@@ -75,11 +76,13 @@ def process_document_in_background(document_id: int, file_bytes: bytes, filename
             db.refresh(db_module)
 
             for chap_idx, chap in enumerate(mod.get("chapters", [])):
+                chap_title = clean_postgres_text(chap.get("chapter_title") or f"Chapter {chap_idx+1}")
+                chap_content = clean_postgres_text(chap.get("content", ""))
                 db_chapter = models.Chapter(
                     document_id=document.id,
                     module_id=db_module.id,
-                    title=chap.get("chapter_title"),
-                    content=chap.get("content", ""),
+                    title=chap_title,
+                    content=chap_content,
                     order=chap_idx
                 )
                 db.add(db_chapter)
@@ -89,7 +92,7 @@ def process_document_in_background(document_id: int, file_bytes: bytes, filename
                 for top_idx, topic_title in enumerate(chap.get("topics", [])):
                     db_topic = models.Topic(
                         chapter_id=db_chapter.id,
-                        title=topic_title,
+                        title=clean_postgres_text(topic_title),
                         order=top_idx
                     )
                     db.add(db_topic)
@@ -109,7 +112,7 @@ def process_document_in_background(document_id: int, file_bytes: bytes, filename
 
             concatenated_content = "\n\n".join([c.content for c in all_chapters if c.content])
 
-            if len(concatenated_content.strip()) >= 100:
+            if len(concatenated_content.strip()) >= 50:
                 from app.utils.gemini_helper import generate_quiz_questions
 
                 # Generate 15 medium-difficulty MCQ questions from the full document
@@ -117,8 +120,8 @@ def process_document_in_background(document_id: int, file_bytes: bytes, filename
 
                 # Create quiz record
                 auto_quiz = models.Quiz(
-                    title=f"{document.title} - Auto Generated Quiz",
-                    description=f"Automatically generated quiz from all chapters of {document.file_name}.",
+                    title=clean_postgres_text(f"{document.title} - Auto Generated Quiz"),
+                    description=clean_postgres_text(f"Automatically generated quiz from all chapters of {document.file_name}."),
                     source_type="file",
                     difficulty="medium",
                     creator_id=document.owner_id,
@@ -133,11 +136,11 @@ def process_document_in_background(document_id: int, file_bytes: bytes, filename
                 for q_data in quiz_questions:
                     db_question = models.Question(
                         quiz_id=auto_quiz.id,
-                        question_text=q_data["question"],
+                        question_text=clean_postgres_text(q_data["question"]),
                         type="mcq",
-                        explanation=q_data["explanation"],
+                        explanation=clean_postgres_text(q_data.get("explanation", "")),
                         points=1,
-                        source_chapter=q_data.get("source_chapter") or (all_chapters[0].title if all_chapters else None),
+                        source_chapter=clean_postgres_text(q_data.get("source_chapter") or (all_chapters[0].title if all_chapters else None)),
                         difficulty=q_data.get("difficulty", "medium").lower()
                     )
                     db.add(db_question)
@@ -148,7 +151,7 @@ def process_document_in_background(document_id: int, file_bytes: bytes, filename
                         is_correct = (opt_text == q_data["correct_answer"])
                         db_option = models.Option(
                             question_id=db_question.id,
-                            option_text=opt_text,
+                            option_text=clean_postgres_text(opt_text),
                             is_correct=is_correct
                         )
                         db.add(db_option)
@@ -164,13 +167,16 @@ def process_document_in_background(document_id: int, file_bytes: bytes, filename
 
     except Exception as e:
         db.rollback()
-        # Fallback error mapping
+        # Fallback error mapping with sanitized error string
         document = db.query(models.Document).filter(models.Document.id == document_id).first()
         if document:
             document.status = "failed"
-            document.error_message = f"Document processing failed: {str(e)}"
+            document.error_message = clean_postgres_text(f"Document processing failed: {str(e)}")
             db.commit()
-        print(f"Background document processing crashed: {e}")
+        try:
+            print(f"Background document processing crashed: {ascii(str(e))[:200]}")
+        except Exception:
+            pass
     finally:
         db.close()
 
@@ -191,7 +197,28 @@ async def upload_document(
     # 1. File validation check (runs immediately)
     detected_format = validate_uploaded_file(file_bytes, filename)
 
-    # 2. Prevent duplicate processing requests with self-healing for stuck processes
+    # 2. Check if this document has already been processed successfully
+    existing_ready = db.query(models.Document).filter(
+        models.Document.owner_id == current_user.id,
+        models.Document.file_name == filename,
+        models.Document.status == "ready"
+    ).order_by(models.Document.id.desc()).first()
+
+    if existing_ready and existing_ready.chapters:
+        print(f"Document '{filename}' is already processed and ready (ID {existing_ready.id}), reusing existing structure.")
+        return existing_ready
+
+    # Clean up any stale failed attempts for this document
+    failed_docs = db.query(models.Document).filter(
+        models.Document.owner_id == current_user.id,
+        models.Document.file_name == filename,
+        models.Document.status == "failed"
+    ).all()
+    for fd in failed_docs:
+        db.delete(fd)
+    db.commit()
+
+    # Self-heal stuck processing requests (> 2 minutes)
     from datetime import datetime, timezone, timedelta
 
     existing_processing = db.query(models.Document).filter(
@@ -202,17 +229,13 @@ async def upload_document(
 
     active_exists = False
     for doc in existing_processing:
-        # Check if the process is stuck (older than 10 minutes)
         now = datetime.utcnow()
         doc_created = doc.created_at
         if doc_created.tzinfo is not None:
-            # Convert to naive UTC for safe comparison
             doc_created = doc_created.astimezone(timezone.utc).replace(tzinfo=None)
             
-        if now - doc_created > timedelta(minutes=10):
-            # Self-heal: mark stuck document as failed
-            doc.status = "failed"
-            doc.error_message = "Document processing timed out or got stuck. Please try uploading again."
+        if now - doc_created > timedelta(minutes=2):
+            db.delete(doc)
             db.commit()
         else:
             active_exists = True
@@ -220,11 +243,11 @@ async def upload_document(
     if active_exists:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="This document is already being processed. Please wait for it to complete."
+            detail="This document is currently being processed. Please wait a moment."
         )
 
     # 3. Create Document entry with status 'processing'
-    doc_title = filename.rsplit(".", 1)[0].replace("_", " ").replace("-", " ").strip().title()
+    doc_title = clean_postgres_text(filename.rsplit(".", 1)[0].replace("_", " ").replace("-", " ").strip().title())
     db_document = models.Document(
         title=doc_title,
         file_name=filename,

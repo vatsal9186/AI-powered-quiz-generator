@@ -261,16 +261,17 @@ async def google_auth(request: Request, response: Response, payload: GoogleAuthR
     )
 
 @router.post("/logout")
-def logout(response: Response):
+def logout(request: Request, response: Response):
     """
     Clears the secure session cookie on logout.
     """
+    is_local = request.url.hostname in ("testserver", "localhost", "127.0.0.1")
     response.delete_cookie(
         key="questai_session",
         path="/",
         httponly=True,
-        samesite="none",
-        secure=True
+        samesite="none" if not is_local else "lax",
+        secure=not is_local
     )
     return {"success": True, "message": "Successfully logged out and session cleared."}
 

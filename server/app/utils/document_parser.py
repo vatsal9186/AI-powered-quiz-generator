@@ -5,18 +5,31 @@ import docx
 import pptx
 import olefile
 
+def clean_postgres_text(text: str) -> str:
+    """
+    Strips NUL (0x00) bytes and illegal PostgreSQL control characters from text strings.
+    PostgreSQL VARCHAR/TEXT strictly rejects strings containing 0x00 bytes.
+    """
+    if not text:
+        return ""
+    # Strip null bytes strictly forbidden by PostgreSQL
+    cleaned = text.replace("\x00", "")
+    # Remove control characters except standard whitespace (newline \n, carriage return \r, tab \t)
+    cleaned = re.sub(r'[\x00-\x08\x0B\x0C\x0E-\x1F]', '', cleaned)
+    return cleaned
+
 def extract_text_from_pdf(file_bytes: bytes) -> str:
     """
-    Extracts text from PDF bytes using pymupdf, inserting page markers.
+    Extracts text from PDF bytes using pymupdf, inserting page markers and sanitizing NUL bytes.
     """
     import pymupdf
     doc = pymupdf.open(stream=file_bytes, filetype="pdf")
     text_parts = []
     for i, page in enumerate(doc):
-        page_text = page.get_text() or ""
+        page_text = clean_postgres_text(page.get_text() or "")
         text_parts.append(f"\n--- Page {i+1} ---\n{page_text}")
     doc.close()
-    return "\n".join(text_parts)
+    return clean_postgres_text("\n".join(text_parts))
 
 def extract_text_from_docx(file_bytes: bytes) -> str:
     """
@@ -102,17 +115,19 @@ def extract_text_from_ppt(file_bytes: bytes) -> str:
 
 def extract_text_for_validated_file(file_bytes: bytes, detected_format: str) -> str:
     """
-    Dispatches to the correct parser based on the validated format.
+    Dispatches to the correct parser based on the validated format,
+    guaranteeing PostgreSQL-safe output without NUL bytes.
     """
     if detected_format == "pdf":
-        return extract_text_from_pdf(file_bytes)
+        raw = extract_text_from_pdf(file_bytes)
     elif detected_format == "docx":
-        return extract_text_from_docx(file_bytes)
+        raw = extract_text_from_docx(file_bytes)
     elif detected_format == "pptx":
-        return extract_text_from_pptx(file_bytes)
+        raw = extract_text_from_pptx(file_bytes)
     elif detected_format == "doc":
-        return extract_text_from_doc(file_bytes)
+        raw = extract_text_from_doc(file_bytes)
     elif detected_format == "ppt":
-        return extract_text_from_ppt(file_bytes)
+        raw = extract_text_from_ppt(file_bytes)
     else:
         raise ValueError(f"Unknown validated format: {detected_format}")
+    return clean_postgres_text(raw)

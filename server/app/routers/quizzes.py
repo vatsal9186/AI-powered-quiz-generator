@@ -10,6 +10,7 @@ from app.schemas.quiz import (
     InstantAnswerCheckRequest
 )
 from app.utils.gemini_helper import generate_quiz_questions, generate_aptitude_questions
+from app.utils.document_parser import clean_postgres_text
 
 router = APIRouter(prefix="/api/quizzes", tags=["Quizzes"])
 
@@ -106,9 +107,17 @@ def generate_quiz_in_background(
         ).all()
 
         if not selected_chapters:
-            # Check for "Entire Document" fallback
-            if "Entire Document" in selected_chapters_titles or not selected_chapters_titles:
-                selected_chapters = db.query(models.Chapter).filter(models.Chapter.document_id == document_id).all()
+            # Fallback 1: Case-insensitive or partial match
+            all_doc_chapters = db.query(models.Chapter).filter(models.Chapter.document_id == document_id).all()
+            for title in selected_chapters_titles:
+                for c in all_doc_chapters:
+                    if c.title and (title.lower() in c.title.lower() or c.title.lower() in title.lower()):
+                        if c not in selected_chapters:
+                            selected_chapters.append(c)
+
+        if not selected_chapters:
+            # Fallback 2: Default to all document chapters
+            selected_chapters = db.query(models.Chapter).filter(models.Chapter.document_id == document_id).all()
 
         if not selected_chapters:
             quiz.status = "failed"
@@ -119,13 +128,19 @@ def generate_quiz_in_background(
         # Concatenate contents
         concatenated_content = "\n\n".join([chap.content for chap in selected_chapters if chap.content])
         
-        if len(concatenated_content.strip()) < 100:
-            quiz.status = "failed"
-            quiz.error_message = "The selected chapter content is too short to generate a quiz (minimum 100 characters)."
-            db.commit()
-            return
+        # If concatenated chapter text is too short, fall back to the full document content
+        if len(concatenated_content.strip()) < 80:
+            doc = db.query(models.Document).filter(models.Document.id == document_id).first()
+            if doc and doc.content and len(doc.content.strip()) >= 50:
+                print(f"[QUIZ_GEN] Selected chapters content short ({len(concatenated_content.strip())} chars), falling back to document content ({len(doc.content.strip())} chars)...")
+                concatenated_content = doc.content
 
-        # Generate questions using Gemini helper
+        # If still empty or minimal, build a synthetic outline context so questions can always generate
+        if len(concatenated_content.strip()) < 30:
+            titles_str = ", ".join([c.title for c in selected_chapters if c.title]) or "General Topics"
+            concatenated_content = f"Study review questions and core definitions for curriculum on: {titles_str}."
+
+        # Generate questions using Gemini helper (with robust internal heuristic fallback)
         try:
             gemini_questions = generate_quiz_questions(
                 concatenated_content,
@@ -134,30 +149,30 @@ def generate_quiz_in_background(
             )
         except Exception as e:
             quiz.status = "failed"
-            quiz.error_message = f"Failed to generate questions with AI: {str(e)}"
+            quiz.error_message = clean_postgres_text(f"Failed to generate questions with AI: {str(e)}")
             db.commit()
             return
 
-        # Save questions and options
+        # Save questions and options with PostgreSQL NUL byte sanitization
         for q_data in gemini_questions:
             db_question = models.Question(
                 quiz_id=quiz.id,
-                question_text=q_data["question"],
+                question_text=clean_postgres_text(str(q_data.get("question", ""))),
                 type="mcq",
-                explanation=q_data["explanation"],
+                explanation=clean_postgres_text(str(q_data.get("explanation", ""))),
                 points=1,
-                source_chapter=q_data.get("source_chapter") or selected_chapters[0].title,
-                difficulty=difficulty.lower()
+                source_chapter=clean_postgres_text(str(q_data.get("source_chapter") or (selected_chapters[0].title if selected_chapters else "Overview"))),
+                difficulty=clean_postgres_text(str(difficulty).lower())
             )
             db.add(db_question)
             db.commit()
             db.refresh(db_question)
 
-            for opt_text in q_data["options"]:
-                is_correct = (opt_text == q_data["correct_answer"])
+            for opt_text in q_data.get("options", []):
+                is_correct = (str(opt_text).strip() == str(q_data.get("correct_answer", "")).strip())
                 db_option = models.Option(
                     question_id=db_question.id,
-                    option_text=opt_text,
+                    option_text=clean_postgres_text(str(opt_text)),
                     is_correct=is_correct
                 )
                 db.add(db_option)
@@ -172,9 +187,12 @@ def generate_quiz_in_background(
         quiz = db.query(models.Quiz).filter(models.Quiz.id == quiz_id).first()
         if quiz:
             quiz.status = "failed"
-            quiz.error_message = f"Failed to save generated quiz questions to DB: {str(e)}"
+            quiz.error_message = clean_postgres_text(f"Failed to save generated quiz questions to DB: {str(e)}")
             db.commit()
-        print(f"Quiz generation background task crashed: {e}")
+        try:
+            print(f"Quiz generation background task crashed: {ascii(str(e))[:200]}")
+        except Exception:
+            pass
     finally:
         db.close()
 
@@ -208,16 +226,31 @@ async def generate_quiz(
                 detail="The source document is still being processed. Please wait until it is ready."
             )
 
-    # 2. Prevent duplicate quiz-generation requests
+    # 2. Prevent duplicate quiz-generation requests (with 2-minute self-heal for stuck requests)
+    from datetime import datetime, timezone, timedelta
     existing_generating = db.query(models.Quiz).filter(
         models.Quiz.creator_id == current_user.id,
         models.Quiz.document_id == document.id,
         models.Quiz.status == "generating"
-    ).first()
-    if existing_generating:
+    ).all()
+
+    active_generating = False
+    for old_quiz in existing_generating:
+        now = datetime.utcnow()
+        created = old_quiz.created_at
+        if created and created.tzinfo is not None:
+            created = created.astimezone(timezone.utc).replace(tzinfo=None)
+        if created and (now - created > timedelta(minutes=2)):
+            old_quiz.status = "failed"
+            old_quiz.error_message = "Previous generation attempt timed out."
+            db.commit()
+        else:
+            active_generating = True
+
+    if active_generating:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="A quiz is already being generated for this document. Please wait for it to complete."
+            detail="A quiz is already being generated for this document. Please wait a moment."
         )
 
     # 3. Save initial Quiz state as 'generating'
@@ -226,10 +259,10 @@ async def generate_quiz(
         quiz_title += " & others"
         
     db_quiz = models.Quiz(
-        title=quiz_title,
-        description=f"Generated AI quiz based on selected chapters of {document.file_name}.",
+        title=clean_postgres_text(quiz_title),
+        description=clean_postgres_text(f"Generated AI quiz based on selected chapters of {document.file_name}."),
         source_type="file",
-        difficulty=payload.difficulty.lower(),
+        difficulty=clean_postgres_text(payload.difficulty.lower()),
         creator_id=current_user.id,
         document_id=document.id,
         status="generating"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   X,
   Mail,
@@ -90,10 +90,6 @@ export default function AuthModal({
     return `${local[0]}***${local[local.length - 1]}@${domain}`;
   };
 
-  
-  // Dynamic Check for Real Google Auth Setup
-  const [isGoogleConfigured, setIsGoogleConfigured] = useState(false);
-  const [isScriptLoaded, setIsScriptLoaded] = useState(false);
 
   // Prevent background page scrolling when Auth Modal is open
   useEffect(() => {
@@ -110,68 +106,159 @@ export default function AuthModal({
   const DEFAULT_GOOGLE_CLIENT_ID =
     "1004732812510-edmdaplkjbo36jatfesoiq4b341g0hb1.apps.googleusercontent.com";
 
-  // Load Google Identity Services script dynamically
+  // Dynamic Check for Real Google Auth Setup & Script Loading
+  const [isGoogleConfigured, setIsGoogleConfigured] = useState(false);
+  const [isScriptLoaded, setIsScriptLoaded] = useState(false);
+
+  // Load Google Identity Services script dynamically and ensure window.google.accounts.id is available
   useEffect(() => {
-    // Evaluate if Client ID is configured
     const clientId =
       import.meta.env.VITE_GOOGLE_CLIENT_ID || DEFAULT_GOOGLE_CLIENT_ID;
     const isPlaceholder =
       !clientId || clientId.startsWith("your-google-client-id");
     setIsGoogleConfigured(!isPlaceholder);
 
-    const handleScriptLoad = () => {
-      setIsScriptLoaded(true);
+    const checkGoogleReady = () => {
+      if (typeof window !== "undefined" && window.google?.accounts?.id) {
+        setIsScriptLoaded(true);
+        return true;
+      }
+      return false;
     };
 
-    const existingScript = document.getElementById("google-gsi-client");
-    if (!existingScript) {
-      const script = document.createElement("script");
+    if (checkGoogleReady()) return;
+
+    // Poll for script readiness
+    const interval = setInterval(() => {
+      if (checkGoogleReady()) {
+        clearInterval(interval);
+      }
+    }, 150);
+
+    const timeout = setTimeout(() => {
+      clearInterval(interval);
+    }, 6000);
+
+    // Ensure script element exists
+    let script = document.getElementById("google-gsi-client");
+    if (!script) {
+      script = document.createElement("script");
       script.id = "google-gsi-client";
       script.src = "https://accounts.google.com/gsi/client";
       script.async = true;
       script.defer = true;
-      script.onload = handleScriptLoad;
-      document.body.appendChild(script);
+      script.onload = () => checkGoogleReady();
+      document.head.appendChild(script);
     } else {
-      setIsScriptLoaded(true);
+      script.addEventListener("load", () => checkGoogleReady());
     }
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
   }, []);
 
-  // Initialize Google Login and render button if configured
+  const [googleBtnRendered, setGoogleBtnRendered] = useState(false);
+  const googleBtnContainerRef = useRef(null);
+
+  // Initialize Google Login and render button whenever modal is open and script is ready
   useEffect(() => {
-    if (isOpen && isGoogleConfigured && isScriptLoaded && window.google) {
+    if (!isOpen || !isGoogleConfigured || !isScriptLoaded) return;
+    if (typeof window === "undefined" || !window.google?.accounts?.id) return;
+
+    const clientId =
+      import.meta.env.VITE_GOOGLE_CLIENT_ID || DEFAULT_GOOGLE_CLIENT_ID;
+
+    try {
+      window.google.accounts.id.initialize({
+        client_id: clientId,
+        callback: handleGoogleCredentialResponse,
+        auto_select: false,
+        cancel_on_tap_outside: true,
+      });
+
+      const container = googleBtnContainerRef.current;
+      if (container) {
+        container.innerHTML = "";
+        window.google.accounts.id.renderButton(container, {
+          theme: "outline",
+          size: "large",
+          width: 320,
+          text: mode === "signup" ? "signup_with" : "continue_with",
+          shape: "rectangular",
+          logo_alignment: "left",
+        });
+
+        // Check if Google successfully injected the iframe button
+        const checkTimer = setTimeout(() => {
+          if (container && container.querySelector("iframe, div[role='button']")) {
+            setGoogleBtnRendered(true);
+          } else {
+            setGoogleBtnRendered(false);
+          }
+        }, 600);
+
+        return () => clearTimeout(checkTimer);
+      }
+    } catch (err) {
+      console.error("Google SSO Button Rendering Error:", err);
+      setGoogleBtnRendered(false);
+    }
+  }, [isOpen, mode, isGoogleConfigured, isScriptLoaded]);
+
+  // Fallback handler if user clicks the button before/when Google's iframe didn't mount
+  const handleManualGoogleClick = () => {
+    setErrors((prev) => ({ ...prev, google: null }));
+    if (typeof window !== "undefined" && window.google?.accounts?.id) {
       const clientId =
         import.meta.env.VITE_GOOGLE_CLIENT_ID || DEFAULT_GOOGLE_CLIENT_ID;
-      
       try {
         window.google.accounts.id.initialize({
           client_id: clientId,
           callback: handleGoogleCredentialResponse,
         });
-
-        const container = document.getElementById("google-signin-btn-container");
-        if (container) {
-          window.google.accounts.id.renderButton(container, { 
-            theme: "outline", 
-            size: "large", 
-            width: "320", 
-            text: "continue_with", // Renders "Continue with Google"
-            shape: "rectangular"
-          });
-        }
+        window.google.accounts.id.prompt((notification) => {
+          if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+            const currentOrigin = window.location.origin;
+            const isLocal =
+              window.location.hostname === "localhost" ||
+              window.location.hostname === "127.0.0.1";
+            if (!isLocal) {
+              setErrors((prev) => ({
+                ...prev,
+                google: `Google Sign-In prompt was blocked. Please ensure "${currentOrigin}" is listed in "Authorized JavaScript origins" in Google Cloud Console.`,
+              }));
+            }
+          }
+        });
       } catch (err) {
-        console.error("Google SSO Button Rendering Error:", err);
+        setErrors((prev) => ({
+          ...prev,
+          google: err.message || "Failed to initialize Google Sign-in.",
+        }));
       }
+    } else {
+      setErrors((prev) => ({
+        ...prev,
+        google:
+          "Google authentication script is not ready. Please check your internet connection or ad-blocker.",
+      }));
     }
-  }, [isOpen, mode, isGoogleConfigured, isScriptLoaded]);
+  };
 
   // Handle Google Token response from Google popup callback
   const handleGoogleCredentialResponse = async (response) => {
+    if (!response || !response.credential) {
+      setErrors({ google: "No Google authorization credential received. Please try again." });
+      return;
+    }
+
     setLoading(true);
     setErrors({});
-    
+
     try {
-      const res = await fetch(`${apiBaseUrl}/api/auth/google`, {
+      const res = await robustFetch("/api/auth/google", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -179,23 +266,43 @@ export default function AuthModal({
         body: JSON.stringify({ id_token: response.credential }),
       });
 
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.detail || "Google authentication failed.");
+      const contentType = res.headers.get("content-type") || "";
+      let data;
+      if (contentType.includes("application/json")) {
+        try {
+          data = await res.json();
+        } catch (jsonErr) {
+          throw new Error("Invalid response received from authentication server.");
+        }
+      } else {
+        const isProd =
+          typeof window !== "undefined" &&
+          window.location.hostname !== "localhost" &&
+          window.location.hostname !== "127.0.0.1";
+        if (isProd) {
+          throw new Error(
+            "Backend API returned non-JSON. Ensure VITE_API_URL is configured in your Vercel Project Settings with your deployed backend URL."
+          );
+        }
+        throw new Error("Invalid response received from authentication server.");
       }
 
-      const data = await res.json();
-      
+      if (!res.ok) {
+        throw new Error(data.detail || data.message || "Google authentication failed.");
+      }
+
       // Store credentials and auth token
       if (data.access_token) {
         sessionStorage.setItem("questai_token", data.access_token);
         localStorage.setItem("questai_token", data.access_token);
       }
-      sessionStorage.setItem("questai_user", JSON.stringify({
+      const userPayload = JSON.stringify({
         name: data.user_name,
         email: data.user_email,
-        avatar: data.user_avatar
-      }));
+        avatar: data.user_avatar || null,
+      });
+      sessionStorage.setItem("questai_user", userPayload);
+      localStorage.setItem("questai_user", userPayload);
 
       setLoading(false);
       setSuccess(true);
@@ -204,12 +311,29 @@ export default function AuthModal({
         onLoginSuccess({
           name: data.user_name,
           email: data.user_email,
-          avatar: data.user_avatar,
+          avatar: data.user_avatar || null,
         });
-      }, 1000);
+      }, 700);
     } catch (err) {
       setLoading(false);
-      setErrors({ google: err.message });
+      let errMsg = err.message || "Google authentication failed.";
+      if (errMsg === "Failed to fetch" || err.name === "TypeError") {
+        const isProd =
+          typeof window !== "undefined" &&
+          window.location.hostname !== "localhost" &&
+          window.location.hostname !== "127.0.0.1";
+        if (isProd && !import.meta.env.VITE_API_URL) {
+          errMsg =
+            "Backend API URL is not configured. Please add VITE_API_URL in your Vercel Project Settings with your live backend URL.";
+        } else if (isProd) {
+          errMsg =
+            "Unable to connect to the backend server. Please verify your backend server is deployed and running.";
+        } else {
+          errMsg =
+            "Unable to connect to the backend server. Please ensure the backend FastAPI server is running on port 8000.";
+        }
+      }
+      setErrors({ google: errMsg });
     }
   };
 
@@ -345,110 +469,26 @@ export default function AuthModal({
     return Object.keys(formErrors).length === 0;
   };
 
-  // Submit Handler for Email & Password authentication
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (loading || success) return;
-    if (!validate()) return;
-
-    setLoading(true);
-    setErrors({});
-    
-    try {
-      let endpoint = `${apiBaseUrl}/api/auth/login`;
-      let payload = { email, password };
-      
-      if (mode === "signup") {
-        endpoint = `${apiBaseUrl}/api/auth/register`;
-        payload = { email, password, full_name: name };
+  // Centralized auth error formatter
+  const formatAuthError = (err) => {
+    let msg = err.message || "Authentication failed.";
+    if (msg === "Failed to fetch" || err.name === "TypeError") {
+      const isProd =
+        typeof window !== "undefined" &&
+        window.location.hostname !== "localhost" &&
+        window.location.hostname !== "127.0.0.1";
+      if (isProd && !import.meta.env.VITE_API_URL) {
+        msg =
+          "Backend API URL is not configured. Please set VITE_API_URL in your Vercel Project Settings.";
+      } else if (isProd) {
+        msg =
+          "Unable to connect to the backend server. Please verify your backend server is deployed and awake.";
+      } else {
+        msg =
+          "Unable to connect to the backend server. Please ensure the backend FastAPI server is running on port 8000.";
       }
-      
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-      
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.detail || "Authentication failed.");
-      }
-      
-      const data = await res.json();
-      
-      if (mode === "signup") {
-        // After signup, automatically log in
-        const loginRes = await fetch(`${apiBaseUrl}/api/auth/login`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        });
-        
-        if (!loginRes.ok) {
-          throw new Error("Registration succeeded but auto-login failed.");
-        }
-        
-        if (loginData.access_token) {
-          sessionStorage.setItem("questai_token", loginData.access_token);
-          localStorage.setItem("questai_token", loginData.access_token);
-        }
-        sessionStorage.setItem("questai_user", JSON.stringify({
-          name: loginData.user_name,
-          email: loginData.user_email
-        }));
-        
-        setLoading(false);
-        setSuccess(true);
-        
-        setTimeout(() => {
-          onLoginSuccess({
-            name: loginData.user_name,
-            email: loginData.user_email,
-            avatar: null,
-          });
-        }, 700);
-        if (data.access_token) {
-          sessionStorage.setItem("questai_token", data.access_token);
-          localStorage.setItem("questai_token", data.access_token);
-        }
-        sessionStorage.setItem("questai_user", JSON.stringify({
-          name: data.user_name,
-          email: data.user_email
-        }));
-        
-        setLoading(false);
-        setSuccess(true);
-        
-        setTimeout(() => {
-          onLoginSuccess({
-            name: data.user_name,
-            email: data.user_email,
-            avatar: null,
-          });
-        }, 700);
-      }
-    } catch (err) {
-      setLoading(false);
-      let errMsg = err.message || "Authentication failed.";
-      if (errMsg === "Failed to fetch" || err.name === "TypeError") {
-        const isProd =
-          typeof window !== "undefined" &&
-          window.location.hostname !== "localhost" &&
-          window.location.hostname !== "127.0.0.1";
-        if (isProd && !import.meta.env.VITE_API_URL) {
-          errMsg =
-            "Backend API URL is not configured. Please set VITE_API_URL in your Vercel Project Settings.";
-        } else {
-          errMsg =
-            "Unable to connect to the backend server. Please verify your backend server is running and accessible.";
-        }
-      }
-      setErrors({ form: errMsg });
     }
+    return msg;
   };
 
   // Robust fetch helper to automatically fall back between localhost and 127.0.0.1 if network resolution differs
@@ -479,6 +519,129 @@ export default function AuthModal({
     throw lastError || new Error("Failed to fetch");
   };
 
+  // Submit Handler for Email & Password authentication
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (loading || success) return;
+    if (!validate()) return;
+
+    setLoading(true);
+    setErrors({});
+
+    try {
+      const endpoint = mode === "signup" ? "/api/auth/register" : "/api/auth/login";
+      const payload = mode === "signup"
+        ? { email, password, full_name: name }
+        : { email, password };
+
+      const res = await robustFetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const contentType = res.headers.get("content-type") || "";
+      let data;
+      if (contentType.includes("application/json")) {
+        try {
+          data = await res.json();
+        } catch (_) {
+          throw new Error("Invalid response received from authentication server.");
+        }
+      } else {
+        const isProd =
+          typeof window !== "undefined" &&
+          window.location.hostname !== "localhost" &&
+          window.location.hostname !== "127.0.0.1";
+        if (isProd) {
+          throw new Error(
+            "Backend API returned non-JSON. Please configure VITE_API_URL in your Vercel Project Settings with your deployed backend URL."
+          );
+        }
+        throw new Error("Invalid response received from authentication server.");
+      }
+
+      if (!res.ok) {
+        throw new Error(data.detail || data.message || "Authentication failed.");
+      }
+
+      if (mode === "signup") {
+        // After signup, automatically log in
+        const loginRes = await robustFetch("/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const loginContentType = loginRes.headers.get("content-type") || "";
+        let loginData = {};
+        if (loginContentType.includes("application/json")) {
+          try {
+            loginData = await loginRes.json();
+          } catch (_) {}
+        }
+
+        if (!loginRes.ok) {
+          throw new Error(loginData.detail || "Registration succeeded but auto-login failed. Please sign in.");
+        }
+
+        if (loginData.access_token) {
+          sessionStorage.setItem("questai_token", loginData.access_token);
+          localStorage.setItem("questai_token", loginData.access_token);
+        }
+        const userPayload = JSON.stringify({
+          name: loginData.user_name || name,
+          email: loginData.user_email || email,
+          avatar: loginData.user_avatar || null,
+        });
+        sessionStorage.setItem("questai_user", userPayload);
+        localStorage.setItem("questai_user", userPayload);
+
+        setLoading(false);
+        setSuccess(true);
+
+        setTimeout(() => {
+          onLoginSuccess({
+            name: loginData.user_name || name,
+            email: loginData.user_email || email,
+            avatar: loginData.user_avatar || null,
+          });
+        }, 700);
+      } else {
+        // Sign In successful
+        if (data.access_token) {
+          sessionStorage.setItem("questai_token", data.access_token);
+          localStorage.setItem("questai_token", data.access_token);
+        }
+        const userPayload = JSON.stringify({
+          name: data.user_name,
+          email: data.user_email,
+          avatar: data.user_avatar || null,
+        });
+        sessionStorage.setItem("questai_user", userPayload);
+        localStorage.setItem("questai_user", userPayload);
+
+        setLoading(false);
+        setSuccess(true);
+
+        setTimeout(() => {
+          onLoginSuccess({
+            name: data.user_name,
+            email: data.user_email,
+            avatar: data.user_avatar || null,
+          });
+        }, 700);
+      }
+    } catch (err) {
+      setLoading(false);
+      setErrors({ form: formatAuthError(err) });
+    }
+  };
+
   // Password Reset OTP Handler (Email Verification Only)
   const handleSendOTP = async (e) => {
     if (e) e.preventDefault();
@@ -504,11 +667,12 @@ export default function AuthModal({
         body: JSON.stringify(payload),
       });
 
-      let data;
-      try {
-        data = await res.json();
-      } catch (jsonErr) {
-        throw new Error("Server communication error. Please ensure the backend server is running.");
+      const contentType = res.headers.get("content-type") || "";
+      let data = {};
+      if (contentType.includes("application/json")) {
+        try {
+          data = await res.json();
+        } catch (_) {}
       }
 
       setLoading(false);
@@ -529,10 +693,7 @@ export default function AuthModal({
       }, 100);
     } catch (err) {
       setLoading(false);
-      const msg = (err.message === "Failed to fetch" || err.name === "TypeError")
-        ? "Unable to connect to the authentication server. Please ensure the backend FastAPI server is running on port 8000." 
-        : err.message;
-      setErrors({ form: msg });
+      setErrors({ form: formatAuthError(err) });
     }
   };
 
@@ -559,11 +720,12 @@ export default function AuthModal({
         body: JSON.stringify({ reference_id: refId, otp_code: fullOtp }),
       });
 
-      let data;
-      try {
-        data = await res.json();
-      } catch (jsonErr) {
-        throw new Error("Server communication error. Please try again.");
+      const contentType = res.headers.get("content-type") || "";
+      let data = {};
+      if (contentType.includes("application/json")) {
+        try {
+          data = await res.json();
+        } catch (_) {}
       }
 
       setLoading(false);
@@ -576,13 +738,9 @@ export default function AuthModal({
       setResetStep(3);
     } catch (err) {
       setLoading(false);
-      const msg = (err.message === "Failed to fetch" || err.name === "TypeError")
-        ? "Unable to connect to the authentication server." 
-        : err.message;
-      setErrors({ form: msg });
+      setErrors({ form: formatAuthError(err) });
     }
   };
-
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
@@ -612,11 +770,12 @@ export default function AuthModal({
         body: JSON.stringify({ reset_token: resetToken, new_password: password }),
       });
 
-      let data;
-      try {
-        data = await res.json();
-      } catch (jsonErr) {
-        throw new Error("Server communication error. Please try again.");
+      const contentType = res.headers.get("content-type") || "";
+      let data = {};
+      if (contentType.includes("application/json")) {
+        try {
+          data = await res.json();
+        } catch (_) {}
       }
 
       setLoading(false);
@@ -628,10 +787,7 @@ export default function AuthModal({
       setResetSuccess(true);
     } catch (err) {
       setLoading(false);
-      const msg = (err.message === "Failed to fetch" || err.name === "TypeError")
-        ? "Unable to connect to the authentication server." 
-        : err.message;
-      setErrors({ form: msg });
+      setErrors({ form: formatAuthError(err) });
     }
   };
 
@@ -1008,16 +1164,65 @@ export default function AuthModal({
                   <strong>Google client ID is not configured.</strong> Please set <code>VITE_GOOGLE_CLIENT_ID</code> in your client <code>.env</code> file.
                 </div>
               ) : (
-                <div 
-                  id="google-signin-btn-container" 
-                  style={{ 
-                    margin: "12px 0 6px 0", 
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    minHeight: "44px"
-                  }}
-                ></div>
+                <div className="google-auth-wrapper" style={{ margin: "12px auto 6px auto", width: "100%", maxWidth: "320px" }}>
+                  {/* Dedicated Google iframe container - React NEVER renders children inside it */}
+                  <div 
+                    ref={googleBtnContainerRef}
+                    id="google-signin-btn-container" 
+                    style={{ 
+                      width: "100%",
+                      display: googleBtnRendered ? "flex" : "none",
+                      justifyContent: "center",
+                      minHeight: "44px"
+                    }}
+                  />
+
+                  {/* Fallback button managed exclusively by React outside the Google container */}
+                  {!googleBtnRendered && (
+                    <button
+                      type="button"
+                      onClick={handleManualGoogleClick}
+                      className="auth-google-btn"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "320px",
+                        height: "44px",
+                        borderRadius: "6px",
+                        border: "1px solid rgba(255, 255, 255, 0.2)",
+                        background: "rgba(255, 255, 255, 0.08)",
+                        color: "#fff",
+                        fontSize: "14px",
+                        fontWeight: "500",
+                        gap: "10px",
+                        cursor: "pointer",
+                        transition: "all 0.2s ease"
+                      }}
+                    >
+                      <GoogleIcon />
+                      <span>{mode === "signup" ? "Sign up with Google" : "Continue with Google"}</span>
+                    </button>
+                  )}
+                  {errors.google && (
+                    <div style={{
+                      marginTop: "8px",
+                      padding: "8px 12px",
+                      backgroundColor: "rgba(255, 56, 96, 0.12)",
+                      border: "1px solid #FF3860",
+                      borderRadius: "6px",
+                      color: "#FF3860",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      fontSize: "12px",
+                      textAlign: "left"
+                    }}>
+                      <AlertCircle size={14} style={{ flexShrink: 0 }} />
+                      <span>{errors.google}</span>
+                    </div>
+                  )}
+                </div>
               )}
 
               <div className="form-separator">

@@ -19,7 +19,10 @@ def sync_data(pg_url=None):
         if pg_url.startswith("postgres://"):
             pg_url = pg_url.replace("postgres://", "postgresql://", 1)
         print(f"Connecting to PostgreSQL using connection string...")
-        conn_pg = psycopg2.connect(pg_url)
+        if "localhost" not in pg_url and "127.0.0.1" not in pg_url and "sslmode" not in pg_url:
+            conn_pg = psycopg2.connect(pg_url, sslmode="require")
+        else:
+            conn_pg = psycopg2.connect(pg_url)
     else:
         conn_pg = psycopg2.connect(
             dbname="quiz_generator",

@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: questai-backend
+    env: python
+    rootDir: server
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: PYTHONIOENCODING
+        value: utf-8
+      - key: FAST_UPLOAD_MODE
+        value: "true"
+      - key: SECRET_KEY
+        value: 09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "60"
+      - key: CORS_ORIGINS
+        value: https://ai-powered-quiz-generator-pi.vercel.app,http://localhost:5173,http://localhost:3000
+      - key: GOOGLE_CLIENT_ID
+        value: 1004732812510-edmdaplkjbo36jatfesoiq4b341g0hb1.apps.googleusercontent.com
+      - key: DATABASE_URL
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
