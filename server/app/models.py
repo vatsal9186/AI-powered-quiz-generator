@@ -53,7 +53,8 @@ class Quiz(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(150), nullable=False)
     description = Column(Text, nullable=True)
-    source_type = Column(String(20), nullable=False)  # e.g., 'text', 'file', 'url'
+    category = Column(String(100), nullable=True)     # Subject or category (e.g., 'Science', 'Mathematics')
+    source_type = Column(String(20), nullable=False)  # e.g., 'manual', 'file', 'text', 'url', 'ai'
     difficulty = Column(String(20), nullable=False)   # e.g., 'easy', 'medium', 'hard'
     creator_id = Column(Integer, ForeignKey("users.id", ondelete="SET NULL"), nullable=True, index=True)
     document_id = Column(Integer, ForeignKey("documents.id", ondelete="SET NULL"), nullable=True, index=True)

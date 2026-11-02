@@ -14,6 +14,10 @@ import {
   Sparkles,
   AlertCircle,
   Award,
+  PenTool,
+  Plus,
+  Trash2,
+  Check,
 } from "lucide-react";
 import "../Home/Home.css";
 import "./Demo.css";
@@ -50,6 +54,191 @@ export default function Demo({ user, onOpenAuth }) {
   const [gradedResult, setGradedResult] = useState(null);
   const [timeUpMessage, setTimeUpMessage] = useState("");
   const [activeQuizId, setActiveQuizId] = useState(null);
+
+  // --- Creation Method State: 'ai' | 'manual' ---
+  const [creationMethod, setCreationMethod] = useState("ai");
+
+  // --- Manual Quiz Creation State ---
+  const [manualQuiz, setManualQuiz] = useState({
+    title: "",
+    category: "",
+    difficulty: "medium",
+    description: "",
+    questions: [
+      {
+        question: "",
+        options: ["", "", "", ""],
+        correct_answer: 0,
+        explanation: "",
+      },
+    ],
+  });
+  const [manualErrors, setManualErrors] = useState({});
+  const [isPublishingManual, setIsPublishingManual] = useState(false);
+  const [manualSuccessMsg, setManualSuccessMsg] = useState("");
+
+  const handleAddQuestion = () => {
+    setManualQuiz((prev) => ({
+      ...prev,
+      questions: [
+        ...prev.questions,
+        {
+          question: "",
+          options: ["", "", "", ""],
+          correct_answer: 0,
+          explanation: "",
+        },
+      ],
+    }));
+  };
+
+  const handleDeleteQuestion = (index) => {
+    if (manualQuiz.questions.length <= 1) return;
+    setManualQuiz((prev) => ({
+      ...prev,
+      questions: prev.questions.filter((_, i) => i !== index),
+    }));
+  };
+
+  const handleQuestionChange = (index, field, value) => {
+    setManualQuiz((prev) => {
+      const updated = [...prev.questions];
+      updated[index] = { ...updated[index], [field]: value };
+      return { ...prev, questions: updated };
+    });
+  };
+
+  const handleOptionChange = (qIndex, optIndex, value) => {
+    setManualQuiz((prev) => {
+      const updated = [...prev.questions];
+      const opts = [...updated[qIndex].options];
+      opts[optIndex] = value;
+      updated[qIndex] = { ...updated[qIndex], options: opts };
+      return { ...prev, questions: updated };
+    });
+  };
+
+  const handleSelectCorrectOption = (qIndex, optIndex) => {
+    setManualQuiz((prev) => {
+      const updated = [...prev.questions];
+      updated[qIndex] = { ...updated[qIndex], correct_answer: optIndex };
+      return { ...prev, questions: updated };
+    });
+  };
+
+  const handlePublishManualQuiz = async () => {
+    if (!user) {
+      setShowAuthWarning(true);
+      return;
+    }
+
+    const errs = {};
+    if (!manualQuiz.title.trim()) {
+      errs.title = "Quiz title is required";
+    }
+    if (!manualQuiz.category.trim()) {
+      errs.category = "Subject / Category is required";
+    }
+
+    manualQuiz.questions.forEach((q, qIdx) => {
+      if (!q.question.trim()) {
+        errs[`q_${qIdx}`] = "Question prompt is required";
+      }
+      q.options.forEach((opt, optIdx) => {
+        if (!opt.trim()) {
+          errs[`q_${qIdx}_opt_${optIdx}`] = `Option ${String.fromCharCode(65 + optIdx)} cannot be empty`;
+        }
+      });
+      if (q.correct_answer === null || q.correct_answer === undefined) {
+        errs[`q_${qIdx}_ans`] = "Please select the correct answer";
+      }
+    });
+
+    if (Object.keys(errs).length > 0) {
+      setManualErrors(errs);
+      setErrorMsg("Please fill in all required quiz information and question fields.");
+      return;
+    }
+
+    setManualErrors({});
+    setIsPublishingManual(true);
+    setErrorMsg("");
+    setManualSuccessMsg("");
+
+    const token =
+      sessionStorage.getItem("questai_token") ||
+      localStorage.getItem("questai_token") ||
+      localStorage.getItem("token") ||
+      (sessionStorage.getItem("questai_user") ? "session_active" : null);
+
+    try {
+      const payload = {
+        title: manualQuiz.title.trim(),
+        category: manualQuiz.category.trim(),
+        difficulty: manualQuiz.difficulty,
+        description: manualQuiz.description.trim() || undefined,
+        questions: manualQuiz.questions.map((q) => ({
+          question: q.question.trim(),
+          options: q.options.map((opt) => opt.trim()),
+          correct_answer: q.correct_answer,
+          explanation: q.explanation.trim() || undefined,
+        })),
+      };
+
+      const res = await fetch(`${apiBaseUrl}/api/quizzes/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.detail || "Failed to publish manual quiz");
+      }
+
+      const created = await res.json();
+      setManualSuccessMsg(`Quiz "${created.title}" published successfully! Loading interactive test...`);
+
+      const practiceRes = await fetch(`${apiBaseUrl}/api/quizzes/${created.id}?mode=practice`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (!practiceRes.ok) {
+        throw new Error("Quiz created, but failed to load practice view.");
+      }
+
+      const practiceData = await practiceRes.json();
+      setQuestions(practiceData.questions);
+      setActiveQuizId(created.id);
+      setSelectedFile(`Manual_Quiz: ${created.title}`);
+      setGenDifficulty(created.difficulty || "medium");
+      setSelectedChapters([created.category || "General"]);
+
+      setCurrentQuestionIndex(0);
+      setSelectedOption(null);
+      setIsAnswerChecked(false);
+      setIsCorrect(null);
+      setSelectedAnswers({});
+      setGradedResult(null);
+      setQuizTimer((practiceData.questions?.length || 10) * 60);
+      setTimerActive(true);
+      setQuizGenerated(true);
+
+      setTimeout(() => {
+        const el = document.getElementById("demo-workspace");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 150);
+
+    } catch (err) {
+      console.error("Manual quiz publish error:", err);
+      setErrorMsg(err.message || "An error occurred while publishing the quiz.");
+    } finally {
+      setIsPublishingManual(false);
+    }
+  };
 
   // --- Chat Assistant States ---
   const [chatMessages, setChatMessages] = useState([
@@ -616,7 +805,42 @@ export default function Demo({ user, onOpenAuth }) {
       <main className="demo-main-panel">
         {/* Left Column: Control Settings */}
         <div className="demo-control-col">
-          <div className="demo-step-header">
+          {/* Method Chooser: AI-Based Quiz vs Manual Quiz Creation */}
+          <div className="demo-method-choice-container">
+            <div className="demo-method-tabs">
+              <button
+                type="button"
+                className={`demo-method-card ${creationMethod === "ai" ? "active ai" : ""}`}
+                onClick={() => setCreationMethod("ai")}
+              >
+                <div className="demo-method-card-icon">
+                  <Sparkles size={18} />
+                </div>
+                <div className="demo-method-card-text">
+                  <h4>AI-Based Quiz</h4>
+                  <p>Upload document & auto-generate</p>
+                </div>
+              </button>
+
+              <button
+                type="button"
+                className={`demo-method-card ${creationMethod === "manual" ? "active manual" : ""}`}
+                onClick={() => setCreationMethod("manual")}
+              >
+                <div className="demo-method-card-icon">
+                  <PenTool size={18} />
+                </div>
+                <div className="demo-method-card-text">
+                  <h4>Manual Quiz</h4>
+                  <p>Create your custom Q&A form</p>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          {creationMethod === "ai" ? (
+            <>
+<div className="demo-step-header">
             <div className="demo-step-icon-wrap">
               <FileText size={18} />
             </div>
@@ -784,6 +1008,248 @@ export default function Demo({ user, onOpenAuth }) {
                   </select>
                 </div>
               )}
+            </div>
+          )}
+            </>
+          ) : (
+            /* Manual Quiz Creation Interface */
+            <div className="demo-manual-form-container animate-fade-in">
+              <div className="demo-step-header">
+                <div className="demo-step-icon-wrap" style={{ background: "rgba(5, 196, 107, 0.15)", color: "var(--accent-green)" }}>
+                  <PenTool size={18} />
+                </div>
+                <h3 className="demo-step-title">Manual Quiz Creation</h3>
+              </div>
+              <p className="demo-step-text">
+                Build your customized quiz with questions, multiple-choice options, and instant practice.
+              </p>
+
+              {manualSuccessMsg && (
+                <div className="demo-alert-banner animate-fade-in" style={{ borderColor: "rgba(5, 196, 107, 0.4)", background: "rgba(5, 196, 107, 0.08)" }}>
+                  <CheckCircle2 size={18} style={{ color: "var(--accent-green)" }} />
+                  <span style={{ color: "var(--accent-green)" }}>{manualSuccessMsg}</span>
+                </div>
+              )}
+
+              {/* Quiz Information Box */}
+              <div className="demo-manual-info-box">
+                <div className="demo-manual-box-header">
+                  <h4>
+                    <FileText size={16} /> Quiz Information
+                  </h4>
+                  <span className="demo-count-badge">
+                    {manualQuiz.questions.length} Question{manualQuiz.questions.length > 1 ? "s" : ""}
+                  </span>
+                </div>
+
+                <div className="demo-form-field">
+                  <label>
+                    Quiz Title <span className="req">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    className={`demo-input-text ${manualErrors.title ? "has-error" : ""}`}
+                    placeholder="e.g., Computer Networks Midterm Revision"
+                    value={manualQuiz.title}
+                    onChange={(e) => setManualQuiz({ ...manualQuiz, title: e.target.value })}
+                  />
+                  {manualErrors.title && (
+                    <span className="demo-error-hint">
+                      <AlertCircle size={12} /> {manualErrors.title}
+                    </span>
+                  )}
+                </div>
+
+                <div className="two-col-fields">
+                  <div className="demo-form-field">
+                    <label>
+                      Subject / Category <span className="req">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      className={`demo-input-text ${manualErrors.category ? "has-error" : ""}`}
+                      placeholder="e.g., Computer Science, Biology"
+                      value={manualQuiz.category}
+                      onChange={(e) => setManualQuiz({ ...manualQuiz, category: e.target.value })}
+                    />
+                    {manualErrors.category && (
+                      <span className="demo-error-hint">
+                        <AlertCircle size={12} /> {manualErrors.category}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="demo-form-field">
+                    <label>Quiz Difficulty</label>
+                    <select
+                      className="demo-select-field"
+                      value={manualQuiz.difficulty}
+                      onChange={(e) => setManualQuiz({ ...manualQuiz, difficulty: e.target.value })}
+                    >
+                      <option value="easy">Easy</option>
+                      <option value="medium">Medium</option>
+                      <option value="hard">Hard</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="demo-form-field">
+                  <label>Quiz Description (Optional)</label>
+                  <textarea
+                    rows={2}
+                    className="demo-textarea-field"
+                    placeholder="Brief description or instructions for quiz takers..."
+                    value={manualQuiz.description}
+                    onChange={(e) => setManualQuiz({ ...manualQuiz, description: e.target.value })}
+                  />
+                </div>
+              </div>
+
+              {/* Questions List */}
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", margin: "4px 0" }}>
+                <h4 style={{ fontSize: "0.92rem", fontWeight: 700, margin: 0, color: "var(--text-primary)" }}>
+                  Questions List
+                </h4>
+                <span style={{ fontSize: "0.78rem", color: "var(--text-secondary)" }}>
+                  Total Questions: {manualQuiz.questions.length}
+                </span>
+              </div>
+
+              <div className="demo-questions-wrapper">
+                {manualQuiz.questions.map((q, qIdx) => (
+                  <div key={qIdx} className="demo-q-card">
+                    <div className="demo-q-header">
+                      <span className="demo-q-badge">Question #{qIdx + 1}</span>
+                      {manualQuiz.questions.length > 1 && (
+                        <button
+                          type="button"
+                          className="demo-q-delete-btn"
+                          onClick={() => handleDeleteQuestion(qIdx)}
+                          title="Delete this question"
+                        >
+                          <Trash2 size={13} /> Delete
+                        </button>
+                      )}
+                    </div>
+
+                    <div className="demo-form-field">
+                      <label>
+                        Question Prompt <span className="req">*</span>
+                      </label>
+                      <textarea
+                        rows={2}
+                        className={`demo-textarea-field ${manualErrors[`q_${qIdx}`] ? "has-error" : ""}`}
+                        placeholder="Type the question prompt clearly here..."
+                        value={q.question}
+                        onChange={(e) => handleQuestionChange(qIdx, "question", e.target.value)}
+                      />
+                      {manualErrors[`q_${qIdx}`] && (
+                        <span className="demo-error-hint">
+                          <AlertCircle size={12} /> {manualErrors[`q_${qIdx}`]}
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="demo-options-container">
+                      <span className="demo-options-subheading">
+                        Multiple Choice Options (Select 1 correct answer)
+                      </span>
+                      {manualErrors[`q_${qIdx}_ans`] && (
+                        <span className="demo-error-hint" style={{ marginBottom: "6px" }}>
+                          <AlertCircle size={12} /> {manualErrors[`q_${qIdx}_ans`]}
+                        </span>
+                      )}
+
+                      <div className="demo-options-list">
+                        {q.options.map((opt, optIdx) => {
+                          const isCorrect = q.correct_answer === optIdx;
+                          return (
+                            <div
+                              key={optIdx}
+                              className={`demo-opt-item ${isCorrect ? "is-correct" : ""}`}
+                            >
+                              <div className="demo-opt-top">
+                                <label
+                                  className="demo-opt-radio-wrap"
+                                  onClick={() => handleSelectCorrectOption(qIdx, optIdx)}
+                                >
+                                  <input
+                                    type="radio"
+                                    name={`demo_q_${qIdx}_correct`}
+                                    checked={isCorrect}
+                                    onChange={() => handleSelectCorrectOption(qIdx, optIdx)}
+                                  />
+                                  <span className="demo-opt-letter">
+                                    {String.fromCharCode(65 + optIdx)}
+                                  </span>
+                                  <span style={{ fontSize: "0.8rem", fontWeight: 600 }}>
+                                    Option {String.fromCharCode(65 + optIdx)}
+                                  </span>
+                                </label>
+
+                                {isCorrect ? (
+                                  <span className="demo-opt-tag correct">
+                                    <Check size={11} /> Correct Answer
+                                  </span>
+                                ) : (
+                                  <span
+                                    className="demo-opt-tag mark"
+                                    onClick={() => handleSelectCorrectOption(qIdx, optIdx)}
+                                  >
+                                    Mark as Correct
+                                  </span>
+                                )}
+                              </div>
+
+                              <input
+                                type="text"
+                                className={`demo-input-text ${manualErrors[`q_${qIdx}_opt_${optIdx}`] ? "has-error" : ""}`}
+                                placeholder={`Enter Option ${String.fromCharCode(65 + optIdx)} text...`}
+                                value={opt}
+                                onChange={(e) => handleOptionChange(qIdx, optIdx, e.target.value)}
+                              />
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    <div className="demo-form-field" style={{ marginTop: "12px" }}>
+                      <label style={{ fontSize: "0.78rem" }}>Explanation (Optional)</label>
+                      <input
+                        type="text"
+                        className="demo-input-text"
+                        placeholder="Provide an explanation for the correct answer..."
+                        value={q.explanation}
+                        onChange={(e) => handleQuestionChange(qIdx, "explanation", e.target.value)}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <button
+                type="button"
+                className="demo-add-q-btn"
+                onClick={handleAddQuestion}
+              >
+                <Plus size={16} /> + Add Another Question
+              </button>
+
+              <button
+                type="button"
+                className="demo-publish-btn"
+                onClick={handlePublishManualQuiz}
+                disabled={isPublishingManual}
+              >
+                {isPublishingManual ? (
+                  "Publishing Quiz..."
+                ) : (
+                  <>
+                    <Sparkles size={16} /> Publish &amp; Practice Quiz Now
+                  </>
+                )}
+              </button>
             </div>
           )}
         </div>

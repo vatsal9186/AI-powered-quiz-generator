@@ -62,6 +62,7 @@ CREATE TABLE IF NOT EXISTS quizzes (
 	id SERIAL PRIMARY KEY, 
 	title VARCHAR(150) NOT NULL, 
 	description TEXT, 
+	category VARCHAR(100), 
 	source_type VARCHAR(20) NOT NULL, 
 	difficulty VARCHAR(20) NOT NULL, 
 	creator_id INTEGER REFERENCES users (id) ON DELETE SET NULL, 

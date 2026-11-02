@@ -38,6 +38,9 @@ def ensure_db_schema_up_to_date():
             # 2. Quizzes columns
             if "quizzes" in inspector.get_table_names():
                 columns = [col["name"] for col in inspector.get_columns("quizzes")]
+                if "category" not in columns:
+                    print("Adding column 'category' to table 'quizzes'...")
+                    conn.execute(text("ALTER TABLE quizzes ADD COLUMN category VARCHAR(100)"))
                 if "document_id" not in columns:
                     print("Adding column 'document_id' to table 'quizzes'...")
                     conn.execute(text("ALTER TABLE quizzes ADD COLUMN document_id INTEGER REFERENCES documents(id) ON DELETE SET NULL"))

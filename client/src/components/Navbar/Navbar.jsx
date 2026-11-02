@@ -13,6 +13,7 @@ import {
   ChevronDown,
   Sun,
   Moon,
+  PlusCircle,
 } from "lucide-react";
 import "./Navbar.css";
 
@@ -98,6 +99,12 @@ export default function Navbar({
             className={`nav-item ${location.pathname === "/demo" ? "active" : ""}`}
           >
             Try Demo
+          </Link>
+          <Link
+            to="/create-quiz"
+            className={`nav-item ${location.pathname === "/create-quiz" ? "active" : ""}`}
+          >
+            Create Quiz
           </Link>
           <Link
             to="/aptitude-test"
@@ -193,6 +200,14 @@ export default function Navbar({
                   >
                     <BookOpen size={16} />
                     <span>Saved Quizzes</span>
+                  </Link>
+                  <Link
+                    to="/dashboard?tab=create"
+                    className="dropdown-item"
+                    onClick={() => setDropdownOpen(false)}
+                  >
+                    <PlusCircle size={16} />
+                    <span>Create Quiz</span>
                   </Link>
 
                   <div className="dropdown-divider"></div>

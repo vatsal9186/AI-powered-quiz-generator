@@ -289,6 +289,7 @@ def list_quizzes(
     limit: int = 20,
     search: Optional[str] = None,
     difficulty: Optional[str] = None,
+    source_type: Optional[str] = None,
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_active_user)
 ):
@@ -300,11 +301,15 @@ def list_quizzes(
     if search:
         query = query.filter(
             models.Quiz.title.ilike(f"%{search}%") | 
-            models.Quiz.description.ilike(f"%{search}%")
+            models.Quiz.description.ilike(f"%{search}%") |
+            models.Quiz.category.ilike(f"%{search}%")
         )
         
-    if difficulty:
+    if difficulty and difficulty.lower() != "all":
         query = query.filter(models.Quiz.difficulty == difficulty.lower())
+        
+    if source_type and source_type.lower() != "all":
+        query = query.filter(models.Quiz.source_type == source_type.lower())
         
     # Apply pagination
     limit = min(max(limit, 1), 100)
@@ -357,6 +362,7 @@ def get_quiz(
             "id": quiz.id,
             "title": quiz.title,
             "description": quiz.description,
+            "category": quiz.category,
             "source_type": quiz.source_type,
             "difficulty": quiz.difficulty,
             "creator_id": quiz.creator_id,
@@ -526,7 +532,45 @@ def create_quiz(
 ):
     """
     Manually create a new quiz with custom questions and options.
+    Validates required fields, option completeness, and correct answer selection.
     """
+    if not payload.title or not payload.title.strip():
+        raise HTTPException(status_code=400, detail="Quiz title is required.")
+        
+    diff = payload.difficulty.lower() if payload.difficulty else "medium"
+    if diff not in ["easy", "medium", "hard"]:
+        diff = "medium"
+
+    if not payload.questions or len(payload.questions) == 0:
+        raise HTTPException(status_code=400, detail="A quiz must have at least one question.")
+
+    # Validate each question and its 4 options
+    for idx, q_data in enumerate(payload.questions, start=1):
+        if not q_data.question_text or not q_data.question_text.strip():
+            raise HTTPException(
+                status_code=400,
+                detail=f"Question {idx} must have non-empty question text."
+            )
+        if not q_data.options or len(q_data.options) < 2:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Question {idx} must have at least 2 options."
+            )
+        correct_count = 0
+        for opt_idx, opt in enumerate(q_data.options, start=1):
+            if not opt.option_text or not opt.option_text.strip():
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Question {idx}, Option {opt_idx} cannot be empty."
+                )
+            if opt.is_correct:
+                correct_count += 1
+        if correct_count != 1:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Question {idx} must have exactly one correct answer selected."
+            )
+
     # Verify document if provided
     if payload.document_id:
         doc = db.query(models.Document).filter(models.Document.id == payload.document_id).first()
@@ -536,12 +580,14 @@ def create_quiz(
             raise HTTPException(status_code=403, detail="You do not have access to this document.")
             
     db_quiz = models.Quiz(
-        title=payload.title,
-        description=payload.description,
-        source_type=payload.source_type,
-        difficulty=payload.difficulty.lower(),
+        title=payload.title.strip(),
+        description=payload.description.strip() if payload.description else None,
+        category=payload.category.strip() if payload.category else None,
+        source_type=payload.source_type or "manual",
+        difficulty=diff,
         creator_id=current_user.id,
-        document_id=payload.document_id
+        document_id=payload.document_id,
+        status="published"
     )
     db.add(db_quiz)
     db.commit()
@@ -551,12 +597,12 @@ def create_quiz(
         for q_data in payload.questions:
             db_question = models.Question(
                 quiz_id=db_quiz.id,
-                question_text=q_data.question_text,
-                type=q_data.type,
-                explanation=q_data.explanation,
-                points=q_data.points,
-                source_chapter=q_data.source_chapter,
-                difficulty=q_data.difficulty.lower() if q_data.difficulty else payload.difficulty.lower()
+                question_text=q_data.question_text.strip(),
+                type=q_data.type or "mcq",
+                explanation=q_data.explanation.strip() if q_data.explanation else None,
+                points=q_data.points or 1,
+                source_chapter=q_data.source_chapter or payload.category or "General",
+                difficulty=q_data.difficulty.lower() if q_data.difficulty else diff
             )
             db.add(db_question)
             db.commit()
@@ -565,7 +611,7 @@ def create_quiz(
             for opt_data in q_data.options:
                 db_option = models.Option(
                     question_id=db_question.id,
-                    option_text=opt_data.option_text,
+                    option_text=opt_data.option_text.strip(),
                     is_correct=opt_data.is_correct
                 )
                 db.add(db_option)
@@ -604,6 +650,8 @@ def update_quiz(
         quiz.description = payload.description
     if payload.difficulty is not None:
         quiz.difficulty = payload.difficulty.lower()
+    if payload.category is not None:
+        quiz.category = payload.category.strip() if payload.category else None
         
     db.add(quiz)
     db.commit()

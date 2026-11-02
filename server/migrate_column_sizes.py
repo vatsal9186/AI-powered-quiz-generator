@@ -42,6 +42,7 @@ NEW_LIMITS = {
     },
     "quizzes": {
         "title": 150,
+        "category": 100,
         "source_type": 20,
         "difficulty": 20,
         "status": 20,

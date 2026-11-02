@@ -93,6 +93,7 @@ class QuestionResponse(BaseModel):
     points: int
     source_chapter: Optional[str] = None
     difficulty: Optional[str] = None
+    category: Optional[str] = None
     options: List[OptionResponse] = []
 
     model_config = ConfigDict(from_attributes=True)
@@ -106,6 +107,7 @@ class QuestionDetailResponse(BaseModel):
     points: int
     source_chapter: Optional[str] = None
     difficulty: Optional[str] = None
+    category: Optional[str] = None
     options: List[OptionDetailResponse] = []
     
     model_config = ConfigDict(from_attributes=True)
@@ -115,6 +117,7 @@ class QuizResponse(BaseModel):
     id: int
     title: str
     description: Optional[str] = None
+    category: Optional[str] = None
     source_type: str
     difficulty: str
     creator_id: Optional[int] = None
@@ -218,11 +221,13 @@ class QuestionCreate(BaseModel):
     points: int = 1
     source_chapter: Optional[str] = None
     difficulty: Optional[str] = None
+    category: Optional[str] = None
     options: List[OptionCreate]
 
 class QuizCreateRequest(BaseModel):
     title: str
     description: Optional[str] = None
+    category: Optional[str] = None
     source_type: str = "manual"
     difficulty: str
     document_id: Optional[int] = None
@@ -232,3 +237,4 @@ class QuizUpdateRequest(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
     difficulty: Optional[str] = None
+    category: Optional[str] = None

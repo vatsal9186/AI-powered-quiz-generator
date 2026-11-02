@@ -22,15 +22,21 @@ import {
   CheckCircle,
   X,
   HelpCircle,
-  ChevronRight
+  ChevronRight,
+  PenTool,
+  ArrowLeft,
+  CheckCircle2,
+  Check,
+  Layers,
+  Tag
 } from "lucide-react";
 import "./Dashboard.css";
 import { apiBaseUrl } from "../../utils/api.js";
 
-export default function Dashboard({ user, onOpenAuth }) {
+export default function Dashboard({ user, onOpenAuth, initialTab }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-  const activeTab = searchParams.get("tab") || "overview";
+  const activeTab = searchParams.get("tab") || initialTab || "overview";
 
   // ==========================================
   // Core State Management (Backend API Backed)
@@ -68,6 +74,32 @@ export default function Dashboard({ user, onOpenAuth }) {
   const [genQuestions, setGenQuestions] = useState(15);
   const [isGeneratingQuiz, setIsGeneratingQuiz] = useState(false);
   const [quizProgressMsg, setQuizProgressMsg] = useState("");
+
+  // ==========================================
+  // Create Quiz Page State (AI vs Manual)
+  // ==========================================
+  const [createMode, setCreateMode] = useState("selection"); // 'selection', 'ai', 'manual'
+  const [manualQuiz, setManualQuiz] = useState({
+    title: "",
+    description: "",
+    category: "",
+    difficulty: "medium",
+    questions: [
+      {
+        id: 1,
+        question_text: "",
+        explanation: "",
+        options: [
+          { text: "", is_correct: true },
+          { text: "", is_correct: false },
+          { text: "", is_correct: false },
+          { text: "", is_correct: false }
+        ]
+      }
+    ]
+  });
+  const [manualErrors, setManualErrors] = useState({});
+  const [isPublishingManual, setIsPublishingManual] = useState(false);
 
   // Expanded states for module/chapter accordion in UI
   const [expandedModules, setExpandedModules] = useState({});
@@ -512,16 +544,237 @@ export default function Dashboard({ user, onOpenAuth }) {
   // ==========================================
   // Quiz Runner & Grading Flow
   // ==========================================
-  const startQuizRunner = (quizObj) => {
-    setActiveQuiz(quizObj);
+  const startQuizRunner = async (quizObj) => {
+    let fullQuiz = quizObj;
+    // If questions array is missing or empty, fetch the full practice quiz details
+    if (!quizObj.questions || quizObj.questions.length === 0) {
+      try {
+        setLoading(true);
+        const token = sessionStorage.getItem("questai_token") || localStorage.getItem("questai_token");
+        const res = await fetch(`${apiBaseUrl}/api/quizzes/${quizObj.id}?mode=practice`, {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        if (res.ok) {
+          fullQuiz = await res.json();
+        }
+      } catch (err) {
+        console.error("Failed to load full quiz details:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    const qList = fullQuiz.questions || [];
+    if (qList.length === 0) {
+      setErrorMsg("This quiz does not have any questions available to practice.");
+      return;
+    }
+
+    setActiveQuiz(fullQuiz);
     setCurrentQuestionIdx(0);
     setSelectedAnswers({});
     setGradedAttempt(null);
     setAnswerFeedback({});
     setRunningScore({ correct: 0, total: 0 });
-    setQuizTimer(quizObj.questions.length * 60); // 1 minute per question
+    setQuizTimer(Math.max(qList.length * 60, 60)); // 1 minute per question
     setQuizTimeSpent(0);
     setErrorMsg("");
+  };
+
+  // ==========================================
+  // Manual Quiz Creation Handlers
+  // ==========================================
+  const handleAddQuestion = () => {
+    setManualQuiz((prev) => ({
+      ...prev,
+      questions: [
+        ...prev.questions,
+        {
+          id: Date.now() + Math.random(),
+          question_text: "",
+          explanation: "",
+          options: [
+            { text: "", is_correct: true },
+            { text: "", is_correct: false },
+            { text: "", is_correct: false },
+            { text: "", is_correct: false }
+          ]
+        }
+      ]
+    }));
+  };
+
+  const handleDeleteQuestion = (qId) => {
+    if (manualQuiz.questions.length <= 1) return;
+    setManualQuiz((prev) => ({
+      ...prev,
+      questions: prev.questions.filter((q) => q.id !== qId)
+    }));
+  };
+
+  const handleQuestionChange = (qId, field, value) => {
+    setManualQuiz((prev) => ({
+      ...prev,
+      questions: prev.questions.map((q) =>
+        q.id === qId ? { ...q, [field]: value } : q
+      )
+    }));
+    if (manualErrors[`q_${qId}_${field}`]) {
+      setManualErrors((prev) => {
+        const next = { ...prev };
+        delete next[`q_${qId}_${field}`];
+        return next;
+      });
+    }
+  };
+
+  const handleOptionTextChange = (qId, optIdx, textVal) => {
+    setManualQuiz((prev) => ({
+      ...prev,
+      questions: prev.questions.map((q) => {
+        if (q.id !== qId) return q;
+        const newOpts = [...q.options];
+        newOpts[optIdx] = { ...newOpts[optIdx], text: textVal };
+        return { ...q, options: newOpts };
+      })
+    }));
+    if (manualErrors[`q_${qId}_opt_${optIdx}`]) {
+      setManualErrors((prev) => {
+        const next = { ...prev };
+        delete next[`q_${qId}_opt_${optIdx}`];
+        return next;
+      });
+    }
+  };
+
+  const handleSelectCorrectOption = (qId, optIdx) => {
+    setManualQuiz((prev) => ({
+      ...prev,
+      questions: prev.questions.map((q) => {
+        if (q.id !== qId) return q;
+        const newOpts = q.options.map((opt, idx) => ({
+          ...opt,
+          is_correct: idx === optIdx
+        }));
+        return { ...q, options: newOpts };
+      })
+    }));
+    if (manualErrors[`q_${qId}_correct`]) {
+      setManualErrors((prev) => {
+        const next = { ...prev };
+        delete next[`q_${qId}_correct`];
+        return next;
+      });
+    }
+  };
+
+  const handlePublishManualQuiz = async () => {
+    const errors = {};
+    if (!manualQuiz.title.trim()) {
+      errors.title = "Quiz title is required.";
+    }
+    if (!manualQuiz.category.trim()) {
+      errors.category = "Subject or category is required.";
+    }
+    if (manualQuiz.questions.length === 0) {
+      errors.general = "Please add at least one question.";
+    }
+
+    manualQuiz.questions.forEach((q, qIdx) => {
+      if (!q.question_text.trim()) {
+        errors[`q_${q.id}_question_text`] = `Question ${qIdx + 1} text is required.`;
+      }
+      let hasCorrect = false;
+      q.options.forEach((opt, optIdx) => {
+        if (!opt.text.trim()) {
+          errors[`q_${q.id}_opt_${optIdx}`] = `Option ${String.fromCharCode(65 + optIdx)} cannot be empty.`;
+        }
+        if (opt.is_correct) hasCorrect = true;
+      });
+      if (!hasCorrect) {
+        errors[`q_${q.id}_correct`] = `Please select one correct answer for Question ${qIdx + 1}.`;
+      }
+    });
+
+    if (Object.keys(errors).length > 0) {
+      setManualErrors(errors);
+      setErrorMsg("Please fill in all required question details and options before publishing.");
+      return;
+    }
+
+    setManualErrors({});
+    setErrorMsg("");
+    setIsPublishingManual(true);
+
+    try {
+      const token = sessionStorage.getItem("questai_token") || localStorage.getItem("questai_token");
+      const payload = {
+        title: manualQuiz.title.trim(),
+        description: manualQuiz.description.trim() || null,
+        category: manualQuiz.category.trim() || null,
+        source_type: "manual",
+        difficulty: manualQuiz.difficulty,
+        questions: manualQuiz.questions.map((q) => ({
+          question_text: q.question_text.trim(),
+          type: "mcq",
+          explanation: q.explanation.trim() || null,
+          points: 1,
+          source_chapter: manualQuiz.category.trim() || "General",
+          difficulty: manualQuiz.difficulty,
+          options: q.options.map((opt) => ({
+            option_text: opt.text.trim(),
+            is_correct: opt.is_correct
+          }))
+        }))
+      };
+
+      const res = await fetch(`${apiBaseUrl}/api/quizzes/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.detail || "Failed to publish manual quiz.");
+      }
+
+      const created = await res.json();
+      setSuccessMsg(`?? Quiz "${created.title}" published successfully!`);
+      setIsPublishingManual(false);
+
+      // Reset manual form to initial state
+      setManualQuiz({
+        title: "",
+        description: "",
+        category: "",
+        difficulty: "medium",
+        questions: [
+          {
+            id: 1,
+            question_text: "",
+            explanation: "",
+            options: [
+              { text: "", is_correct: true },
+              { text: "", is_correct: false },
+              { text: "", is_correct: false },
+              { text: "", is_correct: false }
+            ]
+          }
+        ]
+      });
+      setCreateMode("selection");
+
+      // Reload dashboard quizzes list and switch to quizzes tab
+      await fetchDashboardData();
+      handleTabChange("quizzes");
+    } catch (err) {
+      setIsPublishingManual(false);
+      setErrorMsg(err.message || "An error occurred while publishing the quiz.");
+    }
   };
 
   const handleSelectOption = async (questionId, optionId) => {
@@ -1122,19 +1375,35 @@ export default function Dashboard({ user, onOpenAuth }) {
       case "quizzes": {
         const filteredQuizzes = quizzes.filter((quiz) => {
           const matchesSearch = quiz.title.toLowerCase().includes(quizSearch.toLowerCase()) || 
-                                (quiz.description && quiz.description.toLowerCase().includes(quizSearch.toLowerCase()));
+                                (quiz.description && quiz.description.toLowerCase().includes(quizSearch.toLowerCase())) ||
+                                (quiz.category && quiz.category.toLowerCase().includes(quizSearch.toLowerCase()));
           const matchesDiff = difficultyFilter === "all" || quiz.difficulty === difficultyFilter;
-          const matchesSource = sourceFilter === "all" || quiz.source_type === sourceFilter;
+          const matchesSource = sourceFilter === "all" || 
+                                (sourceFilter === "manual" ? quiz.source_type === "manual" :
+                                 sourceFilter === "ai" ? quiz.source_type !== "manual" :
+                                 quiz.source_type === sourceFilter);
           return matchesSearch && matchesDiff && matchesSource;
         });
 
         return (
           <div className="section-card">
             <div className="section-header quizzes-view-header">
-              <h2>My Generated Quizzes</h2>
-              <button className="quiz-action-btn quiz-btn-primary" style={{ padding: "6px 12px", borderRadius: "6px", fontSize: "0.75rem" }} onClick={() => handleTabChange("generator")}>
-                <PlusCircle size={14} />
-                <span>New Quiz</span>
+              <div>
+                <h2>My Saved Quizzes</h2>
+                <p style={{ color: "var(--text-secondary)", fontSize: "0.85rem", marginTop: "4px" }}>
+                  Browse, review, and attempt all your AI-generated and manually created quizzes.
+                </p>
+              </div>
+              <button 
+                className="quiz-action-btn quiz-btn-primary" 
+                style={{ padding: "8px 16px", borderRadius: "8px", fontSize: "0.85rem" }} 
+                onClick={() => {
+                  setCreateMode("selection");
+                  handleTabChange("create");
+                }}
+              >
+                <PlusCircle size={16} />
+                <span>Create Quiz</span>
               </button>
             </div>
 
@@ -1142,7 +1411,7 @@ export default function Dashboard({ user, onOpenAuth }) {
               <input
                 type="text"
                 className="dashboard-search-input"
-                placeholder="Search quizzes..."
+                placeholder="Search by title, subject, or description..."
                 value={quizSearch}
                 onChange={(e) => setQuizSearch(e.target.value)}
               />
@@ -1162,10 +1431,12 @@ export default function Dashboard({ user, onOpenAuth }) {
                   value={sourceFilter}
                   onChange={(e) => setSourceFilter(e.target.value)}
                 >
-                  <option value="all">All Sources</option>
-                  <option value="file">File Document</option>
-                  <option value="text">Raw Text</option>
-                  <option value="url">Web URL</option>
+                  <option value="all">All Creation Types</option>
+                  <option value="manual">?? Manual Quizzes</option>
+                  <option value="ai">? AI Generated (All)</option>
+                  <option value="file">AI (File Document)</option>
+                  <option value="text">AI (Raw Text)</option>
+                  <option value="url">AI (Web URL)</option>
                 </select>
               </div>
             </div>
@@ -1174,7 +1445,18 @@ export default function Dashboard({ user, onOpenAuth }) {
               <div className="empty-state">
                 <BookOpen size={40} className="empty-state-icon" />
                 <h3>No Quizzes Found</h3>
-                <p>Generate a quiz using the generator tab to start testing yourself!</p>
+                <p>Create a quiz using AI generation or the manual quiz builder to start practicing!</p>
+                <button 
+                  className="quiz-action-btn quiz-btn-primary" 
+                  style={{ marginTop: "16px" }}
+                  onClick={() => {
+                    setCreateMode("selection");
+                    handleTabChange("create");
+                  }}
+                >
+                  <PlusCircle size={16} />
+                  <span>Create Your First Quiz</span>
+                </button>
               </div>
             ) : (
               <div className="quizzes-grid">
@@ -1182,8 +1464,21 @@ export default function Dashboard({ user, onOpenAuth }) {
                   <div key={quiz.id} className="quiz-card shimmer-card-glow">
                     <div className="quiz-card-header">
                       <div>
+                        <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap", marginBottom: "8px" }}>
+                          <span className={`quiz-type-badge ${quiz.source_type === "manual" ? "manual" : "ai"}`}>
+                            {quiz.source_type === "manual" ? "?? Manual" : "? AI Generated"}
+                          </span>
+                          {quiz.category && (
+                            <span className="quiz-category-badge">
+                              ??? {quiz.category}
+                            </span>
+                          )}
+                          <span className="quiz-status-badge published">
+                            ? {(quiz.status === "completed" || quiz.status === "published" || !quiz.status) ? "Published" : quiz.status}
+                          </span>
+                        </div>
                         <h3 className="quiz-title">{quiz.title}</h3>
-                        <p className="quiz-desc">{quiz.description}</p>
+                        <p className="quiz-desc">{quiz.description || "No description provided."}</p>
                       </div>
                     </div>
                     <div className="quiz-meta-row">
@@ -1191,13 +1486,13 @@ export default function Dashboard({ user, onOpenAuth }) {
                         {quiz.difficulty.toUpperCase()}
                       </span>
                       <span className="meta-pill source-pill">
-                        {quiz.questions_count} Qs
+                        ?? {quiz.questions_count || quiz.questions?.length || 0} Questions
                       </span>
                     </div>
                     <div className="quiz-card-footer">
                       <span className="quiz-date">Created {formatDate(quiz.created_at)}</span>
                       <div className="quiz-card-actions">
-                        <button className="quiz-action-btn quiz-btn-danger" onClick={() => handleDeleteQuiz(quiz.id)} aria-label="Delete quiz">
+                        <button className="quiz-action-btn quiz-btn-danger" onClick={() => handleDeleteQuiz(quiz.id)} aria-label="Delete quiz" title="Delete Quiz">
                           <Trash2 size={14} />
                         </button>
                         <button className="quiz-action-btn quiz-btn-primary" onClick={() => startQuizRunner(quiz)}>
@@ -1267,12 +1562,371 @@ export default function Dashboard({ user, onOpenAuth }) {
 
 
 
+      case "create":
       case "generator":
         return (
           <div className="section-card">
-            <div className="section-header">
-              <h2>Intelligent Quiz Generator</h2>
-            </div>
+            {createMode === "selection" ? (
+              <div>
+                <div className="create-quiz-intro">
+                  <h2>Create a New Quiz</h2>
+                  <p>Choose your preferred quiz creation method. Let AI analyze your study documents, or craft custom questions manually with complete control.</p>
+                </div>
+
+                <div className="create-quiz-choice-grid">
+                  {/* Option 1: AI-Generated Quiz */}
+                  <div className="create-quiz-choice-card ai-card" onClick={() => setCreateMode("ai")}>
+                    <span className="choice-card-badge">? AI-Powered ? Instant</span>
+                    <div className="choice-card-icon-circle">
+                      <Sparkles size={28} />
+                    </div>
+                    <h3 className="choice-card-title">AI-Generated Quiz</h3>
+                    <p className="choice-card-subtitle">Fastest way to test your study materials</p>
+                    <p className="choice-card-description">
+                      Upload your lecture slides, textbook chapters, or syllabus documents. Our intelligent AI automatically extracts topic hierarchies and generates targeted multiple-choice questions with detailed explanations.
+                    </p>
+                    <ul className="choice-card-features">
+                      <li>? Upload PDF, PPTX, or DOCX documents</li>
+                      <li>?? Automatic outline & chapter extraction</li>
+                      <li>?? Customizable difficulty & question counts</li>
+                      <li>?? Detailed AI explanations for each question</li>
+                    </ul>
+                    <button type="button" className="choice-card-btn">
+                      <span>Generate with AI</span>
+                      <ArrowRight size={16} />
+                    </button>
+                  </div>
+
+                  {/* Option 2: Manual Quiz Creation */}
+                  <div className="create-quiz-choice-card manual-card" onClick={() => setCreateMode("manual")}>
+                    <span className="choice-card-badge">?? Complete Control ? Custom</span>
+                    <div className="choice-card-icon-circle">
+                      <PenTool size={28} />
+                    </div>
+                    <h3 className="choice-card-title">Manual Quiz Creation</h3>
+                    <p className="choice-card-subtitle">Design your own test with precision</p>
+                    <p className="choice-card-description">
+                      Build your custom quiz from scratch without using AI. Define your subject category, add questions dynamically, write your own 4 multiple-choice options, and designate correct answers with single-click accuracy.
+                    </p>
+                    <ul className="choice-card-features">
+                      <li>?? Custom Title, Subject/Category & Difficulty</li>
+                      <li>? Add and remove unlimited questions dynamically</li>
+                      <li>?? 4 options (A, B, C, D) with single-click correct answer</li>
+                      <li>?? Instant publishing directly to your quiz library</li>
+                    </ul>
+                    <button type="button" className="choice-card-btn">
+                      <span>Create Manually</span>
+                      <ArrowRight size={16} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : createMode === "manual" ? (
+              /* Manual Quiz Builder View */
+              <div className="manual-quiz-form-wrapper">
+                <div className="quiz-mode-nav-bar">
+                  <button type="button" className="quiz-back-nav-btn" onClick={() => setCreateMode("selection")}>
+                    <ArrowLeft size={16} />
+                    <span>Back to Quiz Options</span>
+                  </button>
+                  <span className="mode-indicator-pill manual">?? Manual Creation Mode</span>
+                </div>
+
+                <div className="create-quiz-intro" style={{ marginBottom: "16px" }}>
+                  <h2>Manual Quiz Builder</h2>
+                  <p>Define your quiz details, compose multiple-choice questions, and select the correct answer for each question.</p>
+                </div>
+
+                {/* Section 1: Quiz Information */}
+                <div className="manual-info-card">
+                  <div className="manual-info-header">
+                    <h3>
+                      <FileText size={18} style={{ color: "var(--accent-green)" }} />
+                      <span>Quiz Information</span>
+                    </h3>
+                    <div className="manual-questions-count-badge">
+                      <BookOpen size={14} />
+                      <span>{manualQuiz.questions.length} Question{manualQuiz.questions.length !== 1 ? "s" : ""}</span>
+                    </div>
+                  </div>
+
+                  <div className="manual-info-grid">
+                    <div className="manual-field-group">
+                      <label htmlFor="manual-quiz-title">
+                        Quiz Title <span className="req-star">*</span>
+                      </label>
+                      <input
+                        id="manual-quiz-title"
+                        type="text"
+                        className={`manual-input ${manualErrors.title ? "has-error" : ""}`}
+                        placeholder="e.g. Data Structures & Algorithms Midterm Exam"
+                        value={manualQuiz.title}
+                        onChange={(e) => {
+                          setManualQuiz(prev => ({ ...prev, title: e.target.value }));
+                          if (manualErrors.title) {
+                            setManualErrors(prev => {
+                              const next = { ...prev };
+                              delete next.title;
+                              return next;
+                            });
+                          }
+                        }}
+                      />
+                      {manualErrors.title && (
+                        <span className="field-error-msg">
+                          <AlertCircle size={12} /> {manualErrors.title}
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="manual-field-group">
+                      <label htmlFor="manual-quiz-category">
+                        Subject or Category <span className="req-star">*</span>
+                      </label>
+                      <input
+                        id="manual-quiz-category"
+                        type="text"
+                        className={`manual-input ${manualErrors.category ? "has-error" : ""}`}
+                        placeholder="e.g. Computer Science, Mathematics"
+                        value={manualQuiz.category}
+                        onChange={(e) => {
+                          setManualQuiz(prev => ({ ...prev, category: e.target.value }));
+                          if (manualErrors.category) {
+                            setManualErrors(prev => {
+                              const next = { ...prev };
+                              delete next.category;
+                              return next;
+                            });
+                          }
+                        }}
+                      />
+                      {manualErrors.category && (
+                        <span className="field-error-msg">
+                          <AlertCircle size={12} /> {manualErrors.category}
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="manual-field-group">
+                      <label htmlFor="manual-quiz-diff">
+                        Quiz Difficulty
+                      </label>
+                      <select
+                        id="manual-quiz-diff"
+                        className="manual-select"
+                        value={manualQuiz.difficulty}
+                        onChange={(e) => setManualQuiz(prev => ({ ...prev, difficulty: e.target.value }))}
+                      >
+                        <option value="easy">Easy (Foundational)</option>
+                        <option value="medium">Medium (Intermediate)</option>
+                        <option value="hard">Hard (Advanced)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="manual-field-group" style={{ marginTop: "14px" }}>
+                    <label htmlFor="manual-quiz-desc">
+                      Quiz Description <span style={{ color: "var(--text-muted)", fontWeight: 400 }}>(Optional)</span>
+                    </label>
+                    <textarea
+                      id="manual-quiz-desc"
+                      rows={2}
+                      className="manual-textarea"
+                      placeholder="Provide brief instructions, topic coverage, or exam guidelines for test-takers..."
+                      value={manualQuiz.description}
+                      onChange={(e) => setManualQuiz(prev => ({ ...prev, description: e.target.value }))}
+                    />
+                  </div>
+                </div>
+
+                {/* Section 2: Questions List */}
+                <div className="manual-questions-header">
+                  <h3>Questions ({manualQuiz.questions.length})</h3>
+                  <button type="button" className="quiz-action-btn quiz-btn-primary" style={{ padding: "8px 14px", borderRadius: "8px", fontSize: "0.82rem" }} onClick={handleAddQuestion}>
+                    <PlusCircle size={15} />
+                    <span>Add Question</span>
+                  </button>
+                </div>
+
+                {manualQuiz.questions.map((q, qIdx) => {
+                  const qNum = String(qIdx + 1).padStart(2, "0");
+                  return (
+                    <div key={q.id} className="manual-question-card" id={`question-block-${q.id}`}>
+                      <div className="manual-question-card-header">
+                        <span className="question-seq-badge">Question {qNum}</span>
+                        {manualQuiz.questions.length > 1 && (
+                          <button
+                            type="button"
+                            className="btn-delete-question"
+                            onClick={() => handleDeleteQuestion(q.id)}
+                            title="Delete this question"
+                          >
+                            <Trash2 size={14} />
+                            <span>Delete Question</span>
+                          </button>
+                        )}
+                      </div>
+
+                      {/* Question Text */}
+                      <div className="manual-field-group" style={{ marginBottom: "14px" }}>
+                        <label>
+                          Question Prompt <span className="req-star">*</span>
+                        </label>
+                        <textarea
+                          rows={2}
+                          className={`manual-textarea ${manualErrors[`q_${q.id}_question_text`] ? "has-error" : ""}`}
+                          placeholder={`Enter question ${qIdx + 1} prompt text here...`}
+                          value={q.question_text}
+                          onChange={(e) => handleQuestionChange(q.id, "question_text", e.target.value)}
+                        />
+                        {manualErrors[`q_${q.id}_question_text`] && (
+                          <span className="field-error-msg">
+                            <AlertCircle size={12} /> {manualErrors[`q_${q.id}_question_text`]}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Optional Explanation */}
+                      <div className="manual-field-group" style={{ marginBottom: "16px" }}>
+                        <label>
+                          Explanation / Solution Note <span style={{ color: "var(--text-muted)", fontWeight: 400 }}>(Optional - shown to learners after answering)</span>
+                        </label>
+                        <input
+                          type="text"
+                          className="manual-input"
+                          placeholder="e.g. This is correct because..."
+                          value={q.explanation || ""}
+                          onChange={(e) => handleQuestionChange(q.id, "explanation", e.target.value)}
+                        />
+                      </div>
+
+                      {/* 4 Multiple-Choice Options */}
+                      <div className="manual-options-container">
+                        <div className="manual-options-title-row">
+                          <span className="manual-options-title">
+                            Answer Options (Select the correct answer) <span className="req-star">*</span>
+                          </span>
+                          <span className="manual-options-hint">
+                            Click a radio button to mark as correct
+                          </span>
+                        </div>
+
+                        {manualErrors[`q_${q.id}_correct`] && (
+                          <div style={{ marginBottom: "10px" }} className="field-error-msg">
+                            <AlertCircle size={14} /> {manualErrors[`q_${q.id}_correct`]}
+                          </div>
+                        )}
+
+                        <div className="manual-options-grid">
+                          {q.options.map((opt, optIdx) => {
+                            const letter = String.fromCharCode(65 + optIdx);
+                            const optError = manualErrors[`q_${q.id}_opt_${optIdx}`];
+                            return (
+                              <div
+                                key={optIdx}
+                                className={`manual-option-row ${opt.is_correct ? "is-correct-option" : ""}`}
+                              >
+                                <div className="manual-option-top">
+                                  <label className="manual-option-selector">
+                                    <input
+                                      type="radio"
+                                      name={`manual-correct-${q.id}`}
+                                      checked={opt.is_correct}
+                                      onChange={() => handleSelectCorrectOption(q.id, optIdx)}
+                                    />
+                                    <span className="option-letter-badge">{letter}</span>
+                                    <span style={{ fontSize: "0.82rem", fontWeight: 600 }}>Option {letter}</span>
+                                  </label>
+
+                                  <span
+                                    className={`correct-indicator-tag ${opt.is_correct ? "active" : "inactive"}`}
+                                    onClick={() => handleSelectCorrectOption(q.id, optIdx)}
+                                  >
+                                    {opt.is_correct ? "? Correct Answer" : "Mark as Correct"}
+                                  </span>
+                                </div>
+
+                                <input
+                                  type="text"
+                                  className={`manual-input ${optError ? "has-error" : ""}`}
+                                  placeholder={`Enter text for Option ${letter}...`}
+                                  value={opt.text}
+                                  onChange={(e) => handleOptionTextChange(q.id, optIdx, e.target.value)}
+                                />
+                                {optError && (
+                                  <span className="field-error-msg">
+                                    <AlertCircle size={12} /> {optError}
+                                  </span>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+
+                {/* Add Another Question Block Button */}
+                <button type="button" className="btn-add-question-block" onClick={handleAddQuestion}>
+                  <PlusCircle size={20} />
+                  <span>+ Add Another Question</span>
+                </button>
+
+                {/* Sticky Publishing Action Bar */}
+                <div className="manual-publish-bar">
+                  <div className="publish-bar-stats">
+                    <CheckCircle2 size={20} style={{ color: "var(--accent-green)" }} />
+                    <span>
+                      <strong>{manualQuiz.questions.length} Question{manualQuiz.questions.length !== 1 ? "s" : ""}</strong> ready ? 
+                      <span style={{ textTransform: "capitalize", marginLeft: "6px" }}>{manualQuiz.difficulty} Difficulty</span>
+                    </span>
+                  </div>
+
+                  <div className="publish-bar-actions">
+                    <button
+                      type="button"
+                      className="btn-cancel-draft"
+                      onClick={() => setCreateMode("selection")}
+                      disabled={isPublishingManual}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-publish-final"
+                      onClick={handlePublishManualQuiz}
+                      disabled={isPublishingManual}
+                    >
+                      {isPublishingManual ? (
+                        <>
+                          <span className="auth-btn-spinner" style={{ width: "16px", height: "16px", borderTopColor: "#fff" }} />
+                          <span>Publishing Quiz...</span>
+                        </>
+                      ) : (
+                        <>
+                          <CheckCircle2 size={18} />
+                          <span>Publish Quiz</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              /* AI Generator View (Preserves existing AI features 100%) */
+              <div>
+                <div className="quiz-mode-nav-bar">
+                  <button type="button" className="quiz-back-nav-btn" onClick={() => setCreateMode("selection")}>
+                    <ArrowLeft size={16} />
+                    <span>Back to Quiz Options</span>
+                  </button>
+                  <span className="mode-indicator-pill ai">? AI Generation Mode</span>
+                </div>
+
+                <div className="section-header" style={{ marginBottom: "20px" }}>
+                  <h2>AI-Powered Quiz Generator</h2>
+                </div>
             
             {/* Show progress stages for uploading/analyzing */}
             {uploadStatus !== "idle" && uploadStatus !== "done" && uploadStatus !== "error" ? (
@@ -1523,6 +2177,8 @@ export default function Dashboard({ user, onOpenAuth }) {
                 </button>
               </form>
             )}
+              </div>
+            )}
           </div>
         );
 
@@ -1537,10 +2193,10 @@ export default function Dashboard({ user, onOpenAuth }) {
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
                 <div style={{ background: "rgba(255,255,255,0.01)", border: "1px solid rgba(255,255,255,0.04)", padding: "20px", borderRadius: "12px", display: "flex", flexDirection: "column", gap: "10px" }}>
-                  <h3 style={{ fontWeight: 700, fontSize: "1.1rem" }}>Generate New Quiz</h3>
-                  <p style={{ color: "var(--text-secondary)", fontSize: "0.85rem", lineHeight: "1.4" }}>Formulate custom interactive questions dynamically by analyzing text layouts, PowerPoint nodes, or syllabus PDFs.</p>
-                  <button className="quiz-action-btn quiz-btn-primary" style={{ alignSelf: "flex-start", marginTop: "5px" }} onClick={() => handleTabChange("generator")}>
-                    <span>Launch Generator</span>
+                  <h3 style={{ fontWeight: 700, fontSize: "1.1rem" }}>Create New Quiz</h3>
+                  <p style={{ color: "var(--text-secondary)", fontSize: "0.85rem", lineHeight: "1.4" }}>Build custom multiple-choice quizzes manually from scratch or generate questions instantly using AI document analysis.</p>
+                  <button className="quiz-action-btn quiz-btn-primary" style={{ alignSelf: "flex-start", marginTop: "5px" }} onClick={() => { setCreateMode("selection"); handleTabChange("create"); }}>
+                    <span>Create Quiz</span>
                     <ArrowRight size={14} />
                   </button>
                 </div>
@@ -1753,9 +2409,9 @@ export default function Dashboard({ user, onOpenAuth }) {
               </button>
 
               <div style={{ height: "1px", background: "rgba(255,255,255,0.06)", margin: "10px 0" }}></div>
-              <button className={`tab-btn ${activeTab === "generator" ? "active" : ""}`} onClick={() => handleTabChange("generator")} style={{ border: "1px dashed var(--glass-border-hover)" }}>
-                <Sparkles size={18} style={{ color: "var(--accent-amber)" }} />
-                <span style={{ color: activeTab === "generator" ? "#FAF9F6" : "var(--text-primary)" }}>Quiz Generator</span>
+              <button className={`tab-btn ${(activeTab === "generator" || activeTab === "create") ? "active" : ""}`} onClick={() => { setCreateMode("selection"); handleTabChange("create"); }} style={{ border: "1px dashed var(--glass-border-hover)" }}>
+                <PlusCircle size={18} style={{ color: "var(--accent-green)" }} />
+                <span style={{ color: (activeTab === "generator" || activeTab === "create") ? "#FAF9F6" : "var(--text-primary)" }}>Create Quiz</span>
               </button>
             </nav>
           </aside>

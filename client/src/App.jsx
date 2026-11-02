@@ -11,6 +11,7 @@ import FAQ from './pages/FAQ/FAQ';
 import About from './pages/About/About';
 import AptitudeTest from './pages/AptitudeTest/AptitudeTest';
 import Dashboard from './pages/Dashboard/Dashboard';
+import CreateQuiz from './pages/CreateQuiz/CreateQuiz';
 import Footer from './components/Footer/Footer';
 import AuthModal from './components/AuthModal/AuthModal';
 import { apiBaseUrl } from './utils/api.js';
@@ -204,6 +205,10 @@ function AppContent() {
                 <Dashboard user={user} onOpenAuth={openAuth} />
               </ProtectedRoute>
             } 
+          />
+          <Route 
+            path="/create-quiz" 
+            element={<CreateQuiz user={user} onOpenAuth={openAuth} />} 
           />
         </Routes>
       </div>
