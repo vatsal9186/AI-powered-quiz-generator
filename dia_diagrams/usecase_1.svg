@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="29cm" height="27cm" viewBox="150 56 561 530" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <ellipse style="fill: #ffffff" cx="176" cy="273" rx="6" ry="6"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="176" cy="273" rx="6" ry="6"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="152" y1="285" x2="200" y2="285"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="176" y1="279" x2="176" y2="309"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="176" y1="309" x2="152" y2="335"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="176" y1="309" x2="200" y2="335"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="176" y="359.8">
+      <tspan x="176" y="359.8">Admin</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="246" y="57" width="464" height="528"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="246" y="57" width="464" height="528"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="478" y="325.8">
+      <tspan x="478" y="325.8"></tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="488.412" cy="107.137" rx="84.4122" ry="28.1374"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="488.412" cy="107.137" rx="84.4122" ry="28.1374"/>
+    <text font-size="14.0998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="488.412" y="112.425">
+      <tspan x="488.412" y="112.425">  Login / Register  </tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="489.462" cy="177.821" rx="78.9622" ry="26.3207"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="489.462" cy="177.821" rx="78.9622" ry="26.3207"/>
+    <text font-size="14.0998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="489.462" y="183.108">
+      <tspan x="489.462" y="183.108">  Manage Users  </tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="495.929" cy="255.643" rx="114.429" ry="38.1429"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="495.929" cy="255.643" rx="114.429" ry="38.1429"/>
+    <text font-size="11.842" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="495.929" y="260.092">
+      <tspan x="495.929" y="260.092">  Moderate Quizzes (AI &amp; Manual)  </tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="486.237" cy="341.412" rx="107.737" ry="35.9124"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="486.237" cy="341.412" rx="107.737" ry="35.9124"/>
+    <text font-size="14.0998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="486.237" y="346.7">
+      <tspan x="486.237" y="346.7">  View Platform Analytics  </tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="493.712" cy="429.571" rx="114.212" ry="38.0707"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="493.712" cy="429.571" rx="114.212" ry="38.0707"/>
+    <text font-size="14.0998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="493.712" y="434.858">
+      <tspan x="493.712" y="434.858">  Configure AI API Settings  </tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="496.187" cy="528.729" rx="117.687" ry="39.2291"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="496.187" cy="528.729" rx="117.687" ry="39.2291"/>
+    <text font-size="14.0998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="496.187" y="534.017">
+      <tspan x="496.187" y="534.017">  Monitor System Error Logs  </tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="202.002" y1="286.146" x2="396.687" y2="115.032"/>
+    <polygon style="fill: #000000" points="402.32,110.08 398.11,120.438 396.687,115.032 391.508,112.926 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="402.32,110.08 398.11,120.438 396.687,115.032 391.508,112.926 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="203" y1="286" x2="401.854" y2="183.031"/>
+    <polygon style="fill: #000000" points="408.514,179.582 401.933,188.62 401.854,183.031 397.335,179.74 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="408.514,179.582 401.933,188.62 401.854,183.031 397.335,179.74 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="206" y1="285" x2="371.902" y2="256.752"/>
+    <polygon style="fill: #000000" points="379.296,255.493 370.277,262.101 371.902,256.752 368.598,252.243 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="379.296,255.493 370.277,262.101 371.902,256.752 368.598,252.243 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="203" y1="287" x2="369.242" y2="341.099"/>
+    <polygon style="fill: #000000" points="376.374,343.42 365.317,345.08 369.242,341.099 368.412,335.571 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="376.374,343.42 365.317,345.08 369.242,341.099 368.412,335.571 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="206" y1="285" x2="375.082" y2="428.732"/>
+    <polygon style="fill: #000000" points="380.796,433.59 369.939,430.922 375.082,428.732 376.416,423.303 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="380.796,433.59 369.939,430.922 375.082,428.732 376.416,423.303 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="207" y1="290" x2="372.843" y2="522.272"/>
+    <polygon style="fill: #000000" points="377.201,528.376 367.321,523.143 372.843,522.272 375.459,517.332 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="377.201,528.376 367.321,523.143 372.843,522.272 375.459,517.332 "/>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="478" y="321">
+    <tspan x="478" y="321"></tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="416" y="59">
+    <tspan x="416" y="59"></tspan>
+  </text>
+</svg>

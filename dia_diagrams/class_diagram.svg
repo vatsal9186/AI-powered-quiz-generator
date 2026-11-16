@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="58cm" height="30cm" viewBox="15 103 1159 588" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="16" y="104" width="233.3" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="16" y="104" width="233.3" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="132.65" y="124">User</text>
+    <rect style="fill: #ffffff" x="16" y="132" width="233.3" height="84"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="16" y="132" width="233.3" height="84"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="19" y="145.2">-id : Integer {pk}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="19" y="161.2">-email : String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="19" y="177.2">-fullname : String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="19" y="193.2">-role : String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="19" y="209.2">-Status : String</text>
+    <rect style="fill: #ffffff" x="16" y="216" width="233.3" height="100"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="16" y="216" width="233.3" height="100"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="19" y="229.2">+register (): Boolean</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="19" y="245.2">+login(email, pass): Boolean</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="19" y="261.2">+uploadDoc(title, file): Doc</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="19" y="277.2">+attemptQuiz(quizid): Attempt</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="19" y="293.2">+viewAnalytics(): List</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="19" y="309.2">+createManualQuiz(): Quiz</text>
+  </g>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="133.541" y1="300.996" x2="134" y2="352"/>
+  <g>
+    <rect style="fill: #ffffff" x="17.7" y="353.4" width="210.2" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="17.7" y="353.4" width="210.2" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="122.8" y="373.4">QuizAttempt</text>
+    <rect style="fill: #ffffff" x="17.7" y="381.4" width="210.2" height="84"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="17.7" y="381.4" width="210.2" height="84"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="20.7" y="394.6">-id : Integer {pk}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="20.7" y="410.6">-userId: Integer {FK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="20.7" y="426.6">-quizId: Integer {FK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="20.7" y="442.6">-score: Float</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="20.7" y="458.6">-timeSpent: Integer</text>
+    <rect style="fill: #ffffff" x="17.7" y="465.4" width="210.2" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="17.7" y="465.4" width="210.2" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="20.7" y="478.6">+submitAns(answers): Float</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="20.7" y="494.6">+calculateScore(): Float</text>
+  </g>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="132.857" y1="502.814" x2="132.857" y2="556"/>
+  <g>
+    <rect style="fill: #ffffff" x="16.7" y="557.4" width="217.9" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="16.7" y="557.4" width="217.9" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="125.65" y="577.4">UserAnswer</text>
+    <rect style="fill: #ffffff" x="16.7" y="585.4" width="217.9" height="84"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="16.7" y="585.4" width="217.9" height="84"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="19.7" y="598.6">-id : Integer {pk}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="19.7" y="614.6">-attemptId: Integer {FK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="19.7" y="630.6">-questionId: Integer {FK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="19.7" y="646.6">-selectedOptionId: Int {FK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="19.7" y="662.6">-isCorrect: Boolean</text>
+    <rect style="fill: #ffffff" x="16.7" y="669.4" width="217.9" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="16.7" y="669.4" width="217.9" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="19.7" y="682.6">+verifyAnswer(): Bool</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="360.724" y="105.062" width="187.1" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="360.724" y="105.062" width="187.1" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="454.274" y="125.062">Document</text>
+    <rect style="fill: #ffffff" x="360.724" y="133.062" width="187.1" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="360.724" y="133.062" width="187.1" height="68"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="363.724" y="146.262">-id : Integer {PK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="363.724" y="162.262">-title: String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="363.724" y="178.262">-fileName: String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="363.724" y="194.262">-ownerId: Integer {FK}</text>
+    <rect style="fill: #ffffff" x="360.724" y="201.062" width="187.1" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="360.724" y="201.062" width="187.1" height="52"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="363.724" y="214.262">+processText(): Boolean</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="363.724" y="230.262">+parseStructure(): List</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="363.724" y="246.262">+getChapters(): List</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="332.848" y="307.024" width="248.7" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="332.848" y="307.024" width="248.7" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="457.198" y="327.024">Quiz</text>
+    <rect style="fill: #ffffff" x="332.848" y="335.024" width="248.7" height="100"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="332.848" y="335.024" width="248.7" height="100"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="335.848" y="348.224">-id : Integer {PK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="335.848" y="364.224">-title: String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="335.848" y="380.224">-sourceType: String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="335.848" y="396.224">-difficuilty: String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="335.848" y="412.224">+creatorId: Integer {FK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="335.848" y="428.224">-category: String</text>
+    <rect style="fill: #ffffff" x="332.848" y="435.024" width="248.7" height="84"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="332.848" y="435.024" width="248.7" height="84"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="335.848" y="448.224">+generateAIQueations(): List</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="335.848" y="464.224">+editQuestion(id, txt): Boolean</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="335.848" y="480.224">+deleteQuiz(): Boolean</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="335.848" y="496.224">+createManualQuiz(): Quiz</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="335.848" y="512.224">+publishQuiz(): Boolean</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="338.9" y="528.022" width="225.6" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="338.9" y="528.022" width="225.6" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="451.7" y="548.022">Question</text>
+    <rect style="fill: #ffffff" x="338.9" y="556.022" width="225.6" height="84"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="338.9" y="556.022" width="225.6" height="84"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="341.9" y="569.222">-id : Integer {PK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="341.9" y="585.222">-quizId: Integer {FK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="341.9" y="601.222">-questionText: Text</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="341.9" y="617.222">-type: String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="341.9" y="633.222">-points: Integer </text>
+    <rect style="fill: #ffffff" x="338.9" y="640.022" width="225.6" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="338.9" y="640.022" width="225.6" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="341.9" y="653.222">+addOption(txt, ok): Boolean</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="341.9" y="669.222">+validateAns(id): Boolean</text>
+  </g>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="458.118" y1="253.848" x2="457.198" y2="307.024"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="457.198" y1="471.024" x2="457.476" y2="526.656"/>
+  <g>
+    <rect style="fill: #ffffff" x="676.264" y="108.952" width="210.2" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="676.264" y="108.952" width="210.2" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="781.364" y="128.952">Module</text>
+    <rect style="fill: #ffffff" x="676.264" y="136.952" width="210.2" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="676.264" y="136.952" width="210.2" height="52"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="679.264" y="150.152">-id : Integer {PK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="679.264" y="166.152">-documentId: Integer {FK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="679.264" y="182.152">-title: String</text>
+    <rect style="fill: #ffffff" x="676.264" y="188.952" width="210.2" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="676.264" y="188.952" width="210.2" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="679.264" y="202.152">+addChapter(chap): Boolean</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="679.264" y="218.152">+recorderModules(): List</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="680.85" y="311.61" width="210.2" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="680.85" y="311.61" width="210.2" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="785.95" y="331.61">Chapter</text>
+    <rect style="fill: #ffffff" x="680.85" y="339.61" width="210.2" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="680.85" y="339.61" width="210.2" height="68"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="683.85" y="352.81">-id : Integer {PK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="683.85" y="368.81">-documentId: Integer {FK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="683.85" y="384.81">-moduleId: Integer {FK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="683.85" y="400.81">-title: String</text>
+    <rect style="fill: #ffffff" x="680.85" y="407.61" width="210.2" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="680.85" y="407.61" width="210.2" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="683.85" y="420.81">+parseTopics(): List</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="683.85" y="436.81">+updateContent(text): Bool</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="668.928" y="546.362" width="202.5" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="668.928" y="546.362" width="202.5" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="770.178" y="566.362">Option</text>
+    <rect style="fill: #ffffff" x="668.928" y="574.362" width="202.5" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="668.928" y="574.362" width="202.5" height="52"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="671.928" y="587.562">-id : Integer {PK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="671.928" y="603.562">-questionId: Integer {FK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="671.928" y="619.562">-isCorrect: Boolean</text>
+    <rect style="fill: #ffffff" x="668.928" y="626.362" width="202.5" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="668.928" y="626.362" width="202.5" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="671.928" y="639.562">+toggleisCorrect(): Bool</text>
+  </g>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="781.364" y1="224.952" x2="780.262" y2="309.326"/>
+  <g>
+    <rect style="fill: #ffffff" x="977.96" y="312.526" width="194.8" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="977.96" y="312.526" width="194.8" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="1075.36" y="332.526">Topic</text>
+    <rect style="fill: #ffffff" x="977.96" y="340.526" width="194.8" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="977.96" y="340.526" width="194.8" height="52"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="980.96" y="353.726">-id : Integer {PK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="980.96" y="369.726">-chapterId: Integer {FK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="980.96" y="385.726">-title: String</text>
+    <rect style="fill: #ffffff" x="977.96" y="392.526" width="194.8" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="977.96" y="392.526" width="194.8" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="980.96" y="405.726">+getDetails(): Topic</text>
+  </g>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="251" y1="214.4" x2="332.848" y2="307.024"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="249.3" y1="190" x2="360.724" y2="191.062"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="226.026" y1="409.738" x2="332.848" y2="409.024"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="234.276" y1="618.61" x2="341.098" y2="617.896"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="564.5" y1="630.022" x2="668.928" y2="600.362"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="890.05" y1="373.61" x2="977" y2="373.4"/>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="142" y="305.4">
+    <tspan x="142" y="305.4"></tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="139" y="313.4">
+    <tspan x="139" y="313.4">1</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="137.5" y="350.6">
+    <tspan x="137.5" y="350.6">-</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="135.5" y="515.6">
+    <tspan x="135.5" y="515.6">1</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="135.5" y="552.6">
+    <tspan x="135.5" y="552.6">-</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="254" y="186.4">
+    <tspan x="254" y="186.4">1</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="344" y="187.4">
+    <tspan x="344" y="187.4">-</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="261.5" y="219.6">
+    <tspan x="261.5" y="219.6">1</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="327.5" y="296.6">
+    <tspan x="327.5" y="296.6">-</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="232.5" y="405.6">
+    <tspan x="232.5" y="405.6">-</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="318.5" y="404.6">
+    <tspan x="318.5" y="404.6">1</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="243.5" y="615.6">
+    <tspan x="243.5" y="615.6">-</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="322.5" y="614.6">
+    <tspan x="322.5" y="614.6">1</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="434" y="264.4">
+    <tspan x="434" y="264.4">0..1</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="444.5" y="302.6">
+    <tspan x="444.5" y="302.6">-</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="444.5" y="485.6">
+    <tspan x="444.5" y="485.6">1</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="443.5" y="523.6">
+    <tspan x="443.5" y="523.6">-</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="544.5" y="623.6">
+    <tspan x="544.5" y="623.6">1</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="643" y="599.4">
+    <tspan x="643" y="599.4">2..1</tspan>
+  </text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="548.51" y1="168.81" x2="674" y2="168.4"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="547.824" y1="227.062" x2="679" y2="331.4"/>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="553.5" y="165.6">
+    <tspan x="553.5" y="165.6">1</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="661.5" y="167.6">
+    <tspan x="661.5" y="167.6">-</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="553.5" y="230.6">
+    <tspan x="553.5" y="230.6">1</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="669.5" y="316.6">
+    <tspan x="669.5" y="316.6">-</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="894.5" y="370.6">
+    <tspan x="894.5" y="370.6">1</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="964.5" y="370.6">
+    <tspan x="964.5" y="370.6">-</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="762.5" y="241.6">
+    <tspan x="762.5" y="241.6">1</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="766.5" y="308.6">
+    <tspan x="766.5" y="308.6">-</tspan>
+  </text>
+</svg>

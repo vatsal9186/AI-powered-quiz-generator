@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="29cm" height="27cm" viewBox="138 56 568 534" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <ellipse style="fill: #ffffff" cx="168.725" cy="292.2" rx="6" ry="6"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="168.725" cy="292.2" rx="6" ry="6"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="144.725" y1="304.2" x2="192.725" y2="304.2"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="168.725" y1="298.2" x2="168.725" y2="328.2"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="168.725" y1="328.2" x2="144.725" y2="354.2"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="168.725" y1="328.2" x2="192.725" y2="354.2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="168.725" y="379">
+      <tspan x="168.725" y="379">Quiz Taker</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="240.726" y="57" width="464" height="531.6"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="240.726" y="57" width="464" height="531.6"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="472.726" y="327.6">
+      <tspan x="472.726" y="327.6"></tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="502.263" cy="117.379" rx="129.537" ry="43.1791"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="502.263" cy="117.379" rx="129.537" ry="43.1791"/>
+    <text font-size="14.0998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="502.263" y="122.667">
+      <tspan x="502.263" y="122.667">  Browse Quizzes (AI &amp; Manual)  </tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="502.988" cy="199.287" rx="121.762" ry="40.5874"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="502.988" cy="199.287" rx="121.762" ry="40.5874"/>
+    <text font-size="14.0998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="502.988" y="204.575">
+      <tspan x="502.988" y="204.575">  Attempt Quiz (AI &amp; Manual)  </tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="466.23" cy="275.368" rx="89.0038" ry="29.6679"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="466.23" cy="275.368" rx="89.0038" ry="29.6679"/>
+    <text font-size="11.842" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="466.23" y="279.817">
+      <tspan x="466.23" y="279.817">  View Score &amp; Analytics  </tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="480.888" cy="365.587" rx="98.6622" ry="32.8874"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="480.888" cy="365.587" rx="98.6622" ry="32.8874"/>
+    <text font-size="14.0998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="480.888" y="370.875">
+      <tspan x="480.888" y="370.875">  Review Explanations  </tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="496.263" cy="444.712" rx="99.0372" ry="33.0124"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="496.263" cy="444.712" rx="99.0372" ry="33.0124"/>
+    <text font-size="14.0998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="496.263" y="450">
+      <tspan x="496.263" y="450">  Bookmark Questions  </tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="475.988" cy="526.621" rx="86.7622" ry="28.9207"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="475.988" cy="526.621" rx="86.7622" ry="28.9207"/>
+    <text font-size="14.0998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="475.988" y="531.908">
+      <tspan x="475.988" y="531.908">  Share Quiz Links  </tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="204.824" y1="301.6" x2="366.275" y2="119.096"/>
+    <polygon style="fill: #000000" points="371.244,113.479 368.363,124.282 366.275,119.096 360.874,117.656 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="371.244,113.479 368.363,124.282 366.275,119.096 360.874,117.656 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="195.725" y1="305.2" x2="372.852" y2="200.138"/>
+    <polygon style="fill: #000000" points="379.303,196.312 373.253,205.714 372.852,200.138 368.151,197.113 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="379.303,196.312 373.253,205.714 372.852,200.138 368.151,197.113 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="198.725" y1="304.2" x2="367.563" y2="283.346"/>
+    <polygon style="fill: #000000" points="375.007,282.426 365.695,288.614 367.563,283.346 364.469,278.69 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="375.007,282.426 365.695,288.614 367.563,283.346 364.469,278.69 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="195.725" y1="306.2" x2="372.981" y2="364.735"/>
+    <polygon style="fill: #000000" points="380.103,367.087 369.039,368.699 372.981,364.735 372.175,359.203 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="380.103,367.087 369.039,368.699 372.981,364.735 372.175,359.203 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="196.725" y1="305.2" x2="389.262" y2="440.58"/>
+    <polygon style="fill: #000000" points="395.397,444.894 384.341,443.232 389.262,440.58 390.093,435.052 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="395.397,444.894 384.341,443.232 389.262,440.58 390.093,435.052 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="199.725" y1="309.2" x2="382.89" y2="522.896"/>
+    <polygon style="fill: #000000" points="387.771,528.59 377.467,524.252 382.89,522.896 385.059,517.744 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="387.771,528.59 377.467,524.252 382.89,522.896 385.059,517.744 "/>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="472.726" y="322.8">
+    <tspan x="472.726" y="322.8"></tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="408.726" y="78.2">
+    <tspan x="408.726" y="78.2"></tspan>
+  </text>
+</svg>

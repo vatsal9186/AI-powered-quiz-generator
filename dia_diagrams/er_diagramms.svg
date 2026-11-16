@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="54cm" height="38cm" viewBox="-29 -5 1063 760" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="52.6216" y="62.8088" width="187.1" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="52.6216" y="62.8088" width="187.1" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="146.172" y="82.8088">documents</text>
+    <rect style="fill: #ffffff" x="52.6216" y="90.8088" width="187.1" height="132"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="52.6216" y="90.8088" width="187.1" height="132"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="55.6216" y="104.009"> id: Int {PK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="55.6216" y="120.009"> Owner_id: Int {FK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="55.6216" y="136.009"> title: Varchar(255)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="55.6216" y="152.009"> filename: Varchar(255)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="55.6216" y="168.009"> content: Text</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="55.6216" y="184.009"> status: varchar(50)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="55.6216" y="200.009"> error_message: Text</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="55.6216" y="216.009"> created_at: DateTime</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="358.986" y="63.2088" width="241" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="358.986" y="63.2088" width="241" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="479.486" y="83.2088">users</text>
+    <rect style="fill: #ffffff" x="358.986" y="91.2088" width="241" height="132"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="358.986" y="91.2088" width="241" height="132"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="361.986" y="104.409"> id: Int {PK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="361.986" y="120.409"> email: Varchar(255)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="361.986" y="136.409"> hashed_password: Varchar(255)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="361.986" y="152.409"> full_name: Varchar(255)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="361.986" y="168.409"> google_id: Varchar(255)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="361.986" y="184.409"> auth_provider: Varchar(50)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="361.986" y="200.409"> role: Varchar(50)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="361.986" y="216.409"> status: Varchar(50)</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="848.084" y="48.56" width="179.4" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="848.084" y="48.56" width="179.4" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="937.784" y="68.56">modules</text>
+    <rect style="fill: #ffffff" x="848.084" y="76.56" width="179.4" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="848.084" y="76.56" width="179.4" height="68"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="851.084" y="89.76"> id: Int {PK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="851.084" y="105.76"> document_id: Int {FK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="851.084" y="121.76"> title: Varchar(255)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="851.084" y="137.76"> order: Int</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="844.518" y="196.181" width="179.4" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="844.518" y="196.181" width="179.4" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="934.218" y="216.181">chapters</text>
+    <rect style="fill: #ffffff" x="844.518" y="224.181" width="179.4" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="844.518" y="224.181" width="179.4" height="68"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="847.518" y="237.381"> id: Int {PK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="847.518" y="253.381"> document_id: Int {FK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="847.518" y="269.381"> module_id: Int {FK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="847.518" y="285.381"> title: Varchar(255)</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="679.494" y="321.78" width="164" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="679.494" y="321.78" width="164" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="761.494" y="341.78">questions</text>
+    <rect style="fill: #ffffff" x="679.494" y="349.78" width="164" height="100"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="679.494" y="349.78" width="164" height="100"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="682.494" y="362.98"> id: Int {PK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="682.494" y="378.98"> quiz_id: Int {FK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="682.494" y="394.98"> question_text: Texr</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="682.494" y="410.98"> type: Varchar(50)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="682.494" y="426.98"> explanation: Text</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="682.494" y="442.98"> points: Int</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="861.326" y="478.724" width="171.7" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="861.326" y="478.724" width="171.7" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="947.176" y="498.724">topics</text>
+    <rect style="fill: #ffffff" x="861.326" y="506.724" width="171.7" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="861.326" y="506.724" width="171.7" height="52"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="864.326" y="519.924"> id: Int {PK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="864.326" y="535.924"> chapter_id: Int {FK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="864.326" y="551.924"> title: Varchar(255)</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="698.404" y="592.888" width="164" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="698.404" y="592.888" width="164" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="780.404" y="612.888">options</text>
+    <rect style="fill: #ffffff" x="698.404" y="620.888" width="164" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="698.404" y="620.888" width="164" height="68"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="701.404" y="634.088"> id: Int {PK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="701.404" y="650.088"> question_id: Int</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="701.404" y="666.088"> option_text: Text</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="701.404" y="682.088"> is_correct: Boolean</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="45.5306" y="488.236" width="187.1" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="45.5306" y="488.236" width="187.1" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="139.081" y="508.236">quiz_attempts</text>
+    <rect style="fill: #ffffff" x="45.5306" y="516.236" width="187.1" height="100"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="45.5306" y="516.236" width="187.1" height="100"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="48.5306" y="529.436"> id: Int {PK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="48.5306" y="545.436"> user_id: Int {FK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="48.5306" y="561.436"> quiz_id: Int</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="48.5306" y="577.436"> score: Float</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="48.5306" y="593.436"> time_spent: Int</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="48.5306" y="609.436"> completed_at: DateTime</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="377.32" y="316.992" width="202.5" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="377.32" y="316.992" width="202.5" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="478.57" y="336.992">quizzes</text>
+    <rect style="fill: #ffffff" x="377.32" y="344.992" width="202.5" height="132"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="377.32" y="344.992" width="202.5" height="132"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="380.32" y="358.192"> id: Int {PK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="380.32" y="374.192"> creator_id: Int {FK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="380.32" y="390.192"> document_id: Int {FK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="380.32" y="406.192"> source_type: Varchar(50)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="380.32" y="422.192"> difficuilty: Varchar(50)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="380.32" y="438.192"> status: Varchar(50)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="380.32" y="454.192"> created_at: DateTime</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="380.32" y="470.192"> category: Varchar(100)</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="351.156" y="573.86" width="194.8" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="351.156" y="573.86" width="194.8" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="448.556" y="593.86">user_answers</text>
+    <rect style="fill: #ffffff" x="351.156" y="601.86" width="194.8" height="100"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="351.156" y="601.86" width="194.8" height="100"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="354.156" y="615.06"> id: Int {PK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="354.156" y="631.06"> attempt_id: Int{FK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="354.156" y="647.06"> question_id: Int{FK}</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="354.156" y="663.06"> selected_option_id: Int</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="354.156" y="679.06"> text_answer: Text</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="354.156" y="695.06"> is_correct: Boolean</text>
+  </g>
+  <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="478.57" y1="460.992" x2="477.996" y2="572.384"/>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="359.084,386.992 146.172,386.992 146.172,222.809 "/>
+    <polygon style="fill: #ffffff" points="359.084,394.992 375.084,386.992 359.084,378.992 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="359.084,394.992 375.084,386.992 359.084,378.992 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="250.867,526.236 312.975,526.236 312.975,330.992 377.32,330.992 "/>
+    <polygon style="fill: #ffffff" points="250.867,518.236 234.867,526.236 250.867,534.236 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="250.867,518.236 234.867,526.236 250.867,534.236 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="250.84" y1="148.846" x2="358.986" y2="149.209"/>
+    <polygon style="fill: #ffffff" points="250.857,143.846 240.84,148.813 250.823,153.846 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" points="250.857,143.846 240.84,148.813 250.823,153.846 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="940.162" y1="148.128" x2="940.498" y2="185.478"/>
+    <polygon style="fill: #ffffff" points="935.498,185.523 940.588,195.477 945.498,185.433 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" points="935.498,185.523 940.588,195.477 945.498,185.433 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="940.164" y1="290.992" x2="940.572" y2="465.61"/>
+    <polygon style="fill: #ffffff" points="935.572,465.622 940.595,475.61 945.572,465.598 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" points="935.572,465.622 940.595,475.61 945.572,465.598 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="580.814" y1="388.512" x2="666.664" y2="388.11"/>
+    <polygon style="fill: #ffffff" points="666.687,393.11 676.664,388.063 666.641,383.11 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" points="666.687,393.11 676.664,388.063 666.641,383.11 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="448.556,720.096 448.556,738.86 572.98,738.86 572.98,646.888 698.404,646.888 "/>
+    <polygon style="fill: #ffffff" points="456.556,720.096 448.556,704.096 440.556,720.096 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="456.556,720.096 448.556,704.096 440.556,720.096 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="332.92,643.86 283.893,643.86 283.893,558.236 232.631,558.236 "/>
+    <polygon style="fill: #ffffff" points="332.92,651.86 348.92,643.86 332.92,635.86 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="332.92,651.86 348.92,643.86 332.92,635.86 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="564.192,587.86 620.725,587.86 620.725,439.78 679.494,439.78 "/>
+    <polygon style="fill: #ffffff" points="564.192,579.86 548.192,587.86 564.192,595.86 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="564.192,579.86 548.192,587.86 564.192,595.86 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="826.282,250.18 335.292,250.18 335.292,222.808 239.722,222.808 "/>
+    <polygon style="fill: #ffffff" points="826.282,258.18 842.282,250.18 826.282,242.18 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="826.282,258.18 842.282,250.18 826.282,242.18 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="902.108,30.3239 902.108,11.56 336.48,11.56 336.48,100.809 239.722,100.809 "/>
+    <polygon style="fill: #ffffff" points="894.108,30.3239 902.108,46.3239 910.108,30.3239 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="894.108,30.3239 902.108,46.3239 910.108,30.3239 "/>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="-21.4704" y="306.672">
+    <tspan x="-21.4704" y="306.672">taken by 1:N</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="156.911" y="383.97">
+    <tspan x="156.911" y="383.97">Score material 1:N</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="242.534" y="448.188">
+    <tspan x="242.534" y="448.188">records 1:N</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="250.858" y="665.812">
+    <tspan x="250.858" y="665.812">records 1:N</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="620.702" y="506.46">
+    <tspan x="620.702" y="506.46">answers for 1:N</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="577.89" y="721.706">
+    <tspan x="577.89" y="721.706">choosen option 1:1</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="606.43" y="364.944">
+    <tspan x="606.43" y="364.944">contains</tspan>
+    <tspan x="606.43" y="380.944">1:N</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" x1="479.486" y1="223.208" x2="478.679" y2="305.874"/>
+    <polygon style="fill: #ffffff" points="473.679,305.826 478.581,315.874 483.678,305.923 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" points="473.679,305.826 478.581,315.874 483.678,305.923 "/>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="552.916" y="250.78">
+    <tspan x="552.916" y="250.78">generated by 1:N</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="278.21" y="128.291">
+    <tspan x="278.21" y="128.291">updated </tspan>
+    <tspan x="278.21" y="144.291">by 1:N</tspan>
+  </text>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="27.2945,542.236 -27.4164,542.236 -27.4164,132.809 52.6216,132.809 "/>
+    <polygon style="fill: #ffffff" points="27.2945,550.236 43.2945,542.236 27.2945,534.236 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="27.2945,550.236 43.2945,542.236 27.2945,534.236 "/>
+  </g>
+</svg>

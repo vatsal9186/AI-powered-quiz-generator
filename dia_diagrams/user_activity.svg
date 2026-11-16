@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="44cm" height="34cm" viewBox="99 39 865 662" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <ellipse style="fill: #000000" cx="535" cy="50" rx="10" ry="10"/>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="540" y1="70" x2="540" y2="89.1459"/>
+    <polygon style="fill: #000000" points="540,96.6459 535,86.6459 540,89.1459 545,86.6459 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="540,96.6459 535,86.6459 540,89.1459 545,86.6459 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="460" y="100" width="103.75" height="35" rx="20" ry="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="460" y="100" width="103.75" height="35" rx="20" ry="20"/>
+    <text font-size="12" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="511.875" y="122">
+      <tspan x="511.875" y="122">Login / Register</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="540" y1="140" x2="540" y2="159.146"/>
+    <polygon style="fill: #000000" points="540,166.646 535,156.646 540,159.146 545,156.646 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="540,166.646 535,156.646 540,159.146 545,156.646 "/>
+  </g>
+  <g>
+    <polygon style="fill: #ffffff" points="540,170 590,200 540,230 490,200 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="540,170 590,200 540,230 490,200 "/>
+    <text font-size="12" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="540" y="204.5">
+      <tspan x="540" y="204.5">is Valid</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="540" y1="230" x2="540" y2="269.146"/>
+    <polygon style="fill: #000000" points="540,276.646 535,266.646 540,269.146 545,266.646 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="540,276.646 535,266.646 540,269.146 545,266.646 "/>
+  </g>
+  <text font-size="11.2" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="550" y="267.2">
+    <tspan x="550" y="267.2">Yes</tspan>
+  </text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 8; stroke: #000000" x1="120" y1="280" x2="960" y2="280"/>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="170" y1="280" x2="170" y2="319.146"/>
+    <polygon style="fill: #000000" points="170,326.646 165,316.646 170,319.146 175,316.646 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="170,326.646 165,316.646 170,319.146 175,316.646 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="100" y="330" width="102.45" height="35" rx="20" ry="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="100" y="330" width="102.45" height="35" rx="20" ry="20"/>
+    <text font-size="12" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="151.225" y="352">
+      <tspan x="151.225" y="352">Browse Quizzes</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="170" y1="370" x2="170" y2="529.146"/>
+    <polygon style="fill: #000000" points="170,536.646 165,526.646 170,529.146 175,526.646 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="170,536.646 165,526.646 170,529.146 175,526.646 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="370" y1="280" x2="370" y2="319.146"/>
+    <polygon style="fill: #000000" points="370,326.646 365,316.646 370,319.146 375,316.646 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="370,326.646 365,316.646 370,319.146 375,316.646 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="300" y="330" width="102.4" height="35" rx="20" ry="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="300" y="330" width="102.4" height="35" rx="20" ry="20"/>
+    <text font-size="12" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="351.2" y="352">
+      <tspan x="351.2" y="352">Upload Material</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="370" y1="370" x2="370" y2="399.146"/>
+    <polygon style="fill: #000000" points="370,406.646 365,396.646 370,399.146 375,396.646 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="370,406.646 365,396.646 370,399.146 375,396.646 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="300" y="410" width="110.7" height="35" rx="20" ry="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="300" y="410" width="110.7" height="35" rx="20" ry="20"/>
+    <text font-size="12" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="355.35" y="432">
+      <tspan x="355.35" y="432">Generate AI Quiz</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="370" y1="450" x2="370" y2="529.146"/>
+    <polygon style="fill: #000000" points="370,536.646 365,526.646 370,529.146 375,526.646 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="370,536.646 365,526.646 370,529.146 375,526.646 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="590" y1="280" x2="590" y2="319.146"/>
+    <polygon style="fill: #000000" points="590,326.646 585,316.646 590,319.146 595,316.646 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="590,326.646 585,316.646 590,319.146 595,316.646 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="510" y="330" width="123.2" height="35" rx="20" ry="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="510" y="330" width="123.2" height="35" rx="20" ry="20"/>
+    <text font-size="12" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="571.6" y="352">
+      <tspan x="571.6" y="352">Create Manual Quiz</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="590" y1="370" x2="590" y2="399.146"/>
+    <polygon style="fill: #000000" points="590,406.646 585,396.646 590,399.146 595,396.646 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="590,406.646 585,396.646 590,399.146 595,396.646 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="510" y="410" width="84.55" height="35" rx="20" ry="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="510" y="410" width="84.55" height="35" rx="20" ry="20"/>
+    <text font-size="12" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="552.275" y="432">
+      <tspan x="552.275" y="432">Publish Quiz</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="590" y1="450" x2="590" y2="529.146"/>
+    <polygon style="fill: #000000" points="590,536.646 585,526.646 590,529.146 595,526.646 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="590,536.646 585,526.646 590,529.146 595,526.646 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="830" y1="280" x2="830" y2="319.146"/>
+    <polygon style="fill: #000000" points="830,326.646 825,316.646 830,319.146 835,316.646 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="830,326.646 825,316.646 830,319.146 835,316.646 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="750" y="330" width="89.3" height="35" rx="20" ry="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="750" y="330" width="89.3" height="35" rx="20" ry="20"/>
+    <text font-size="12" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="794.65" y="352">
+      <tspan x="794.65" y="352">Attempt Quiz</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="830" y1="370" x2="830" y2="399.146"/>
+    <polygon style="fill: #000000" points="830,406.646 825,396.646 830,399.146 835,396.646 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="830,406.646 825,396.646 830,399.146 835,396.646 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="750" y="410" width="111.55" height="35" rx="20" ry="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="750" y="410" width="111.55" height="35" rx="20" ry="20"/>
+    <text font-size="12" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="805.775" y="432">
+      <tspan x="805.775" y="432">Score &amp; Analytics</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="830" y1="450" x2="830" y2="529.146"/>
+    <polygon style="fill: #000000" points="830,536.646 825,526.646 830,529.146 835,526.646 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="830,536.646 825,526.646 830,529.146 835,526.646 "/>
+  </g>
+  <line style="fill: none; fill-opacity:0; stroke-width: 8; stroke: #000000" x1="120" y1="540" x2="960" y2="540"/>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="540" y1="540" x2="540" y2="579.146"/>
+    <polygon style="fill: #000000" points="540,586.646 535,576.646 540,579.146 545,576.646 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="540,586.646 535,576.646 540,579.146 545,576.646 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="470" y="590" width="80" height="35" rx="20" ry="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="470" y="590" width="80" height="35" rx="20" ry="20"/>
+    <text font-size="12" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="510" y="612">
+      <tspan x="510" y="612">Logout</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="540" y1="630" x2="540" y2="659.146"/>
+    <polygon style="fill: #000000" points="540,666.646 535,656.646 540,659.146 545,656.646 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="540,666.646 535,656.646 540,659.146 545,656.646 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="540" cy="685" rx="15" ry="15"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="540" cy="685" rx="15" ry="15"/>
+    <ellipse style="fill: #000000" cx="540" cy="685" rx="10" ry="10"/>
+  </g>
+</svg>

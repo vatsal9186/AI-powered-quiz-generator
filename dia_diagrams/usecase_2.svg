@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="29cm" height="28cm" viewBox="132 61 563 544" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <ellipse style="fill: #ffffff" cx="159.5" cy="292.2" rx="6" ry="6"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="159.5" cy="292.2" rx="6" ry="6"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="135.5" y1="304.2" x2="183.5" y2="304.2"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="159.5" y1="298.2" x2="159.5" y2="328.2"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="159.5" y1="328.2" x2="135.5" y2="354.2"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="159.5" y1="328.2" x2="183.5" y2="354.2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="159.5" y="379">
+      <tspan x="159.5" y="379">AI Engine</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="229.5" y="63" width="464" height="541.2"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="229.5" y="63" width="464" height="541.2"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="461.5" y="338.4">
+      <tspan x="461.5" y="338.4"></tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="483.462" cy="117.187" rx="101.962" ry="33.9874"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="483.462" cy="117.187" rx="101.962" ry="33.9874"/>
+    <text font-size="14.0998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="483.462" y="122.475">
+      <tspan x="483.462" y="122.475">  Parse Document Text  </tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="483.112" cy="196.071" rx="97.1122" ry="32.3707"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="483.112" cy="196.071" rx="97.1122" ry="32.3707"/>
+    <text font-size="14.0998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="483.112" y="201.358">
+      <tspan x="483.112" y="201.358">  Chunk Text Content  </tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="495.204" cy="287.768" rx="93.2038" ry="31.0679"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="495.204" cy="287.768" rx="93.2038" ry="31.0679"/>
+    <text font-size="11.842" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="495.204" y="292.217">
+      <tspan x="495.204" y="292.217">  Generate Questions (AI)  </tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="478.712" cy="357.604" rx="95.7122" ry="31.9041"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="478.712" cy="357.604" rx="95.7122" ry="31.9041"/>
+    <text font-size="14.0998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="478.712" y="362.892">
+      <tspan x="478.712" y="362.892">  Produce Distractors  </tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="471.887" cy="450.662" rx="104.887" ry="34.9624"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="471.887" cy="450.662" rx="104.887" ry="34.9624"/>
+    <text font-size="14.0998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="471.887" y="455.95">
+      <tspan x="471.887" y="455.95">  Generate Explanations  </tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="475.462" cy="539.187" rx="100.462" ry="33.4874"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="475.462" cy="539.187" rx="100.462" ry="33.4874"/>
+    <text font-size="14.0998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="475.462" y="544.475">
+      <tspan x="475.462" y="544.475">  Auto Grade Attempts  </tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="186.904" y1="302.242" x2="374.431" y2="124.616"/>
+    <polygon style="fill: #000000" points="379.877,119.459 376.055,129.965 374.431,124.616 369.178,122.705 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="379.877,119.459 376.055,129.965 374.431,124.616 369.178,122.705 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="186.5" y1="305.2" x2="377.477" y2="199.72"/>
+    <polygon style="fill: #000000" points="384.043,196.093 377.706,205.305 377.477,199.72 372.872,196.551 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="384.043,196.093 377.706,205.305 377.477,199.72 372.872,196.551 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="189.5" y1="304.2" x2="392.313" y2="283.768"/>
+    <polygon style="fill: #000000" points="399.775,283.016 390.327,288.993 392.313,283.768 389.324,279.044 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="399.775,283.016 390.327,288.993 392.313,283.768 389.324,279.044 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="186.5" y1="306.2" x2="373.581" y2="355.14"/>
+    <polygon style="fill: #000000" points="380.837,357.038 369.897,359.345 373.581,355.14 372.428,349.67 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="380.837,357.038 369.897,359.345 373.581,355.14 372.428,349.67 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="189.5" y1="304.2" x2="358.582" y2="447.932"/>
+    <polygon style="fill: #000000" points="364.296,452.79 353.439,450.122 358.582,447.932 359.916,442.503 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="364.296,452.79 353.439,450.122 358.582,447.932 359.916,442.503 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="190.5" y1="309.2" x2="368.919" y2="532.316"/>
+    <polygon style="fill: #000000" points="373.603,538.174 363.453,533.486 368.919,532.316 371.263,527.241 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="373.603,538.174 363.453,533.486 368.919,532.316 371.263,527.241 "/>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="461.5" y="333.6">
+    <tspan x="461.5" y="333.6"></tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="399.5" y="78.2">
+    <tspan x="399.5" y="78.2"></tspan>
+  </text>
+</svg>

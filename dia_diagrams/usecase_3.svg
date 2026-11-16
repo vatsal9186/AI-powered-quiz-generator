@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="27cm" height="30cm" viewBox="150 47 534 586" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <ellipse style="fill: #ffffff" cx="185.9" cy="334" rx="6" ry="6"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="185.9" cy="334" rx="6" ry="6"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="161.9" y1="346" x2="209.9" y2="346"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="185.9" y1="340" x2="185.9" y2="370"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="185.9" y1="370" x2="161.9" y2="396"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="185.9" y1="370" x2="209.9" y2="396"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="185.9" y="420.8">
+      <tspan x="185.9" y="420.8">Quiz Creator</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="232.9" y="48" width="450" height="584"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="232.9" y="48" width="450" height="584"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="457.9" y="344.8">
+      <tspan x="457.9" y="344.8"></tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="443.875" cy="99.9583" rx="71.875" ry="23.9583"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="443.875" cy="99.9583" rx="71.875" ry="23.9583"/>
+    <text font-size="12" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="443.875" y="104.458">
+      <tspan x="443.875" y="104.458">  Login / Register  </tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="190" y1="344" x2="366.054" y2="115.71"/>
+    <polygon style="fill: #000000" points="370.634,109.771 368.487,120.743 366.054,115.71 360.568,114.636 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="370.634,109.771 368.487,120.743 366.054,115.71 360.568,114.636 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="470.35" cy="188.783" rx="98.35" ry="32.7833"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="470.35" cy="188.783" rx="98.35" ry="32.7833"/>
+    <text font-size="12" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="470.35" y="193.283">
+      <tspan x="470.35" y="193.283">  Upload Document / Notes  </tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="190" y1="344" x2="364.608" y2="194.336"/>
+    <polygon style="fill: #000000" points="370.302,189.455 365.964,199.759 364.608,194.336 359.456,192.167 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="370.302,189.455 365.964,199.759 364.608,194.336 359.456,192.167 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="460.45" cy="265.483" rx="88.45" ry="29.4833"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="460.45" cy="265.483" rx="88.45" ry="29.4833"/>
+    <text font-size="12" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="460.45" y="269.983">
+      <tspan x="460.45" y="269.983">  Generate Quizzes (AI)  </tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="190" y1="344" x2="363.016" y2="271.752"/>
+    <polygon style="fill: #000000" points="369.937,268.862 362.636,277.329 363.016,271.752 358.782,268.101 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="369.937,268.862 362.636,277.329 363.016,271.752 358.782,268.101 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="453.6" cy="343.2" rx="81.6" ry="27.2"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="453.6" cy="343.2" rx="81.6" ry="27.2"/>
+    <text font-size="12" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="453.6" y="347.7">
+      <tspan x="453.6" y="347.7">  Create Manual Quiz  </tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="190" y1="344" x2="362.266" y2="347.786"/>
+    <polygon style="fill: #000000" points="369.764,347.951 359.657,352.73 362.266,347.786 359.877,342.732 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="369.764,347.951 359.657,352.73 362.266,347.786 359.877,342.732 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="459.475" cy="425.158" rx="87.475" ry="29.1583"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="459.475" cy="425.158" rx="87.475" ry="29.1583"/>
+    <text font-size="12" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="459.475" y="429.658">
+      <tspan x="459.475" y="429.658">  Edit Quiz &amp; Questions  </tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="190" y1="344" x2="363.16" y2="423.92"/>
+    <polygon style="fill: #000000" points="369.97,427.063 358.795,427.412 363.16,423.92 362.985,418.333 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="369.97,427.063 358.795,427.412 363.16,423.92 362.985,418.333 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="472.625" cy="509.542" rx="100.625" ry="33.5417"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="472.625" cy="509.542" rx="100.625" ry="33.5417"/>
+    <text font-size="12" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="472.625" y="514.042">
+      <tspan x="472.625" y="514.042">  View Quiz Library / History  </tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="190" y1="344" x2="364.767" y2="501.483"/>
+    <polygon style="fill: #000000" points="370.339,506.503 359.563,503.523 364.767,501.483 366.257,496.095 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="370.339,506.503 359.563,503.523 364.767,501.483 366.257,496.095 "/>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="463.025" cy="586.342" rx="91.025" ry="30.3417"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="463.025" cy="586.342" rx="91.025" ry="30.3417"/>
+    <text font-size="12" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="463.025" y="590.842">
+      <tspan x="463.025" y="590.842">  Track API Usage Limits  </tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="190" y1="344" x2="366.179" y2="580.196"/>
+    <polygon style="fill: #000000" points="370.663,586.208 360.676,581.181 366.179,580.196 368.692,575.202 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="370.663,586.208 360.676,581.181 366.179,580.196 368.692,575.202 "/>
+  </g>
+</svg>
