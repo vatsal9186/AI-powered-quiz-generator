@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="36cm" height="63cm" viewBox="114 34 707 1245" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="450" y="50">
+    <tspan x="450" y="50">QuestAI - User Sequence Diagram (AI and Manual Quiz Creation)</tspan>
+  </text>
+  <g>
+    <ellipse style="fill: #ffffff" cx="140" cy="108" rx="6" ry="6"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" cx="140" cy="108" rx="6" ry="6"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="116" y1="120" x2="164" y2="120"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="140" y1="114" x2="140" y2="144"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="140" y1="144" x2="116" y2="170"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="140" y1="144" x2="164" y2="170"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="140" y="194.8">
+      <tspan x="140" y="194.8">User</tspan>
+    </text>
+  </g>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="140" y1="186" x2="140" y2="1260"/>
+  <text font-size="14.4" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="140" y="1276">
+    <tspan x="140" y="1276">X</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="390" y="114" width="120" height="48"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="390" y="114" width="120" height="48"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="450" y="142.8">
+      <tspan x="450" y="142.8">System</tspan>
+    </text>
+  </g>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="450" y1="162" x2="450" y2="1260"/>
+  <text font-size="14.4" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="450" y="1276">
+    <tspan x="450" y="1276">X</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="700" y="114" width="120" height="48"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="700" y="114" width="120" height="48"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="760" y="142.8">
+      <tspan x="760" y="142.8">Database</tspan>
+    </text>
+  </g>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="760" y1="162" x2="760" y2="1260"/>
+  <text font-size="14.4" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="760" y="1276">
+    <tspan x="760" y="1276">X</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="134.5" y="230" width="11" height="76"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="134.5" y="230" width="11" height="76"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="444.5" y="230" width="11" height="76"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="444.5" y="230" width="11" height="76"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="754.5" y="254" width="11" height="30"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="754.5" y="254" width="11" height="30"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="134.5" y="340" width="11" height="76"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="134.5" y="340" width="11" height="76"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="444.5" y="340" width="11" height="76"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="444.5" y="340" width="11" height="76"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="754.5" y="364" width="11" height="30"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="754.5" y="364" width="11" height="30"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="134.5" y="670" width="11" height="100"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="134.5" y="670" width="11" height="100"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="444.5" y="670" width="11" height="100"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="444.5" y="670" width="11" height="100"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="134.5" y="810" width="11" height="100"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="134.5" y="810" width="11" height="100"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="444.5" y="810" width="11" height="100"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="444.5" y="810" width="11" height="100"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="754.5" y="860" width="11" height="30"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="754.5" y="860" width="11" height="30"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="134.5" y="950" width="11" height="76"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="134.5" y="950" width="11" height="76"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="444.5" y="950" width="11" height="76"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="444.5" y="950" width="11" height="76"/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="140" y1="230" x2="441.317" y2="230"/>
+    <polygon style="fill: #000000" points="447.317,230 439.317,234 441.317,230 439.317,226 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="447.317,230 439.317,234 441.317,230 439.317,226 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="225.6">
+    <tspan x="295" y="225.6">1. Registration(Email, Password, Name)</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="450" y1="254" x2="751.317" y2="254"/>
+    <polygon style="fill: #000000" points="757.317,254 749.317,258 751.317,254 749.317,250 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="757.317,254 749.317,258 751.317,254 749.317,250 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="249.6">
+    <tspan x="605" y="249.6">Save user credentials</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="760" y1="278" x2="458.683" y2="278"/>
+    <polygon style="fill: #000000" points="452.683,278 460.683,274 458.683,278 460.683,282 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="452.683,278 460.683,274 458.683,278 460.683,282 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="273.6">
+    <tspan x="605" y="273.6">Confirm user created</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="450" y1="300" x2="148.683" y2="300"/>
+    <polygon style="fill: #000000" points="142.683,300 150.683,296 148.683,300 150.683,304 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="142.683,300 150.683,296 148.683,300 150.683,304 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="295.6">
+    <tspan x="295" y="295.6">Registration Successful</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="140" y1="340" x2="441.317" y2="340"/>
+    <polygon style="fill: #000000" points="447.317,340 439.317,344 441.317,340 439.317,336 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="447.317,340 439.317,344 441.317,340 439.317,336 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="335.6">
+    <tspan x="295" y="335.6">2. Login(Email, Password)</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="450" y1="364" x2="751.317" y2="364"/>
+    <polygon style="fill: #000000" points="757.317,364 749.317,368 751.317,364 749.317,360 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="757.317,364 749.317,368 751.317,364 749.317,360 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="359.6">
+    <tspan x="605" y="359.6">Verify credentials</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="760" y1="388" x2="458.683" y2="388"/>
+    <polygon style="fill: #000000" points="452.683,388 460.683,384 458.683,388 460.683,392 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="452.683,388 460.683,384 458.683,388 460.683,392 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="383.6">
+    <tspan x="605" y="383.6">Return auth JWT token</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="450" y1="410" x2="148.683" y2="410"/>
+    <polygon style="fill: #000000" points="142.683,410 150.683,406 148.683,410 150.683,414 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="142.683,410 150.683,406 148.683,410 150.683,414 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="405.6">
+    <tspan x="295" y="405.6">Login Successful (Token issued)</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="140" y1="450" x2="441.317" y2="450"/>
+    <polygon style="fill: #000000" points="447.317,450 439.317,454 441.317,450 439.317,446 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="447.317,450 439.317,454 441.317,450 439.317,446 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="445.6">
+    <tspan x="295" y="445.6">3. Browse Public Quizzes()</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="450" y1="474" x2="751.317" y2="474"/>
+    <polygon style="fill: #000000" points="757.317,474 749.317,478 751.317,474 749.317,470 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="757.317,474 749.317,478 751.317,474 749.317,470 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="469.6">
+    <tspan x="605" y="469.6">Query quizzes catalog (AI and Manual)</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="760" y1="498" x2="458.683" y2="498"/>
+    <polygon style="fill: #000000" points="452.683,498 460.683,494 458.683,498 460.683,502 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="452.683,498 460.683,494 458.683,498 460.683,502 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="493.6">
+    <tspan x="605" y="493.6">Return available quizzes list</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="450" y1="520" x2="148.683" y2="520"/>
+    <polygon style="fill: #000000" points="142.683,520 150.683,516 148.683,520 150.683,524 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="142.683,520 150.683,516 148.683,520 150.683,524 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="515.6">
+    <tspan x="295" y="515.6">Display Quiz Library with badges</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="140" y1="560" x2="441.317" y2="560"/>
+    <polygon style="fill: #000000" points="447.317,560 439.317,564 441.317,560 439.317,556 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="447.317,560 439.317,564 441.317,560 439.317,556 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="555.6">
+    <tspan x="295" y="555.6">4. Upload Document(PDF, DOCX, PPTX)</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="450" y1="584" x2="751.317" y2="584"/>
+    <polygon style="fill: #000000" points="757.317,584 749.317,588 751.317,584 749.317,580 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="757.317,584 749.317,588 751.317,584 749.317,580 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="579.6">
+    <tspan x="605" y="579.6">Store document metadata and layout</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="760" y1="608" x2="458.683" y2="608"/>
+    <polygon style="fill: #000000" points="452.683,608 460.683,604 458.683,608 460.683,612 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="452.683,608 460.683,604 458.683,608 460.683,612 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="603.6">
+    <tspan x="605" y="603.6">Confirm upload stored</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="450" y1="630" x2="148.683" y2="630"/>
+    <polygon style="fill: #000000" points="142.683,630 150.683,626 148.683,630 150.683,634 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="142.683,630 150.683,626 148.683,630 150.683,634 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="625.6">
+    <tspan x="295" y="625.6">Chapters extracted and ready</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="140" y1="670" x2="441.317" y2="670"/>
+    <polygon style="fill: #000000" points="447.317,670 439.317,674 441.317,670 439.317,666 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="447.317,670 439.317,674 441.317,670 439.317,666 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="665.6">
+    <tspan x="295" y="665.6">5. Generate Quiz(DocumentId, Chapters, Difficulty)</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="450" y1="694" x2="450" y2="709.317"/>
+    <polygon style="fill: #000000" points="450,715.317 446,707.317 450,709.317 454,707.317 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="450,715.317 446,707.317 450,709.317 454,707.317 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="458" y="690">
+    <tspan x="458" y="690">Run Gemini AI question synthesis</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="450" y1="720" x2="751.317" y2="720"/>
+    <polygon style="fill: #000000" points="757.317,720 749.317,724 751.317,720 749.317,716 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="757.317,720 749.317,724 751.317,720 749.317,716 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="715.6">
+    <tspan x="605" y="715.6">Save generated AI questions and options</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="760" y1="744" x2="458.683" y2="744"/>
+    <polygon style="fill: #000000" points="452.683,744 460.683,740 458.683,744 460.683,748 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="452.683,744 460.683,740 458.683,744 460.683,748 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="739.6">
+    <tspan x="605" y="739.6">Confirm AI quiz saved</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="450" y1="766" x2="148.683" y2="766"/>
+    <polygon style="fill: #000000" points="142.683,766 150.683,762 148.683,766 150.683,770 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="142.683,766 150.683,762 148.683,766 150.683,770 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="761.6">
+    <tspan x="295" y="761.6">AI Quiz Generated and Ready</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="140" y1="810" x2="441.317" y2="810"/>
+    <polygon style="fill: #000000" points="447.317,810 439.317,814 441.317,810 439.317,806 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="447.317,810 439.317,814 441.317,810 439.317,806 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="805.6">
+    <tspan x="295" y="805.6">6. Create Manual Quiz(Title, Category, Questions, Options)</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="450" y1="834" x2="450" y2="849.317"/>
+    <polygon style="fill: #000000" points="450,855.317 446,847.317 450,849.317 454,847.317 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="450,855.317 446,847.317 450,849.317 454,847.317 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="458" y="830">
+    <tspan x="458" y="830">Validate questions and correct radio choices</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="450" y1="860" x2="751.317" y2="860"/>
+    <polygon style="fill: #000000" points="757.317,860 749.317,864 751.317,860 749.317,856 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="757.317,860 749.317,864 751.317,860 749.317,856 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="855.6">
+    <tspan x="605" y="855.6">Save manual quiz and questions (source_type='manual')</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="760" y1="884" x2="458.683" y2="884"/>
+    <polygon style="fill: #000000" points="452.683,884 460.683,880 458.683,884 460.683,888 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="452.683,884 460.683,880 458.683,884 460.683,888 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="879.6">
+    <tspan x="605" y="879.6">Confirm manual quiz published</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="450" y1="906" x2="148.683" y2="906"/>
+    <polygon style="fill: #000000" points="142.683,906 150.683,902 148.683,906 150.683,910 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="142.683,906 150.683,902 148.683,906 150.683,910 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="901.6">
+    <tspan x="295" y="901.6">Manual Quiz Published Successfully</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="140" y1="950" x2="441.317" y2="950"/>
+    <polygon style="fill: #000000" points="447.317,950 439.317,954 441.317,950 439.317,946 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="447.317,950 439.317,954 441.317,950 439.317,946 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="945.6">
+    <tspan x="295" y="945.6">7. Attempt Quiz(QuizId, Answers, Timer)</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="450" y1="974" x2="751.317" y2="974"/>
+    <polygon style="fill: #000000" points="757.317,974 749.317,978 751.317,974 749.317,970 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="757.317,974 749.317,978 751.317,974 749.317,970 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="969.6">
+    <tspan x="605" y="969.6">Record user attempt answers and time spent</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="760" y1="998" x2="458.683" y2="998"/>
+    <polygon style="fill: #000000" points="452.683,998 460.683,994 458.683,998 460.683,1002 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="452.683,998 460.683,994 458.683,998 460.683,1002 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="993.6">
+    <tspan x="605" y="993.6">Confirm attempt stored</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="450" y1="1020" x2="148.683" y2="1020"/>
+    <polygon style="fill: #000000" points="142.683,1020 150.683,1016 148.683,1020 150.683,1024 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="142.683,1020 150.683,1016 148.683,1020 150.683,1024 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="1015.6">
+    <tspan x="295" y="1015.6">Quiz Submission Confirmed</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="140" y1="1060" x2="441.317" y2="1060"/>
+    <polygon style="fill: #000000" points="447.317,1060 439.317,1064 441.317,1060 439.317,1056 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="447.317,1060 439.317,1064 441.317,1060 439.317,1056 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="1055.6">
+    <tspan x="295" y="1055.6">8. Review Results(AttemptId)</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="450" y1="1084" x2="751.317" y2="1084"/>
+    <polygon style="fill: #000000" points="757.317,1084 749.317,1088 751.317,1084 749.317,1080 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="757.317,1084 749.317,1088 751.317,1084 749.317,1080 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="1079.6">
+    <tspan x="605" y="1079.6">Fetch score and explanations</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="760" y1="1108" x2="458.683" y2="1108"/>
+    <polygon style="fill: #000000" points="452.683,1108 460.683,1104 458.683,1108 460.683,1112 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="452.683,1108 460.683,1104 458.683,1108 460.683,1112 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="1103.6">
+    <tspan x="605" y="1103.6">Return scores and rationales data</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="450" y1="1130" x2="148.683" y2="1130"/>
+    <polygon style="fill: #000000" points="142.683,1130 150.683,1126 148.683,1130 150.683,1134 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="142.683,1130 150.683,1126 148.683,1130 150.683,1134 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="1125.6">
+    <tspan x="295" y="1125.6">Display Interactive Score Card</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="140" y1="1170" x2="441.317" y2="1170"/>
+    <polygon style="fill: #000000" points="447.317,1170 439.317,1174 441.317,1170 439.317,1166 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="447.317,1170 439.317,1174 441.317,1170 439.317,1166 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="1165.6">
+    <tspan x="295" y="1165.6">9. View Analytics()</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="450" y1="1192" x2="751.317" y2="1192"/>
+    <polygon style="fill: #000000" points="757.317,1192 749.317,1196 751.317,1192 749.317,1188 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="757.317,1192 749.317,1196 751.317,1192 749.317,1188 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="1187.6">
+    <tspan x="605" y="1187.6">Query past attempts and progress</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="760" y1="1214" x2="458.683" y2="1214"/>
+    <polygon style="fill: #000000" points="452.683,1214 460.683,1210 458.683,1214 460.683,1218 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="452.683,1214 460.683,1210 458.683,1214 460.683,1218 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="1209.6">
+    <tspan x="605" y="1209.6">Return progress metrics</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="140" y1="1236" x2="441.317" y2="1236"/>
+    <polygon style="fill: #000000" points="447.317,1236 439.317,1240 441.317,1236 439.317,1232 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="447.317,1236 439.317,1240 441.317,1236 439.317,1232 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="1231.6">
+    <tspan x="295" y="1231.6">10. Logout() -&gt; Invalidate Token and Redirect</tspan>
+  </text>
+</svg>

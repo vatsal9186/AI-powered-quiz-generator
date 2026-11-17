@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="36cm" height="56cm" viewBox="114 34 707 1105" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="450" y="50">
+    <tspan x="450" y="50">QuestAI - Admin Sequence Diagram</tspan>
+  </text>
+  <g>
+    <ellipse style="fill: #ffffff" cx="140" cy="108" rx="6" ry="6"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" cx="140" cy="108" rx="6" ry="6"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="116" y1="120" x2="164" y2="120"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="140" y1="114" x2="140" y2="144"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="140" y1="144" x2="116" y2="170"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="140" y1="144" x2="164" y2="170"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="140" y="194.8">
+      <tspan x="140" y="194.8">Admin</tspan>
+    </text>
+  </g>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="140" y1="186" x2="140" y2="1120"/>
+  <text font-size="14.4" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="140" y="1136">
+    <tspan x="140" y="1136">X</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="390" y="114" width="120" height="48"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="390" y="114" width="120" height="48"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="450" y="142.8">
+      <tspan x="450" y="142.8">System</tspan>
+    </text>
+  </g>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="450" y1="162" x2="450" y2="1120"/>
+  <text font-size="14.4" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="450" y="1136">
+    <tspan x="450" y="1136">X</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="700" y="114" width="120" height="48"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="700" y="114" width="120" height="48"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="760" y="142.8">
+      <tspan x="760" y="142.8">Database</tspan>
+    </text>
+  </g>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="760" y1="162" x2="760" y2="1120"/>
+  <text font-size="14.4" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="760" y="1136">
+    <tspan x="760" y="1136">X</tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="134.5" y="230" width="11" height="76"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="134.5" y="230" width="11" height="76"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="444.5" y="230" width="11" height="76"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="444.5" y="230" width="11" height="76"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="754.5" y="254" width="11" height="30"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="754.5" y="254" width="11" height="30"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="134.5" y="470" width="11" height="76"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="134.5" y="470" width="11" height="76"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="444.5" y="470" width="11" height="76"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="444.5" y="470" width="11" height="76"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="754.5" y="494" width="11" height="30"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="754.5" y="494" width="11" height="30"/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="140" y1="230" x2="441.317" y2="230"/>
+    <polygon style="fill: #000000" points="447.317,230 439.317,234 441.317,230 439.317,226 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="447.317,230 439.317,234 441.317,230 439.317,226 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="225.6">
+    <tspan x="295" y="225.6">1. Login(AdminCredentials)</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="450" y1="254" x2="751.317" y2="254"/>
+    <polygon style="fill: #000000" points="757.317,254 749.317,258 751.317,254 749.317,250 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="757.317,254 749.317,258 751.317,254 749.317,250 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="249.6">
+    <tspan x="605" y="249.6">Verify admin credentials and role</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="760" y1="278" x2="458.683" y2="278"/>
+    <polygon style="fill: #000000" points="452.683,278 460.683,274 458.683,278 460.683,282 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="452.683,278 460.683,274 458.683,278 460.683,282 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="273.6">
+    <tspan x="605" y="273.6">Return admin authorization</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="450" y1="300" x2="148.683" y2="300"/>
+    <polygon style="fill: #000000" points="142.683,300 150.683,296 148.683,300 150.683,304 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="142.683,300 150.683,296 148.683,300 150.683,304 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="295.6">
+    <tspan x="295" y="295.6">Admin Dashboard Access Granted</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="140" y1="350" x2="441.317" y2="350"/>
+    <polygon style="fill: #000000" points="447.317,350 439.317,354 441.317,350 439.317,346 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="447.317,350 439.317,354 441.317,350 439.317,346 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="345.6">
+    <tspan x="295" y="345.6">2. Manage Users(Query accounts)</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="450" y1="374" x2="751.317" y2="374"/>
+    <polygon style="fill: #000000" points="757.317,374 749.317,378 751.317,374 749.317,370 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="757.317,374 749.317,378 751.317,374 749.317,370 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="369.6">
+    <tspan x="605" y="369.6">Fetch user accounts list</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="760" y1="398" x2="458.683" y2="398"/>
+    <polygon style="fill: #000000" points="452.683,398 460.683,394 458.683,398 460.683,402 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="452.683,398 460.683,394 458.683,398 460.683,402 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="393.6">
+    <tspan x="605" y="393.6">Return accounts data</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="450" y1="420" x2="148.683" y2="420"/>
+    <polygon style="fill: #000000" points="142.683,420 150.683,416 148.683,420 150.683,424 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="142.683,420 150.683,416 148.683,420 150.683,424 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="415.6">
+    <tspan x="295" y="415.6">Display Registered Users Directory</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="140" y1="470" x2="441.317" y2="470"/>
+    <polygon style="fill: #000000" points="447.317,470 439.317,474 441.317,470 439.317,466 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="447.317,470 439.317,474 441.317,470 439.317,466 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="465.6">
+    <tspan x="295" y="465.6">3. Moderate Quizzes(Inspect AI and Manual quizzes)</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="450" y1="494" x2="751.317" y2="494"/>
+    <polygon style="fill: #000000" points="757.317,494 749.317,498 751.317,494 749.317,490 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="757.317,494 749.317,498 751.317,494 749.317,490 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="489.6">
+    <tspan x="605" y="489.6">Update quiz status or delete flagged item</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="760" y1="518" x2="458.683" y2="518"/>
+    <polygon style="fill: #000000" points="452.683,518 460.683,514 458.683,518 460.683,522 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="452.683,518 460.683,514 458.683,518 460.683,522 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="513.6">
+    <tspan x="605" y="513.6">Confirm status updated in database</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="450" y1="540" x2="148.683" y2="540"/>
+    <polygon style="fill: #000000" points="142.683,540 150.683,536 148.683,540 150.683,544 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="142.683,540 150.683,536 148.683,540 150.683,544 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="535.6">
+    <tspan x="295" y="535.6">Quiz Moderated Successfully</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="140" y1="590" x2="441.317" y2="590"/>
+    <polygon style="fill: #000000" points="447.317,590 439.317,594 441.317,590 439.317,586 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="447.317,590 439.317,594 441.317,590 439.317,586 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="585.6">
+    <tspan x="295" y="585.6">4. Configure System Settings(API keys, Token limits)</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="450" y1="614" x2="751.317" y2="614"/>
+    <polygon style="fill: #000000" points="757.317,614 749.317,618 751.317,614 749.317,610 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="757.317,614 749.317,618 751.317,614 749.317,610 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="609.6">
+    <tspan x="605" y="609.6">Update system configuration settings</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="760" y1="638" x2="458.683" y2="638"/>
+    <polygon style="fill: #000000" points="452.683,638 460.683,634 458.683,638 460.683,642 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="452.683,638 460.683,634 458.683,638 460.683,642 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="633.6">
+    <tspan x="605" y="633.6">Confirm configuration persisted</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="450" y1="660" x2="148.683" y2="660"/>
+    <polygon style="fill: #000000" points="142.683,660 150.683,656 148.683,660 150.683,664 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="142.683,660 150.683,656 148.683,660 150.683,664 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="655.6">
+    <tspan x="295" y="655.6">Settings Saved Successfully</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="140" y1="710" x2="441.317" y2="710"/>
+    <polygon style="fill: #000000" points="447.317,710 439.317,714 441.317,710 439.317,706 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="447.317,710 439.317,714 441.317,710 439.317,706 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="705.6">
+    <tspan x="295" y="705.6">5. View Platform Analytics()</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="450" y1="734" x2="751.317" y2="734"/>
+    <polygon style="fill: #000000" points="757.317,734 749.317,738 751.317,734 749.317,730 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="757.317,734 749.317,738 751.317,734 749.317,730 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="729.6">
+    <tspan x="605" y="729.6">Query platform-wide activity and attempt metrics</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="760" y1="758" x2="458.683" y2="758"/>
+    <polygon style="fill: #000000" points="452.683,758 460.683,754 458.683,758 460.683,762 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="452.683,758 460.683,754 458.683,758 460.683,762 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="753.6">
+    <tspan x="605" y="753.6">Return analytics metrics dataset</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="450" y1="780" x2="148.683" y2="780"/>
+    <polygon style="fill: #000000" points="142.683,780 150.683,776 148.683,780 150.683,784 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="142.683,780 150.683,776 148.683,780 150.683,784 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="775.6">
+    <tspan x="295" y="775.6">Display Platform Analytics Dashboard</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="140" y1="830" x2="441.317" y2="830"/>
+    <polygon style="fill: #000000" points="447.317,830 439.317,834 441.317,830 439.317,826 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="447.317,830 439.317,834 441.317,830 439.317,826 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="825.6">
+    <tspan x="295" y="825.6">6. Monitor Error Logs()</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="450" y1="854" x2="751.317" y2="854"/>
+    <polygon style="fill: #000000" points="757.317,854 749.317,858 751.317,854 749.317,850 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="757.317,854 749.317,858 751.317,854 749.317,850 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="849.6">
+    <tspan x="605" y="849.6">Fetch system error logs and audit records</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="760" y1="878" x2="458.683" y2="878"/>
+    <polygon style="fill: #000000" points="452.683,878 460.683,874 458.683,878 460.683,882 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="452.683,878 460.683,874 458.683,878 460.683,882 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="873.6">
+    <tspan x="605" y="873.6">Return system error logs</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="450" y1="900" x2="148.683" y2="900"/>
+    <polygon style="fill: #000000" points="142.683,900 150.683,896 148.683,900 150.683,904 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="142.683,900 150.683,896 148.683,900 150.683,904 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="895.6">
+    <tspan x="295" y="895.6">Display Error Logs and Health Status</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="140" y1="950" x2="441.317" y2="950"/>
+    <polygon style="fill: #000000" points="447.317,950 439.317,954 441.317,950 439.317,946 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="447.317,950 439.317,954 441.317,950 439.317,946 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="945.6">
+    <tspan x="295" y="945.6">7. Logout()</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" x1="450" y1="974" x2="751.317" y2="974"/>
+    <polygon style="fill: #000000" points="757.317,974 749.317,978 751.317,974 749.317,970 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="757.317,974 749.317,978 751.317,974 749.317,970 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="969.6">
+    <tspan x="605" y="969.6">Invalidate admin session token</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="760" y1="998" x2="458.683" y2="998"/>
+    <polygon style="fill: #000000" points="452.683,998 460.683,994 458.683,998 460.683,1002 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="452.683,998 460.683,994 458.683,998 460.683,1002 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="605" y="993.6">
+    <tspan x="605" y="993.6">Confirm session terminated</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke-dasharray: 20; stroke: #000000" x1="450" y1="1020" x2="148.683" y2="1020"/>
+    <polygon style="fill: #000000" points="142.683,1020 150.683,1016 148.683,1020 150.683,1024 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2.4; stroke: #000000" points="142.683,1020 150.683,1016 148.683,1020 150.683,1024 "/>
+  </g>
+  <text font-size="10.88" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="295" y="1015.6">
+    <tspan x="295" y="1015.6">Admin Logged Out Successfully</tspan>
+  </text>
+</svg>
